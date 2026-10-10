@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="topbar">Enviamos para todo o Brasil &nbsp;·&nbsp; Parcelamos em até 12x no cartão</div>
+<div class="topbar" id="topbar" role="status"><span class="topbar-msg" id="topbarMsg">Enviamos para todo o Brasil</span></div>
 
 <header class="header" id="header">
   <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/lion.png" alt=""><span class="brand-word">LS Conceito</span></a>
@@ -81,10 +81,10 @@
 
 <section class="trust">
   <div class="wrap trust-grid">
-    <div><b>Envio para todo o Brasil</b><span>Frete calculado na loja online</span></div>
-    <div><b>Até 12x no cartão</b><span>Pagamento direto na loja online</span></div>
-    <div><b>Compra segura</b><span>Ambiente de pagamento protegido</span></div>
-    <div><b>Acompanhe seu pedido</b><span>Código de rastreio por e-mail</span></div>
+    <div class="perk"><strong>12x</strong><span><b>No cartão</b>Parcele suas compras</span></div>
+    <div class="perk"><strong>5%</strong><span><b>De desconto</b>Na primeira compra</span></div>
+    <div class="perk"><strong>R$ 500</strong><span><b>Frete grátis</b>Em compras acima desse valor</span></div>
+    <div class="perk"><strong>BR</strong><span><b>Todo o Brasil</b>Enviamos para qualquer estado</span></div>
   </div>
 </section>
 
@@ -223,9 +223,11 @@
     <div class="modal-info">
       <span class="tag" id="mCat"></span>
       <h3 id="mName"></h3>
-      <p class="muted">Finalize a compra na nossa loja online: escolha o tamanho, calcule o frete e pague em até 12x no cartão.</p>
+      <p class="muted">Escolha o tamanho e finalize na nossa loja online: frete calculado pelo CEP e pagamento em até 12x no cartão.</p>
+      <div class="sizes-label">Tamanho</div>
+      <div class="sizes" id="mSizes"></div>
       <div class="modal-actions">
-        <a href="#" class="btn btn-gold" id="mBuy" data-buy=""><span>Comprar na loja</span></a>
+        <a href="#" class="btn btn-gold" id="mBuy"><span>Comprar</span></a>
         <a href="#" class="ask-link" id="mBtn" target="_blank" rel="noopener">Tirar dúvida no WhatsApp</a>
       </div>
     </div>

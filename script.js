@@ -54,6 +54,22 @@
     else { t.style.opacity = 1; t.style.transform = "translate(-50%,0)"; clearTimeout(toastT); toastT = setTimeout(function () { t.style.opacity = 0; }, 3200); }
   }
 
+  /* ---------- Faixa de avisos do topo ---------- */
+  (function () {
+    var avisos = CFG.avisos && CFG.avisos.length ? CFG.avisos : ["Enviamos para todo o Brasil"];
+    var el = $("#topbarMsg"), i = 0;
+    el.textContent = avisos[0];
+    if (avisos.length < 2) return;
+    setInterval(function () {
+      i = (i + 1) % avisos.length;
+      if (!hasGsap) { el.textContent = avisos[i]; return; }
+      gsap.to(el, { yPercent: -100, opacity: 0, duration: .35, ease: "power2.in", onComplete: function () {
+        el.textContent = avisos[i];
+        gsap.fromTo(el, { yPercent: 100, opacity: 0 }, { yPercent: 0, opacity: 1, duration: .45, ease: "power3.out" });
+      } });
+    }, 3800);
+  })();
+
   /* ---------- Botões "Comprar na loja" ---------- */
   function buyLink(a, p) {
     var url = buyUrl(p);
@@ -115,7 +131,7 @@
       (p.imgs[1] !== undefined ? '<img class="alt" src="' + img(p.imgs[1]) + '" alt="" loading="lazy">' : "") +
       '<span class="card-quick">Ver fotos</span></button>' +
       '<div class="card-body"><span class="card-cat">' + STORE.CATS[p.cat] + "</span><h3>" + esc(p.name) + "</h3>" +
-      '<button class="card-btn" data-open="' + p.id + '">Ver peça <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
+      '<button class="card-btn" data-open="' + p.id + '">Comprar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
     grid.appendChild(el);
   });
   grid.addEventListener("click", function (e) {
@@ -138,7 +154,13 @@
   $$("a[data-filter]").forEach(function (c) { c.addEventListener("click", function () { applyFilter(c.dataset.filter); }); });
 
   /* ---------- Modal do produto ---------- */
-  var modal = $("#modal"), cur = null;
+  var modal = $("#modal"), cur = null, curSize = null;
+  function sizesFor(p) { return p.sizes || (p.cat === "bones" ? ["Único"] : ["P", "M", "G", "GG"]); }
+  /* Link que coloca a variação (tamanho) escolhida no carrinho da Nuvemshop */
+  function variantUrl(p, size) {
+    var id = p.variants && p.variants[size];
+    return id && CFG.loja ? CFG.loja.replace(/\/$/, "") + "/comprar/" + id + "-1/" : "";
+  }
   function openLayer(layer, card) {
     layer.classList.add("is-open"); layer.setAttribute("aria-hidden", "false"); lock(true);
     if (hasGsap) {
@@ -161,7 +183,8 @@
     $("#mName").textContent = cur.name;
     $("#mCat").textContent = STORE.CATS[cur.cat] + " · LS Conceito";
     $("#mThumbs").innerHTML = cur.imgs.length > 1 ? cur.imgs.map(function (n, i) { return '<button type="button" class="' + (i ? "" : "is-active") + '" data-src="' + img(n) + '"><img src="' + img(n) + '" alt=""></button>'; }).join("") : "";
-    var buy = $("#mBuy"); buy.dataset.buy = cur.id; buyLink(buy, cur);
+    var sizes = sizesFor(cur); curSize = sizes.length === 1 ? sizes[0] : null;
+    $("#mSizes").innerHTML = sizes.map(function (s) { return '<button type="button" class="size' + (s === curSize ? " is-active" : "") + '" data-size="' + esc(s) + '">' + esc(s) + "</button>"; }).join("");
     $("#mBtn").href = waLink("Olá! Tenho uma dúvida sobre: " + cur.name);
     openLayer(modal, $(".modal-card", modal));
     track("view_item", { item_id: cur.id, item_name: cur.name });
@@ -169,6 +192,21 @@
   $("#mThumbs").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     $$("button", this).forEach(function (x) { x.classList.toggle("is-active", x === b); }); setMainImg(b.dataset.src);
+  });
+  $("#mSizes").addEventListener("click", function (e) {
+    var b = e.target.closest(".size"); if (!b) return;
+    curSize = b.dataset.size; $$(".size", this).forEach(function (x) { x.classList.toggle("is-active", x === b); });
+  });
+  $("#mBuy").addEventListener("click", function (e) {
+    e.preventDefault();
+    if (!curSize) {
+      $$("#mSizes .size").forEach(function (s) { s.classList.remove("shake"); void s.offsetWidth; s.classList.add("shake"); });
+      toast("Escolha o tamanho"); return;
+    }
+    var url = variantUrl(cur, curSize) || buyUrl(cur);
+    track("click_comprar", { item_name: cur.name, size: curSize });
+    if (!url) { toast("Na versão final, este botão leva para a loja online com o tamanho escolhido."); return; }
+    window.open(url, "_blank", "noopener");
   });
   $$("[data-close]", modal).forEach(function (b) { b.addEventListener("click", function () { closeLayer(modal, $(".modal-card", modal)); }); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && modal.classList.contains("is-open")) closeLayer(modal, $(".modal-card", modal)); });
@@ -181,11 +219,9 @@
     s.className = "slide";
     s.innerHTML = '<div class="slide-img"><img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '"></div>' +
       '<div class="slide-info"><span class="slide-no">0' + (k + 1) + '</span><span class="tag">' + STORE.CATS[p.cat] + '</span><h3>' + esc(p.name) + '</h3>' +
-      '<p>Veja os detalhes da peça e finalize a compra na nossa loja online.</p>' +
-      '<div class="slide-actions"><a class="btn btn-gold" href="#" data-buy="' + p.id + '"><span>Comprar na loja</span></a>' +
-      '<button class="btn btn-ghost" data-open="' + p.id + '"><span>Ver fotos</span></button></div></div>';
+      '<p>Escolha o tamanho e finalize a compra na nossa loja online, com frete pelo CEP e parcelamento em até 12x.</p>' +
+      '<div class="slide-actions"><button class="btn btn-gold" data-open="' + p.id + '"><span>Comprar</span></button></div></div>';
     stage.appendChild(s);
-    buyLink($("[data-buy]", s), p);
   });
   $("#showTotal").textContent = "0" + FEATURED.length;
   stage.addEventListener("click", function (e) { var b = e.target.closest("[data-open]"); if (b) openProduct(b.dataset.open); });
