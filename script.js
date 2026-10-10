@@ -242,6 +242,22 @@
     return fetch("https://viacep.com.br/ws/" + cep + "/json/").then(function (r) { return r.json(); }).then(function (d) { if (d.erro) throw new Error("CEP não encontrado"); return d; });
   }
   maskCep($("#cepInput")); maskCep($('#checkoutForm [name="cep"]'));
+
+  /* Telefone: (51) 99999-9999 (celular) ou (51) 3333-4444 (fixo) */
+  function fmtPhone(v) {
+    var d = String(v).replace(/\D/g, "").slice(0, 11);
+    if (d.length > 10) return "(" + d.slice(0, 2) + ") " + d.slice(2, 7) + "-" + d.slice(7);
+    if (d.length > 6) return "(" + d.slice(0, 2) + ") " + d.slice(2, 6) + "-" + d.slice(6);
+    if (d.length > 2) return "(" + d.slice(0, 2) + ") " + d.slice(2);
+    if (d.length > 0) return "(" + d;
+    return "";
+  }
+  var phoneInp = $('#checkoutForm [name="whatsapp"]');
+  phoneInp.addEventListener("input", function () {
+    var atEnd = phoneInp.selectionStart === phoneInp.value.length;
+    phoneInp.value = fmtPhone(phoneInp.value);
+    if (atEnd) phoneInp.setSelectionRange(phoneInp.value.length, phoneInp.value.length);
+  });
   $("#cepInput").value = ship ? ship.cep : "";
   function calcShip() {
     var msg = $("#cepMsg"); msg.textContent = "Buscando...";
@@ -264,7 +280,7 @@
     $("#coItems").innerHTML = cart.map(function (i) { var p = byId(i.id); return '<div class="co-item"><img src="' + img(p.imgs[0]) + '" alt=""><span>' + esc(p.name) + "<br><small class='muted'>Tam. " + esc(i.size) + " · " + i.qty + "x</small></span><b>" + brl(p.price * i.qty) + "</b></div>"; }).join("");
     $("#coSub").textContent = brl(sub); $("#coShip").textContent = f.gratis ? "Grátis" : brl(f.valor); $("#coTotal").textContent = brl(sub + f.valor);
     form.cep.value = ship.cep; form.uf.value = ship.uf; form.cidade.value = ship.cidade || ""; if (ship.rua && !form.rua.value) form.rua.value = ship.rua; if (ship.bairro && !form.bairro.value) form.bairro.value = ship.bairro;
-    var saved = lsGet("ls_customer", {}); ["nome", "email", "whatsapp"].forEach(function (k) { if (saved[k] && !form[k].value) form[k].value = saved[k]; });
+    var saved = lsGet("ls_customer", {}); ["nome", "email", "whatsapp"].forEach(function (k) { if (saved[k] && !form[k].value) form[k].value = k === "whatsapp" ? fmtPhone(saved[k]) : saved[k]; });
     $("#coErr").textContent = "";
     closeCart(); setTimeout(function () { openLayer(checkout, form); }, 450);
     track("begin_checkout", { currency: "BRL", value: sub + f.valor, items: cart.map(function (i) { var p = byId(i.id); return { item_id: p.id, item_name: p.name, price: p.price, quantity: i.qty }; }) });
@@ -277,6 +293,8 @@
     var err = $("#coErr"), bad = false;
     $$("input[required]", form).forEach(function (i) { var b = !i.value.trim(); i.classList.toggle("bad", b); if (b) bad = true; });
     if (bad) { err.textContent = "Preencha os campos destacados."; return; }
+    var digits = form.whatsapp.value.replace(/\D/g, "");
+    if (digits.length < 10 || digits.length > 11 || /^(\d)\1+$/.test(digits) || +digits.slice(0, 2) < 11) { err.textContent = "Informe um telefone válido com DDD, ex.: (51) 99999-9999."; form.whatsapp.classList.add("bad"); form.whatsapp.focus(); return; }
     if (!/^\S+@\S+\.\S+$/.test(form.email.value)) { err.textContent = "E-mail inválido."; form.email.classList.add("bad"); return; }
     var btn = $("#coPay"); btn.disabled = true; btn.firstChild.textContent = "Aguarde...";
     var payload = {
