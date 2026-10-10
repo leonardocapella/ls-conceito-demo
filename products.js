@@ -1,7 +1,11 @@
 /* Catálogo da vitrine.
-   Para cada peça: nome, categoria, fotos (img/pN.jpg) e, opcionalmente, "url" com o link
-   da página do produto na Nuvemshop. Sem "url", o botão usa o endereço da loja em config.js.
-   Preço, tamanhos, estoque e frete ficam na Nuvemshop. */
+   Para cada peça: nome, categoria e fotos (img/pN.jpg). Opcionais:
+     url:      link da página do produto na Nuvemshop (usado se não houver variação).
+     variants: { P: "123", M: "124", G: "125", GG: "126" } com o ID da variação (tamanho) de cada
+               peça na Nuvemshop. Com isso o botão Comprar manda o tamanho escolhido direto para o
+               carrinho da loja (loja/comprar/ID-1/).
+     sizes:    lista de tamanhos, se for diferente do padrão (P, M, G, GG; bonés: Único).
+   Preço, estoque, frete e pagamento ficam na Nuvemshop. */
 (function (root) {
   var P = [
     // ---- POLOS ----
