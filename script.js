@@ -328,37 +328,145 @@
 
   renderCart();
 
+  /* ---------- Destaques (monta os slides) ---------- */
+  var FEATURED = ["polo-azul-ceu-faixa-preta", "camiseta-dragao-vermelho", "conjunto-preto-laranja", "camiseta-swoosh-gigante"];
+  var stage = $("#showStage");
+  FEATURED.forEach(function (id, k) {
+    var p = byId(id), s = document.createElement("article");
+    s.className = "slide";
+    s.innerHTML = '<div class="slide-img"><img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '"></div>' +
+      '<div class="slide-info"><span class="slide-no">0' + (k + 1) + '</span><span class="tag">' + STORE.CATS[p.cat] + '</span><h3>' + esc(p.name) + '</h3>' +
+      '<div class="slide-price">' + brl(p.price) + '</div><p>Em até 12x no cartão ou Pix. Escolha o tamanho e adicione ao carrinho.</p>' +
+      '<button class="btn btn-gold" data-open="' + p.id + '"><span>Comprar</span></button></div>';
+    stage.appendChild(s);
+  });
+  $("#showTotal").textContent = "0" + FEATURED.length;
+  stage.addEventListener("click", function (e) { var b = e.target.closest("[data-open]"); if (b) openProduct(b.dataset.open); });
+
+  /* ---------- Marca grande do rodapé (letras) ---------- */
+  var fm = $("#footMark");
+  fm.innerHTML = fm.textContent.split("").map(function (ch) { return '<span class="ch">' + (ch === " " ? "&nbsp;" : ch) + "</span>"; }).join("");
+
   /* =====================================================
-     ANIMAÇÕES (discretas)
+     ANIMAÇÕES
      ===================================================== */
-  if (!hasGsap || reduce) return;
+  function showSite() { document.body.classList.remove("is-loading"); var p = $("#pre"); if (p) p.style.display = "none"; }
+  if (!hasGsap || reduce) { showSite(); return; }
   gsap.registerPlugin(ScrollTrigger);
 
-  /* Entrada do hero */
-  gsap.timeline({ defaults: { ease: "power3.out" } })
-    .from(".kicker", { opacity: 0, y: 14, duration: .6 })
-    .from(".hero .line-in", { yPercent: 110, duration: .9, stagger: .1 }, "-=.3")
-    .from(".lead, .hero-cta", { opacity: 0, y: 18, duration: .7, stagger: .1 }, "-=.5")
-    .from(".hm", { opacity: 0, y: 50, duration: 1, stagger: .12 }, "-=.9");
+  /* Estados iniciais do hero */
+  gsap.set(".kicker, .lead, .hero-cta", { opacity: 0, y: 20 });
+  gsap.set(".hero .line-in", { yPercent: 110 });
+  gsap.set(".hm", { clipPath: "inset(0 0 100% 0)" });
 
-  /* Parallax leve nas fotos do hero */
-  gsap.to(".hm2", { y: -36, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
-  gsap.to(".hm1", { y: 24, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  function intro() {
+    document.body.classList.remove("is-loading");
+    gsap.timeline({ defaults: { ease: "power3.out" } })
+      .to(".kicker", { opacity: 1, y: 0, duration: .7 })
+      .to(".hero .line-in", { yPercent: 0, duration: 1, stagger: .12, ease: "power4.out" }, "-=.4")
+      .to(".lead, .hero-cta", { opacity: 1, y: 0, duration: .8, stagger: .1 }, "-=.6")
+      .to(".hm", { clipPath: "inset(0 0 0% 0)", duration: 1.3, stagger: .15, ease: "power4.out" }, "-=1.1")
+      .from(".hm img", { scale: 1.3, duration: 1.7, stagger: .15 }, "<");
+  }
 
-  /* Revelar ao rolar */
+  /* Abertura */
+  gsap.timeline({ onComplete: function () { var p = $("#pre"); if (p) p.style.display = "none"; } })
+    .fromTo(".pre-logo", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .7, ease: "power3.out" })
+    .to(".pre-bar i", { scaleX: 1, duration: .9, ease: "power2.inOut" }, "-=.3")
+    .to(".pre-in", { opacity: 0, duration: .35 }, "+=.1")
+    .to(".pre-panel", { yPercent: -100, duration: .9, ease: "power4.inOut" })
+    .add(intro, "-=.45");
+
+  /* Barra de progresso no cabeçalho */
+  gsap.to("#progress", { scaleX: 1, ease: "none", scrollTrigger: { start: 0, end: "max", scrub: .2 } });
+
+  /* Parallax do hero */
+  gsap.to(".hm img", { yPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hm2", { y: -34, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hero-text", { y: -40, opacity: .4, ease: "none", scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: true } });
+
+  /* Faixa de texto: acelera e inverte conforme o scroll */
+  var mq = gsap.to("#mqTrack", { xPercent: -50, ease: "none", duration: 30, repeat: -1 });
+  var mqT;
+  ScrollTrigger.create({
+    start: 0, end: "max",
+    onUpdate: function (self) {
+      var dir = self.direction, boost = 1 + Math.min(Math.abs(self.getVelocity()) / 350, 5);
+      gsap.to(mq, { timeScale: dir * boost, duration: .25, overwrite: true });
+      clearTimeout(mqT);
+      mqT = setTimeout(function () { gsap.to(mq, { timeScale: dir, duration: 1.2, overwrite: true }); }, 160);
+    }
+  });
+
+  /* Títulos: revelados por máscara */
+  $$(".reveal-h").forEach(function (el) {
+    gsap.fromTo(el, { clipPath: "inset(0 0 100% 0)", y: 40 }, { clipPath: "inset(0 0 0% 0)", y: 0, duration: 1, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 90%", once: true }, onComplete: function () { gsap.set(el, { clearProps: "clipPath,transform" }); } });
+  });
   $$(".reveal").forEach(function (el) {
     gsap.from(el, { opacity: 0, y: 28, duration: .8, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%", once: true } });
   });
   gsap.from(".trust-grid > div", { opacity: 0, y: 18, stagger: .1, duration: .7, ease: "power3.out", scrollTrigger: { trigger: ".trust", start: "top 92%", once: true } });
 
+  /* Imagens: cortina + zoom que assenta */
+  $$(".img-reveal:not(.hm)").forEach(function (el, k) {
+    var im = $("img", el), st = { trigger: el, start: "top 88%", once: true };
+    gsap.fromTo(el, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 1.2, ease: "power4.out", delay: (k % 4) * .08, scrollTrigger: st, onComplete: function () { gsap.set(el, { clearProps: "clipPath" }); } });
+    if (im) gsap.fromTo(im, { scale: 1.25 }, { scale: 1, duration: 1.7, ease: "power3.out", delay: (k % 4) * .08, scrollTrigger: st, onComplete: function () { gsap.set(im, { clearProps: "transform" }); } });
+  });
+
+  /* Destaques: seção fixa que troca de peça ao rolar (desktop) */
+  var show = $(".show"), slides = $$(".slide"), mm = gsap.matchMedia();
+  mm.add("(min-width: 901px)", function () {
+    var n = slides.length;
+    show.classList.add("is-pinned");
+    gsap.set(slides.slice(1), { opacity: 0, y: 40 });
+    var tl = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: {
+        trigger: show, pin: ".show-pin", start: "top top", scrub: .7, anticipatePin: 1,
+        end: function () { return "+=" + Math.round((n - 1) * window.innerHeight * .95); },
+        onUpdate: function (self) {
+          var idx = Math.min(n - 1, Math.round(self.progress * (n - 1)));
+          $("#showIdx").textContent = "0" + (idx + 1);
+          gsap.set("#showBar", { scaleX: self.progress });
+          slides.forEach(function (s, k) { s.style.pointerEvents = k === idx ? "auto" : "none"; });
+        }
+      }
+    });
+    for (var k = 1; k < n; k++) {
+      tl.to(slides[k - 1], { opacity: 0, y: -30, duration: .35 }, (k - 1) + .35)
+        .fromTo(slides[k], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .4 }, (k - 1) + .72)
+        .fromTo($("img", slides[k]), { scale: 1.15 }, { scale: 1, duration: .6 }, (k - 1) + .72);
+    }
+    return function () { show.classList.remove("is-pinned"); slides.forEach(function (s) { s.style.pointerEvents = ""; }); };
+  });
+  mm.add("(max-width: 900px)", function () {
+    slides.forEach(function (s) {
+      gsap.from(s, { opacity: 0, y: 40, duration: .9, ease: "power3.out", scrollTrigger: { trigger: s, start: "top 85%", once: true } });
+    });
+  });
+
   /* Cards do catálogo entram em sequência */
   gsap.set(".card", { opacity: 0, y: 36 });
   ScrollTrigger.batch(".card", { start: "top 94%", once: true, onEnter: function (b) { gsap.to(b, { opacity: 1, y: 0, stagger: .06, duration: .7, ease: "power3.out", overwrite: true }); } });
 
-  /* Imagens das categorias aproximam levemente ao rolar */
-  $$(".cat-img img").forEach(function (im) {
-    gsap.fromTo(im, { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: im, start: "top bottom", end: "bottom 40%", scrub: true } });
-  });
+  /* Faixas de fotos andam com o scroll */
+  gsap.fromTo(".look .r1 .look-track", { xPercent: 0 }, { xPercent: -32, ease: "none", scrollTrigger: { trigger: ".look", start: "top bottom", end: "bottom top", scrub: 1 } });
+  gsap.fromTo(".look .r2 .look-track", { xPercent: -32 }, { xPercent: 0, ease: "none", scrollTrigger: { trigger: ".look", start: "top bottom", end: "bottom top", scrub: 1 } });
+
+  /* A loja: fotos com parallax em sentidos opostos */
+  gsap.fromTo(".am1 img", { yPercent: 0 }, { yPercent: -11, ease: "none", scrollTrigger: { trigger: ".about-media", start: "top bottom", end: "bottom top", scrub: true } });
+  gsap.fromTo(".am2 img", { yPercent: -11 }, { yPercent: 0, ease: "none", scrollTrigger: { trigger: ".about-media", start: "top bottom", end: "bottom top", scrub: true } });
+
+  /* Passos: linha que se desenha */
+  gsap.to("#stepsLine", { scaleX: 1, ease: "none", scrollTrigger: { trigger: ".steps-grid", start: "top 78%", end: "bottom 70%", scrub: true } });
+  ScrollTrigger.batch(".step", { start: "top 88%", once: true, onEnter: function (b) {
+    gsap.from(b, { opacity: 0, y: 30, stagger: .12, duration: .8, ease: "power3.out" });
+    b.forEach(function (s, k) { setTimeout(function () { s.classList.add("is-on"); }, 250 + k * 130); });
+  } });
+
+  /* Marca do rodapé */
+  gsap.from("#footMark .ch", { yPercent: 100, opacity: 0, stagger: .045, duration: 1.1, ease: "power4.out", scrollTrigger: { trigger: "#footMark", start: "top 98%", once: true } });
 
   window.addEventListener("load", function () { ScrollTrigger.refresh(); });
 })();
