@@ -430,3 +430,4 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cta{background:radial-gradient(ellipse at 50% 100%,rgba(201,162,74,.2),transparent 60%),var(--bg)}
 .hero-title{font-size:clamp(3rem,8.4vw,7.8rem)}
 .hero-title{font-size:clamp(2.8rem,6.4vw,6.4rem)}
+.hero-title{font-size:clamp(2.8rem,6vw,6rem)}
