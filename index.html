@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<div class="topbar">Enviamos para todo o Brasil &nbsp;·&nbsp; Parcelamos em até 12x no cartão &nbsp;·&nbsp; Pix e boleto</div>
+<div class="topbar">Enviamos para todo o Brasil &nbsp;·&nbsp; Parcelamos em até 12x no cartão</div>
 
 <header class="header" id="header">
   <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/lion.png" alt=""><span class="brand-word">LS Conceito</span></a>
@@ -35,14 +35,10 @@
     <a href="#catalogo">Catálogo</a>
     <a href="#loja">A loja</a>
     <a href="#como-comprar">Como comprar</a>
-    <a href="#rastreio">Rastrear pedido</a>
     <a href="#contato">Contato</a>
   </nav>
   <div class="head-actions">
-    <button class="cart-btn" id="cartBtn" aria-label="Abrir carrinho">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
-      <span class="cart-count" id="cartCount">0</span>
-    </button>
+    <a href="#" class="btn btn-gold btn-sm head-buy" data-buy=""><span>Loja online</span></a>
     <button class="burger" id="burger" aria-label="Abrir menu"><i></i><i></i></button>
   </div>
   <div class="progress" id="progress"></div>
@@ -62,7 +58,7 @@
       <p class="lead">Polos, camisetas, conjuntos e bonés selecionados para quem gosta de se vestir bem. Enviamos para todo o Brasil.</p>
       <div class="hero-cta">
         <a href="#catalogo" class="btn btn-gold"><span>Ver catálogo</span></a>
-        <a href="#destaques" class="btn btn-ghost"><span>Destaques</span></a>
+        <a href="#" class="btn btn-ghost" data-buy=""><span>Comprar na loja</span></a>
       </div>
     </div>
     <div class="hero-media">
@@ -85,10 +81,10 @@
 
 <section class="trust">
   <div class="wrap trust-grid">
-    <div><b>Envio para todo o Brasil</b><span>Calcule o frete pelo CEP no carrinho</span></div>
-    <div><b>Até 12x no cartão</b><span>Também aceitamos Pix e boleto</span></div>
-    <div><b>Pagamento seguro</b><span>Processado pelo Mercado Pago</span></div>
-    <div><b>Acompanhe seu pedido</b><span>Código de rastreio aqui no site</span></div>
+    <div><b>Envio para todo o Brasil</b><span>Frete calculado na loja online</span></div>
+    <div><b>Até 12x no cartão</b><span>Pagamento direto na loja online</span></div>
+    <div><b>Compra segura</b><span>Ambiente de pagamento protegido</span></div>
+    <div><b>Acompanhe seu pedido</b><span>Código de rastreio por e-mail</span></div>
   </div>
 </section>
 
@@ -121,7 +117,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2 class="h2 reveal-h">Catálogo</h2>
-      <p class="muted reveal">Escolha o tamanho, adicione ao carrinho e finalize com Pix ou cartão em até 12x.</p>
+      <p class="muted reveal">Veja as fotos de cada peça e finalize a compra na nossa loja online.</p>
     </div>
     <div class="filters reveal" id="filters" role="tablist">
       <button class="chip is-active" data-filter="todos">Todos</button>
@@ -151,7 +147,7 @@
       <div class="about-text">
         <h2 class="h2 reveal-h">A loja</h2>
         <p class="reveal">A LS Conceito é uma loja de moda masculina de Viamão, no Rio Grande do Sul. Trabalhamos com tendências em vestuário masculino: polos, camisetas, conjuntos e bonés.</p>
-        <p class="muted reveal">Atendemos clientes de todo o Brasil, com envio pelos Correios e transportadoras e pagamento em até 12x no cartão.</p>
+        <p class="muted reveal">Atendemos clientes de todo o Brasil e parcelamos em até 12x no cartão.</p>
         <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="text-link reveal">Acompanhe as novidades no Instagram @ls_conceit0</a>
       </div>
       <div class="about-media">
@@ -162,7 +158,7 @@
     <dl class="about-facts">
       <div class="reveal"><dt>Localização</dt><dd>Viamão, RS</dd></div>
       <div class="reveal"><dt>Entrega</dt><dd>Todo o Brasil</dd></div>
-      <div class="reveal"><dt>Pagamento</dt><dd>Pix, boleto e cartão em até 12x</dd></div>
+      <div class="reveal"><dt>Pagamento</dt><dd>Cartão em até 12x</dd></div>
       <div class="reveal"><dt>Atendimento</dt><dd>WhatsApp e Instagram</dd></div>
     </dl>
   </div>
@@ -173,26 +169,11 @@
     <div class="sec-head"><h2 class="h2 reveal-h">Como comprar</h2></div>
     <div class="steps-grid">
       <div class="steps-line"><i id="stepsLine"></i></div>
-      <article class="step"><span class="step-n">1</span><h3>Escolha a peça</h3><p>Navegue pelo catálogo, escolha o tamanho e adicione ao carrinho.</p></article>
-      <article class="step"><span class="step-n">2</span><h3>Calcule o frete</h3><p>Informe o CEP no carrinho e veja o valor e o prazo de entrega.</p></article>
-      <article class="step"><span class="step-n">3</span><h3>Pague com segurança</h3><p>Pix, boleto ou cartão em até 12x, pelo Mercado Pago.</p></article>
-      <article class="step"><span class="step-n">4</span><h3>Acompanhe a entrega</h3><p>Receba o código de rastreio e acompanhe o pedido aqui no site.</p></article>
+      <article class="step"><span class="step-n">1</span><h3>Escolha a peça</h3><p>Navegue pelo catálogo e veja as fotos de cada modelo.</p></article>
+      <article class="step"><span class="step-n">2</span><h3>Vá para a loja</h3><p>Clique em "Comprar na loja" para abrir a página da peça.</p></article>
+      <article class="step"><span class="step-n">3</span><h3>Finalize a compra</h3><p>Escolha o tamanho, calcule o frete pelo CEP e pague em até 12x.</p></article>
+      <article class="step"><span class="step-n">4</span><h3>Receba em casa</h3><p>Enviamos para todo o Brasil e você recebe o código de rastreio por e-mail.</p></article>
     </div>
-  </div>
-</section>
-
-<section class="track" id="rastreio">
-  <div class="wrap track-in">
-    <div>
-      <h2 class="h2 reveal-h">Rastrear pedido</h2>
-      <p class="muted reveal">Informe o número do pedido e o e-mail usado na compra para ver o status e o código de rastreio.</p>
-    </div>
-    <form class="track-form reveal" id="trackForm">
-      <input name="order" placeholder="Número do pedido (ex: LS-1A2B3C)" required autocomplete="off">
-      <input name="email" type="email" placeholder="E-mail da compra" required>
-      <button class="btn btn-gold" type="submit"><span>Rastrear</span></button>
-      <div class="track-result" id="trackResult" aria-live="polite"></div>
-    </form>
   </div>
 </section>
 
@@ -219,7 +200,7 @@
       <p>Viamão, RS<br>Enviamos para todo o Brasil</p>
     </div>
     <div><h4>Categorias</h4><a href="#catalogo" data-filter="polos">Polos</a><a href="#catalogo" data-filter="camisetas">Camisetas</a><a href="#catalogo" data-filter="conjuntos">Conjuntos</a><a href="#catalogo" data-filter="bones">Bonés</a></div>
-    <div><h4>Ajuda</h4><a href="#como-comprar">Como comprar</a><a href="#rastreio">Rastrear pedido</a><a href="#contato">Atendimento</a></div>
+    <div><h4>Ajuda</h4><a href="#como-comprar">Como comprar</a><a href="#" data-buy="">Loja online</a><a href="#contato">Atendimento</a></div>
     <div><h4>Redes</h4><a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Instagram</a><a href="#" class="js-whats">WhatsApp</a></div>
   </div>
   <div class="foot-mark" id="footMark" aria-hidden="true">LS CONCEITO</div>
@@ -242,70 +223,13 @@
     <div class="modal-info">
       <span class="tag" id="mCat"></span>
       <h3 id="mName"></h3>
-      <div class="price" id="mPrice"></div>
-      <p class="muted small">Em até 12x no cartão ou Pix. Frete calculado no carrinho.</p>
-      <div class="sizes-label">Tamanho</div>
-      <div class="sizes" id="mSizes"></div>
+      <p class="muted">Finalize a compra na nossa loja online: escolha o tamanho, calcule o frete e pague em até 12x no cartão.</p>
       <div class="modal-actions">
-        <button class="btn btn-gold" id="mAdd"><span>Adicionar ao carrinho</span></button>
-        <a href="#" class="ask-link js-whats-prod" id="mBtn" target="_blank" rel="noopener">Tirar dúvida no WhatsApp</a>
+        <a href="#" class="btn btn-gold" id="mBuy" data-buy=""><span>Comprar na loja</span></a>
+        <a href="#" class="ask-link" id="mBtn" target="_blank" rel="noopener">Tirar dúvida no WhatsApp</a>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Carrinho -->
-<div class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer-bg" data-close-cart></div>
-  <aside class="drawer-panel" role="dialog" aria-label="Carrinho">
-    <header class="drawer-head"><h3>Seu carrinho</h3><button class="modal-x static" data-close-cart aria-label="Fechar">✕</button></header>
-    <div class="drawer-body" id="drawerBody"></div>
-    <footer class="drawer-foot" id="drawerFoot">
-      <div class="ship">
-        <label>Calcular frete</label>
-        <div class="ship-row"><input id="cepInput" inputmode="numeric" maxlength="9" placeholder="CEP"><button class="btn btn-ghost btn-sm" id="cepBtn" type="button"><span>OK</span></button></div>
-        <small id="cepMsg" class="muted"></small>
-      </div>
-      <div class="sum"><span>Subtotal</span><b id="sumSub">R$ 0,00</b></div>
-      <div class="sum"><span>Frete</span><b id="sumShip">-</b></div>
-      <div class="sum total"><span>Total</span><b id="sumTotal">R$ 0,00</b></div>
-      <small class="muted inst" id="sumInst"></small>
-      <button class="btn btn-gold btn-block" id="goCheckout"><span>Finalizar compra</span></button>
-    </footer>
-  </aside>
-</div>
-
-<!-- Checkout -->
-<div class="modal" id="checkout" aria-hidden="true">
-  <div class="modal-bg" data-close-checkout></div>
-  <form class="modal-card checkout-card" id="checkoutForm" novalidate>
-    <button class="modal-x" type="button" data-close-checkout aria-label="Fechar">✕</button>
-    <div class="co-fields">
-      <h3 class="co-title">Seus dados</h3>
-      <div class="f-grid">
-        <label class="f full">Nome completo<input name="nome" required autocomplete="name"></label>
-        <label class="f">E-mail<input name="email" type="email" required autocomplete="email"></label>
-        <label class="f">WhatsApp<input name="whatsapp" type="tel" inputmode="numeric" required autocomplete="tel-national" maxlength="15" placeholder="(51) 99999-9999"></label>
-        <label class="f">CEP<input name="cep" inputmode="numeric" maxlength="9" required autocomplete="postal-code"></label>
-        <label class="f">Número<input name="numero" required></label>
-        <label class="f full">Rua<input name="rua" required autocomplete="address-line1"></label>
-        <label class="f">Bairro<input name="bairro" required></label>
-        <label class="f">Complemento<input name="complemento"></label>
-        <label class="f">Cidade<input name="cidade" required></label>
-        <label class="f">UF<input name="uf" maxlength="2" required></label>
-      </div>
-    </div>
-    <div class="co-sum">
-      <h3 class="co-title">Resumo</h3>
-      <div id="coItems"></div>
-      <div class="sum"><span>Subtotal</span><b id="coSub"></b></div>
-      <div class="sum"><span>Frete</span><b id="coShip"></b></div>
-      <div class="sum total"><span>Total</span><b id="coTotal"></b></div>
-      <p class="muted small">Você será levado ao ambiente seguro do Mercado Pago para pagar com Pix, cartão (até 12x) ou boleto.</p>
-      <button class="btn btn-gold btn-block" type="submit" id="coPay"><span>Ir para o pagamento</span></button>
-      <p class="co-err" id="coErr" role="alert"></p>
-    </div>
-  </form>
 </div>
 
 <div class="toast" id="toast" role="status"></div>
