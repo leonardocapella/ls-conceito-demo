@@ -4,219 +4,160 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LS Conceito | Moda Masculina em Viamão - RS</title>
-<meta name="description" content="LS Conceito, o conceito da moda masculina. Polos, camisetas, conjuntos e bonés com tendência em vestuário masculino. Enviamos para todo o Brasil e parcelamos em até 12x.">
-<meta name="theme-color" content="#0a0a0b">
+<meta name="description" content="LS Conceito: polos, camisetas, conjuntos e bonés masculinos. Enviamos para todo o Brasil e parcelamos em até 12x.">
+<meta name="theme-color" content="#0c0c0d">
 <link rel="icon" href="img/logo.jpg">
 <meta property="og:title" content="LS Conceito | Moda masculina em Viamão - RS">
-<meta property="og:description" content="Tendência em vestuário masculino. Enviamos para todo o Brasil e parcelamos em até 12x.">
+<meta property="og:description" content="Polos, camisetas, conjuntos e bonés. Enviamos para todo o Brasil e parcelamos em até 12x.">
 <meta property="og:image" content="img/p66.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Cinzel:wght@600;700&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="is-loading">
+<body>
 
-<!-- Preloader -->
-<div class="preloader" id="preloader" aria-hidden="true">
-  <div class="pre-panel pre-top"></div>
-  <div class="pre-panel pre-bottom"></div>
-  <div class="pre-center">
-    <div class="pre-logo">
-      <svg viewBox="0 0 120 120" class="pre-ring"><circle cx="60" cy="60" r="56" pathLength="1"/></svg>
-      <img src="img/logo.jpg" alt="">
-    </div>
-  </div>
-</div>
+<div class="topbar">Enviamos para todo o Brasil &nbsp;·&nbsp; Parcelamos em até 12x no cartão &nbsp;·&nbsp; Pix e boleto</div>
 
-<div class="progress" id="progress"></div>
-<div class="cursor" id="cursorDot"></div>
-<div class="cursor-ring" id="cursorRing"><span></span></div>
-<!-- Header -->
 <header class="header" id="header">
   <a href="#topo" class="brand" aria-label="LS Conceito">
-    <img src="img/logo.jpg" alt="Leão LS Conceito">
-    <span class="brand-text">LS CONCEITO<small>Moda Masculina</small></span>
+    <img src="img/logo.jpg" alt="">
+    <span class="brand-text">LS CONCEITO<small>Moda masculina</small></span>
   </a>
   <nav class="nav" id="nav">
-    <a href="#manifesto" data-cursor>Conceito</a>
-    <a href="#categorias" data-cursor>Categorias</a>
-    <a href="#catalogo" data-cursor>Catálogo</a>
-    <a href="#como-comprar" data-cursor>Como comprar</a>
-    <a href="#rastreio" data-cursor>Rastreio</a>
-    <a href="#contato" data-cursor>Contato</a>
+    <a href="#categorias">Categorias</a>
+    <a href="#catalogo">Catálogo</a>
+    <a href="#loja">A loja</a>
+    <a href="#como-comprar">Como comprar</a>
+    <a href="#rastreio">Rastrear pedido</a>
+    <a href="#contato">Contato</a>
   </nav>
   <div class="head-actions">
-    <a href="#rastreio" class="head-link" data-cursor>Rastrear pedido</a>
-    <button class="cart-btn" id="cartBtn" aria-label="Abrir carrinho" data-cursor>
+    <button class="cart-btn" id="cartBtn" aria-label="Abrir carrinho">
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l-1 13H7L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
       <span class="cart-count" id="cartCount">0</span>
     </button>
+    <button class="burger" id="burger" aria-label="Abrir menu"><i></i><i></i></button>
   </div>
-  <button class="burger" id="burger" aria-label="Abrir menu"><i></i><i></i></button>
 </header>
 
 <main id="topo">
 
-<!-- HERO -->
 <section class="hero" id="hero">
-  <div class="hero-glow g1"></div>
-  <div class="hero-glow g2"></div>
-
-  <div class="hero-float hf1" data-speed="-60"><div class="hf-inner"><img src="img/p66.jpg" alt="Polo azul céu com faixa preta"></div></div>
-  <div class="hero-float hf2" data-speed="-120"><div class="hf-inner"><img src="img/p29.jpg" alt="Conjunto preto com estampa laranja"></div></div>
-  <div class="hero-float hf3" data-speed="-30"><div class="hf-inner"><img src="img/p67.jpg" alt="Polo marinho tricolor"></div></div>
-
-  <div class="hero-content">
-    <p class="eyebrow hero-eyebrow">LS Conceito · Viamão, RS</p>
-    <h1 class="hero-title" aria-label="Vista o conceito e assuma o seu estilo">
-      <span class="line"><span class="line-in">VISTA O CONCEITO</span></span>
-      <span class="line"><span class="line-in">E ASSUMA O</span></span>
-      <span class="line"><span class="line-in gold-text">SEU ESTILO.</span></span>
-    </h1>
-    <p class="hero-sub">Vestuário masculino em Viamão, RS. Polos, camisetas, conjuntos e bonés com envio para todo o Brasil e parcelamento em até 12x.</p>
-    <div class="hero-cta">
-      <a href="#catalogo" class="btn btn-gold" data-cursor ><span>Ver catálogo</span></a>
-      <a href="#como-comprar" class="btn btn-ghost" data-cursor ><span>Como comprar</span></a>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="kicker">Moda masculina · Viamão, RS</p>
+      <h1 aria-label="Vista o conceito.">
+        <span class="line"><span class="line-in">Vista o</span></span>
+        <span class="line"><span class="line-in">conceito<em>.</em></span></span>
+      </h1>
+      <p class="lead">Polos, camisetas, conjuntos e bonés selecionados para quem gosta de se vestir bem. Enviamos para todo o Brasil.</p>
+      <div class="hero-cta">
+        <a href="#catalogo" class="btn btn-gold"><span>Ver catálogo</span></a>
+        <a href="#categorias" class="btn btn-ghost"><span>Categorias</span></a>
+      </div>
     </div>
-  </div>
-
-  <div class="scroll-hint"><span>Role</span><i></i></div>
-</section>
-
-<!-- MARQUEE -->
-<section class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <div class="marquee-group">
-      <span>Enviamos para todo o Brasil</span><b>/</b>
-      <span>Parcelamos em até 12x</span><b>/</b>
-      <span>Tendência em vestuário masculino</span><b>/</b>
-      <span>Viamão · RS</span><b>/</b>
-    </div>
-    <div class="marquee-group">
-      <span>Enviamos para todo o Brasil</span><b>/</b>
-      <span>Parcelamos em até 12x</span><b>/</b>
-      <span>Tendência em vestuário masculino</span><b>/</b>
-      <span>Viamão · RS</span><b>/</b>
+    <div class="hero-media">
+      <figure class="hm hm1"><img src="img/p66.jpg" alt="Polo azul céu com faixa preta"></figure>
+      <figure class="hm hm2"><img src="img/p29.jpg" alt="Conjunto preto com estampa laranja"></figure>
+      <figure class="hm hm3"><img src="img/p67.jpg" alt="Polo marinho tricolor"></figure>
     </div>
   </div>
 </section>
 
-<!-- MANIFESTO -->
-<section class="manifesto" id="manifesto">
-  <div class="wrap">
-    <p class="eyebrow reveal">A loja</p>
-    <p class="manifesto-text" id="manifestoText">A LS Conceito é uma loja de moda masculina de Viamão, no Rio Grande do Sul. Trabalhamos com polos, camisetas, conjuntos e bonés de tendência, e enviamos para todo o Brasil.</p>
+<section class="trust">
+  <div class="wrap trust-grid">
+    <div><b>Envio para todo o Brasil</b><span>Calcule o frete pelo CEP no carrinho</span></div>
+    <div><b>Até 12x no cartão</b><span>Também aceitamos Pix e boleto</span></div>
+    <div><b>Pagamento seguro</b><span>Processado pelo Mercado Pago</span></div>
+    <div><b>Acompanhe seu pedido</b><span>Código de rastreio aqui no site</span></div>
   </div>
 </section>
 
-<!-- CATEGORIAS (horizontal) -->
 <section class="cats" id="categorias">
-  <div class="cats-pin">
-    <div class="cats-head">
-      <p class="eyebrow">Navegue por</p>
-      <h2 class="h2">Categorias</h2>
-      <p class="muted">Polos, camisetas, conjuntos e bonés.</p>
-      <div class="cats-bar"><i id="catsBar"></i></div>
-    </div>
-    <div class="cats-track" id="catsTrack">
-      <a href="#catalogo" class="cat-card" data-filter="polos" data-cursor="Ver">
-        <div class="cat-img"><img src="img/p66.jpg" alt="Polos" loading="lazy"></div>
-        <span class="cat-num">01</span><h3>Polos</h3><p>Clássico com personalidade.</p>
-      </a>
-      <a href="#catalogo" class="cat-card" data-filter="camisetas" data-cursor="Ver">
-        <div class="cat-img"><img src="img/p44.jpg" alt="Camisetas" loading="lazy"></div>
-        <span class="cat-num">02</span><h3>Camisetas</h3><p>Estampas que falam por você.</p>
-      </a>
-      <a href="#catalogo" class="cat-card" data-filter="conjuntos" data-cursor="Ver">
-        <div class="cat-img"><img src="img/p29.jpg" alt="Conjuntos" loading="lazy"></div>
-        <span class="cat-num">03</span><h3>Conjuntos</h3><p>Camiseta e bermuda, look pronto.</p>
-      </a>
-      <a href="#catalogo" class="cat-card" data-filter="bones" data-cursor="Ver">
-        <div class="cat-img"><img src="img/p48.jpg" alt="Bonés" loading="lazy"></div>
-        <span class="cat-num">04</span><h3>Bonés</h3><p>O toque final do visual.</p>
-      </a>
+  <div class="wrap">
+    <div class="sec-head"><h2 class="h2 reveal">Categorias</h2></div>
+    <div class="cats-grid">
+      <a href="#catalogo" class="cat-card reveal" data-filter="polos"><div class="cat-img"><img src="img/p66.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Polos</h3><span>Ver peças</span></div></a>
+      <a href="#catalogo" class="cat-card reveal" data-filter="camisetas"><div class="cat-img"><img src="img/p44.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Camisetas</h3><span>Ver peças</span></div></a>
+      <a href="#catalogo" class="cat-card reveal" data-filter="conjuntos"><div class="cat-img"><img src="img/p29.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Conjuntos</h3><span>Ver peças</span></div></a>
+      <a href="#catalogo" class="cat-card reveal" data-filter="bones"><div class="cat-img"><img src="img/p48.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Bonés</h3><span>Ver peças</span></div></a>
     </div>
   </div>
 </section>
 
-<!-- CATÁLOGO -->
 <section class="catalog" id="catalogo">
   <div class="wrap">
     <div class="sec-head">
-      <p class="eyebrow reveal">Peças</p>
       <h2 class="h2 reveal">Catálogo</h2>
-      <p class="muted reveal">Escolha o tamanho, adicione ao carrinho e pague com Pix ou cartão em até 12x. Entrega para todo o Brasil.</p>
+      <p class="muted reveal">Escolha o tamanho, adicione ao carrinho e finalize com Pix ou cartão em até 12x.</p>
     </div>
     <div class="filters reveal" id="filters" role="tablist">
-      <button class="chip is-active" data-filter="todos" data-cursor>Todos</button>
-      <button class="chip" data-filter="polos" data-cursor>Polos</button>
-      <button class="chip" data-filter="camisetas" data-cursor>Camisetas</button>
-      <button class="chip" data-filter="conjuntos" data-cursor>Conjuntos</button>
-      <button class="chip" data-filter="bones" data-cursor>Bonés</button>
+      <button class="chip is-active" data-filter="todos">Todos</button>
+      <button class="chip" data-filter="polos">Polos</button>
+      <button class="chip" data-filter="camisetas">Camisetas</button>
+      <button class="chip" data-filter="conjuntos">Conjuntos</button>
+      <button class="chip" data-filter="bones">Bonés</button>
     </div>
     <div class="grid" id="grid"></div>
   </div>
 </section>
 
-<!-- LOOKBOOK parallax -->
-<section class="look">
-  <div class="look-row r1"><div class="look-track">
-    <img src="img/p44.jpg" alt=""><img src="img/p61.jpg" alt=""><img src="img/p69.jpg" alt=""><img src="img/p34.jpg" alt=""><img src="img/p7.jpg" alt=""><img src="img/p26.jpg" alt="">
-    <img src="img/p44.jpg" alt=""><img src="img/p61.jpg" alt=""><img src="img/p69.jpg" alt="">
-  </div></div>
-  <div class="look-row r2"><div class="look-track">
-    <img src="img/p54.jpg" alt=""><img src="img/p14.jpg" alt=""><img src="img/p36.jpg" alt=""><img src="img/p57.jpg" alt=""><img src="img/p20.jpg" alt=""><img src="img/p24.jpg" alt="">
-    <img src="img/p54.jpg" alt=""><img src="img/p14.jpg" alt=""><img src="img/p36.jpg" alt="">
-  </div></div>
+<section class="about" id="loja">
+  <div class="wrap about-grid">
+    <div class="about-text">
+      <h2 class="h2 reveal">A loja</h2>
+      <p class="reveal">A LS Conceito é uma loja de moda masculina de Viamão, no Rio Grande do Sul. Trabalhamos com tendências em vestuário masculino: polos, camisetas, conjuntos e bonés.</p>
+      <p class="muted reveal">Atendemos clientes de todo o Brasil, com envio pelos Correios e transportadoras e pagamento em até 12x no cartão.</p>
+      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="text-link reveal">Acompanhe as novidades no Instagram @ls_conceit0</a>
+    </div>
+    <dl class="about-facts reveal">
+      <div><dt>Localização</dt><dd>Viamão, RS</dd></div>
+      <div><dt>Entrega</dt><dd>Todo o Brasil</dd></div>
+      <div><dt>Pagamento</dt><dd>Pix, boleto e cartão em até 12x</dd></div>
+      <div><dt>Atendimento</dt><dd>WhatsApp e Instagram</dd></div>
+    </dl>
+  </div>
 </section>
 
-<!-- COMO COMPRAR -->
 <section class="steps" id="como-comprar">
   <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow reveal">Passo a passo</p>
-      <h2 class="h2 reveal">Como comprar</h2>
-    </div>
+    <div class="sec-head"><h2 class="h2 reveal">Como comprar</h2></div>
     <div class="steps-grid">
-      <div class="steps-line"><i id="stepsLine"></i></div>
-      <article class="step reveal"><span class="step-n">01</span><h3>Escolha a peça</h3><p>Navegue pelo catálogo, escolha o tamanho e adicione ao <b>carrinho</b>.</p></article>
-      <article class="step reveal"><span class="step-n">02</span><h3>Calcule o frete</h3><p>Informe o CEP no carrinho e veja o valor e o prazo de entrega na hora.</p></article>
-      <article class="step reveal"><span class="step-n">03</span><h3>Pague com segurança</h3><p>Pix ou cartão em até 12x, processado pelo Mercado Pago. Seus dados ficam protegidos.</p></article>
-      <article class="step reveal"><span class="step-n">04</span><h3>Acompanhe e receba</h3><p>Enviamos para todo o Brasil. Acompanhe o pedido pelo código de rastreio aqui no site.</p></article>
+      <article class="step reveal"><span class="step-n">1</span><h3>Escolha a peça</h3><p>Navegue pelo catálogo, escolha o tamanho e adicione ao carrinho.</p></article>
+      <article class="step reveal"><span class="step-n">2</span><h3>Calcule o frete</h3><p>Informe o CEP no carrinho e veja o valor e o prazo de entrega.</p></article>
+      <article class="step reveal"><span class="step-n">3</span><h3>Pague com segurança</h3><p>Pix, boleto ou cartão em até 12x, pelo Mercado Pago.</p></article>
+      <article class="step reveal"><span class="step-n">4</span><h3>Acompanhe a entrega</h3><p>Receba o código de rastreio e acompanhe o pedido aqui no site.</p></article>
     </div>
   </div>
 </section>
 
-<!-- RASTREIO -->
 <section class="track" id="rastreio">
   <div class="wrap track-in">
     <div>
-      <p class="eyebrow reveal">Pós-compra</p>
-      <h2 class="h2 reveal">Rastreie seu pedido</h2>
-      <p class="muted reveal">Digite o número do pedido e o e-mail usado na compra para ver o status e o código de rastreio.</p>
+      <h2 class="h2 reveal">Rastrear pedido</h2>
+      <p class="muted reveal">Informe o número do pedido e o e-mail usado na compra para ver o status e o código de rastreio.</p>
     </div>
     <form class="track-form reveal" id="trackForm">
       <input name="order" placeholder="Número do pedido (ex: LS-1A2B3C)" required autocomplete="off">
       <input name="email" type="email" placeholder="E-mail da compra" required>
-      <button class="btn btn-gold" type="submit" data-cursor><span>Rastrear</span></button>
+      <button class="btn btn-gold" type="submit"><span>Rastrear</span></button>
       <div class="track-result" id="trackResult" aria-live="polite"></div>
     </form>
   </div>
 </section>
 
-<!-- CONTATO / CTA -->
-<section class="cta" id="contato">
-  
-  <div class="wrap cta-inner">
-    <img class="cta-logo reveal" src="img/logo.jpg" alt="LS Conceito">
-    <h2 class="cta-title"><span class="line"><span class="line-in">Fale com</span></span> <span class="line"><span class="line-in gold-text">a loja</span></span></h2>
-    <p class="muted reveal">Dúvida de tamanho, modelo ou entrega? Chame no WhatsApp.</p>
-    <div class="cta-btns reveal">
-      <a href="#" class="btn btn-gold btn-lg js-whats" data-cursor ><span>Chamar no WhatsApp</span></a>
-      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" data-cursor ><span>@ls_conceit0</span></a>
+<section class="contact" id="contato">
+  <div class="wrap contact-in">
+    <div>
+      <h2 class="h2 reveal">Atendimento</h2>
+      <p class="muted reveal">Dúvida sobre tamanho, modelo ou entrega? Fale com a gente.</p>
     </div>
-    <a href="https://chat.whatsapp.com/FZYLKR5EVE41P5CLqemHZw?mode=wwt" target="_blank" rel="noopener" class="group-link reveal" data-cursor>Entre no nosso grupo de novidades →</a>
+    <div class="contact-btns reveal">
+      <a href="#" class="btn btn-gold js-whats"><span>Chamar no WhatsApp</span></a>
+      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="btn btn-ghost"><span>Instagram</span></a>
+      <a href="https://chat.whatsapp.com/FZYLKR5EVE41P5CLqemHZw?mode=wwt" target="_blank" rel="noopener" class="text-link">Grupo de novidades no WhatsApp</a>
+    </div>
   </div>
 </section>
 
@@ -224,13 +165,18 @@
 
 <footer class="footer">
   <div class="wrap footer-in">
-    <div class="brand"><img src="img/logo.jpg" alt=""><span class="brand-text">LS CONCEITO<small>Moda Masculina</small></span></div>
-    <p>Viamão · RS · Enviamos para todo o Brasil</p>
-    <p class="copy">© <span id="year"></span> LS Conceito. Todos os direitos reservados.</p>
+    <div class="foot-brand">
+      <div class="brand"><img src="img/logo.jpg" alt=""><span class="brand-text">LS CONCEITO<small>Moda masculina</small></span></div>
+      <p>Viamão, RS<br>Enviamos para todo o Brasil</p>
+    </div>
+    <div><h4>Categorias</h4><a href="#catalogo" data-filter="polos">Polos</a><a href="#catalogo" data-filter="camisetas">Camisetas</a><a href="#catalogo" data-filter="conjuntos">Conjuntos</a><a href="#catalogo" data-filter="bones">Bonés</a></div>
+    <div><h4>Ajuda</h4><a href="#como-comprar">Como comprar</a><a href="#rastreio">Rastrear pedido</a><a href="#contato">Atendimento</a></div>
+    <div><h4>Redes</h4><a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Instagram</a><a href="#" class="js-whats">WhatsApp</a></div>
   </div>
+  <div class="wrap copy">© <span id="year"></span> LS Conceito. Todos os direitos reservados.</div>
 </footer>
 
-<a href="#" class="float-whats js-whats" aria-label="Chamar no WhatsApp" data-cursor>
+<a href="#" class="float-whats js-whats" aria-label="Chamar no WhatsApp">
   <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.003 3C9.373 3 4 8.373 4 15c0 2.385.697 4.607 1.894 6.48L4 29l7.72-1.86A11.94 11.94 0 0 0 16.003 27C22.63 27 28 21.627 28 15S22.63 3 16.003 3zm0 21.8a9.77 9.77 0 0 1-5.05-1.4l-.36-.22-4.58 1.1 1.14-4.46-.24-.38A9.75 9.75 0 0 1 6.2 15c0-5.42 4.4-9.8 9.8-9.8 5.4 0 9.8 4.38 9.8 9.8s-4.4 9.8-9.8 9.8zm5.37-7.34c-.3-.15-1.74-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.08 1.74-.71 1.98-1.4.25-.7.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg>
 </a>
 
@@ -251,8 +197,8 @@
       <div class="sizes-label">Tamanho</div>
       <div class="sizes" id="mSizes"></div>
       <div class="modal-actions">
-        <button class="btn btn-gold" id="mAdd" data-cursor><span>Adicionar ao carrinho</span></button>
-        <a href="#" class="ask-link js-whats-prod" id="mBtn" target="_blank" rel="noopener" data-cursor>Tirar dúvida no WhatsApp</a>
+        <button class="btn btn-gold" id="mAdd"><span>Adicionar ao carrinho</span></button>
+        <a href="#" class="ask-link js-whats-prod" id="mBtn" target="_blank" rel="noopener">Tirar dúvida no WhatsApp</a>
       </div>
     </div>
   </div>
@@ -274,7 +220,7 @@
       <div class="sum"><span>Frete</span><b id="sumShip">-</b></div>
       <div class="sum total"><span>Total</span><b id="sumTotal">R$ 0,00</b></div>
       <small class="muted inst" id="sumInst"></small>
-      <button class="btn btn-gold btn-block" id="goCheckout" data-cursor><span>Finalizar compra</span></button>
+      <button class="btn btn-gold btn-block" id="goCheckout"><span>Finalizar compra</span></button>
     </footer>
   </aside>
 </div>
@@ -306,7 +252,7 @@
       <div class="sum"><span>Frete</span><b id="coShip"></b></div>
       <div class="sum total"><span>Total</span><b id="coTotal"></b></div>
       <p class="muted small">Você será levado ao ambiente seguro do Mercado Pago para pagar com Pix, cartão (até 12x) ou boleto.</p>
-      <button class="btn btn-gold btn-block" type="submit" id="coPay" data-cursor><span>Ir para o pagamento</span></button>
+      <button class="btn btn-gold btn-block" type="submit" id="coPay"><span>Ir para o pagamento</span></button>
       <p class="co-err" id="coErr" role="alert"></p>
     </div>
   </form>
