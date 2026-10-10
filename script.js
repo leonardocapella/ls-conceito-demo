@@ -235,13 +235,22 @@
   });
 
   /* CEP */
-  function maskCep(inp) { inp.addEventListener("input", function () { var v = inp.value.replace(/\D/g, "").slice(0, 8); inp.value = v.length > 5 ? v.slice(0, 5) + "-" + v.slice(5) : v; }); }
+  /* Máscara 00000-000; chama onFull() assim que o CEP está completo */
+  function maskCep(inp, onFull) {
+    inp.addEventListener("input", function () {
+      var v = inp.value.replace(/\D/g, "").slice(0, 8);
+      inp.value = v.length > 5 ? v.slice(0, 5) + "-" + v.slice(5) : v;
+      inp.classList.remove("bad");
+      if (v.length === 8 && onFull) onFull();
+    });
+  }
   function lookupCep(cep) {
     cep = cep.replace(/\D/g, "");
     if (cep.length !== 8) return Promise.reject(new Error("CEP inválido"));
     return fetch("https://viacep.com.br/ws/" + cep + "/json/").then(function (r) { return r.json(); }).then(function (d) { if (d.erro) throw new Error("CEP não encontrado"); return d; });
   }
-  maskCep($("#cepInput")); maskCep($('#checkoutForm [name="cep"]'));
+  maskCep($("#cepInput"), function () { calcShip(); });
+  maskCep($('#checkoutForm [name="cep"]'), function () { fillFromCep(); });
 
   /* Telefone: (51) 99999-9999 (celular) ou (51) 3333-4444 (fixo) */
   function fmtPhone(v) {
@@ -278,21 +287,48 @@
     if (!freteAtual()) { $("#cepMsg").textContent = "Calcule o frete para continuar"; $("#cepInput").focus(); return; }
     var f = freteAtual(), sub = subtotal();
     $("#coItems").innerHTML = cart.map(function (i) { var p = byId(i.id); return '<div class="co-item"><img src="' + img(p.imgs[0]) + '" alt=""><span>' + esc(p.name) + "<br><small class='muted'>Tam. " + esc(i.size) + " · " + i.qty + "x</small></span><b>" + brl(p.price * i.qty) + "</b></div>"; }).join("");
-    $("#coSub").textContent = brl(sub); $("#coShip").textContent = f.gratis ? "Grátis" : brl(f.valor); $("#coTotal").textContent = brl(sub + f.valor);
+    refreshCo();
     form.cep.value = ship.cep; form.uf.value = ship.uf; form.cidade.value = ship.cidade || ""; if (ship.rua && !form.rua.value) form.rua.value = ship.rua; if (ship.bairro && !form.bairro.value) form.bairro.value = ship.bairro;
     var saved = lsGet("ls_customer", {}); ["nome", "email", "whatsapp"].forEach(function (k) { if (saved[k] && !form[k].value) form[k].value = k === "whatsapp" ? fmtPhone(saved[k]) : saved[k]; });
     $("#coErr").textContent = "";
     closeCart(); setTimeout(function () { openLayer(checkout, form); }, 450);
     track("begin_checkout", { currency: "BRL", value: sub + f.valor, items: cart.map(function (i) { var p = byId(i.id); return { item_id: p.id, item_name: p.name, price: p.price, quantity: i.qty }; }) });
   });
-  form.cep.addEventListener("blur", function () {
-    lookupCep(form.cep.value).then(function (d) { form.rua.value = d.logradouro || form.rua.value; form.bairro.value = d.bairro || form.bairro.value; form.cidade.value = d.localidade; form.uf.value = d.uf; }).catch(function () {});
-  });
+  /* Resumo do checkout (recalculado se o CEP mudar) */
+  function refreshCo() {
+    var f = freteAtual(), sub = subtotal();
+    $("#coSub").textContent = brl(sub);
+    $("#coShip").textContent = f ? (f.gratis ? "Grátis" : brl(f.valor)) : "-";
+    $("#coTotal").textContent = brl(sub + (f ? f.valor : 0));
+  }
+  /* Ao completar o CEP no checkout, preenche o endereço e atualiza o frete */
+  var cepReq = 0;
+  function fillFromCep() {
+    var mine = ++cepReq, err = $("#coErr");
+    err.textContent = "Buscando endereço...";
+    lookupCep(form.cep.value).then(function (d) {
+      if (mine !== cepReq) return;
+      if (!STORE.frete(d.uf, 0)) throw new Error("Ainda não entregamos nessa região.");
+      form.rua.value = d.logradouro || ""; form.bairro.value = d.bairro || "";
+      form.cidade.value = d.localidade; form.uf.value = d.uf;
+      ship = { cep: form.cep.value, uf: d.uf, cidade: d.localidade, rua: d.logradouro, bairro: d.bairro };
+      lsSet("ls_ship", ship); $("#cepInput").value = ship.cep;
+      renderCart(); refreshCo(); err.textContent = "";
+      (d.logradouro ? form.numero : form.rua).focus();
+    }).catch(function (ex) {
+      if (mine !== cepReq) return;
+      form.cep.classList.add("bad"); err.textContent = ex.message === "Failed to fetch" ? "Não foi possível consultar o CEP agora. Preencha o endereço manualmente." : ex.message;
+    });
+  }
+  /* UF: só letras maiúsculas */
+  form.uf.addEventListener("input", function () { form.uf.value = form.uf.value.replace(/[^a-zA-Z]/g, "").toUpperCase().slice(0, 2); });
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     var err = $("#coErr"), bad = false;
     $$("input[required]", form).forEach(function (i) { var b = !i.value.trim(); i.classList.toggle("bad", b); if (b) bad = true; });
     if (bad) { err.textContent = "Preencha os campos destacados."; return; }
+    if (form.cep.value.replace(/\D/g, "").length !== 8) { err.textContent = "Informe o CEP completo (00000-000)."; form.cep.classList.add("bad"); form.cep.focus(); return; }
+    if (!STORE.frete(form.uf.value, 0)) { err.textContent = "Informe uma UF válida (ex.: RS)."; form.uf.classList.add("bad"); form.uf.focus(); return; }
     var digits = form.whatsapp.value.replace(/\D/g, "");
     if (digits.length < 10 || digits.length > 11 || /^(\d)\1+$/.test(digits) || +digits.slice(0, 2) < 11) { err.textContent = "Informe um telefone válido com DDD, ex.: (51) 99999-9999."; form.whatsapp.classList.add("bad"); form.whatsapp.focus(); return; }
     if (!/^\S+@\S+\.\S+$/.test(form.email.value)) { err.textContent = "E-mail inválido."; form.email.classList.add("bad"); return; }
