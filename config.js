@@ -5,9 +5,8 @@ window.LS_CONFIG = {
   loja: "",
   // Faixa de avisos no topo (troca sozinha). Edite os textos conforme as promoções ativas na Nuvemshop.
   avisos: [
-    "5% de desconto na primeira compra",
+    "Primeira compra com o cupom LSOFF10",
     "Frete grátis em compras acima de R$ 500",
-    "Parcele em até 12x no cartão",
     "Enviamos para todo o Brasil"
   ],
   // WhatsApp da loja: só números, com DDI+DDD. TROCAR pelo número real do cliente.

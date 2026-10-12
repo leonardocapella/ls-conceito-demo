@@ -307,3 +307,5 @@ body.is-loading{overflow:hidden}
 .size.is-active{background:var(--gold);color:#14110a;border-color:var(--gold)}
 .size.shake{animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+
+.perk .perk-code{font-size:clamp(1.3rem,2.2vw,1.8rem);letter-spacing:.02em;min-width:0}
