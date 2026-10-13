@@ -50,6 +50,7 @@
     { url: "", id: "bone-monograma", cat: "bones", name: "Boné Monograma Bege e Preto", imgs: [48], }
   ];
 
+  var CATS_PLURAL = { polos: "Polos", camisetas: "Camisetas", conjuntos: "Conjuntos", bones: "Bonés" };
   var CATS = { polos: "Polo", camisetas: "Camiseta", conjuntos: "Conjunto", bones: "Boné" };
 
   /* Marca de cada peça (id -> marca). Peças fora da lista entram em "Outras marcas".
@@ -94,7 +95,7 @@
   var BRAND_ORDER = ["Tommy Hilfiger", "Lacoste", "Nike", "Ralph Lauren", "Fred Perry", "EA7", "Emporio Armani", "Armani Exchange", "Syna World", "Corteiz", "Balmain", "Gucci", "Outras marcas"];
   P.forEach(function (p) { p.brand = BRANDS[p.id] || "Outras marcas"; });
 
-  var api = { PRODUCTS: P, CATS: CATS, BRANDS: BRAND_ORDER };
+  var api = { PRODUCTS: P, CATS: CATS, CATS_PLURAL: CATS_PLURAL, BRANDS: BRAND_ORDER };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LS_STORE = api;
 })(typeof window !== "undefined" ? window : globalThis);

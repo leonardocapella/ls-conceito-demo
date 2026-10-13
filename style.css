@@ -354,3 +354,9 @@ body.is-loading{overflow:hidden}
 .brand-filters .chip{font-size:.72rem;padding:7px 14px}
 .empty{padding:40px 0;text-align:center}
 @media (max-width:620px){.brand-filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}}
+
+/* grupos por categoria no catalogo */
+.grid-head{grid-column:1/-1;display:flex;align-items:baseline;justify-content:space-between;gap:16px;padding:18px 0 12px;border-bottom:1px solid var(--line);scroll-margin-top:140px}
+.grid-head:not(:first-child){margin-top:clamp(24px,4vw,48px)}
+.grid-head h3{font-family:var(--head);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.1rem)}
+.grid-count{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
