@@ -348,3 +348,9 @@ body.is-loading{overflow:hidden}
 .store{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;margin-top:clamp(40px,6vw,64px);padding:28px 32px;border:1px solid var(--line)}
 .store h3{font-family:var(--head);font-weight:400;font-size:clamp(1.4rem,2.4vw,1.9rem);margin:6px 0 8px}
 .store p{color:var(--muted);font-size:.95rem}
+
+/* filtro por marca */
+.brand-filters{display:flex;flex-wrap:wrap;gap:8px;margin:-8px 0 28px}
+.brand-filters .chip{font-size:.72rem;padding:7px 14px}
+.empty{padding:40px 0;text-align:center}
+@media (max-width:620px){.brand-filters{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}}
