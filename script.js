@@ -226,6 +226,14 @@
   $("#showTotal").textContent = "0" + FEATURED.length;
   stage.addEventListener("click", function (e) { var b = e.target.closest("[data-open]"); if (b) openProduct(b.dataset.open); });
 
+  /* ---------- Copiar cupom ---------- */
+  var cb = $("#couponBtn");
+  if (cb) cb.addEventListener("click", function () {
+    var h = $("#couponHint");
+    function ok() { h.textContent = "Copiado"; setTimeout(function () { h.textContent = "Copiar"; }, 2000); }
+    if (navigator.clipboard) navigator.clipboard.writeText("LSOFF10").then(ok, ok); else ok();
+  });
+
   /* ---------- Marca grande do rodapé (letras) ---------- */
   var fm = $("#footMark");
   fm.innerHTML = fm.textContent.split("").map(function (ch) { return '<span class="ch">' + (ch === " " ? "&nbsp;" : ch) + "</span>"; }).join("");
@@ -238,7 +246,7 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /* Estados iniciais do hero */
-  gsap.set(".kicker, .lead, .hero-cta", { opacity: 0, y: 20 });
+  gsap.set(".kicker, .lead, .hero-cta, .coupon, .seals", { opacity: 0, y: 20 });
   gsap.set(".hero .line-in", { yPercent: 110 });
   gsap.set(".hm", { clipPath: "inset(0 0 100% 0)" });
   gsap.set(".hero-lion", { opacity: 0, scale: 1.18, y: 30 });
@@ -249,7 +257,7 @@
       .to(".hero-lion", { opacity: .09, scale: 1, y: 0, duration: 1.8, ease: "power4.out" })
       .to(".kicker", { opacity: 1, y: 0, duration: .7 }, "-=1.4")
       .to(".hero .line-in", { yPercent: 0, duration: 1, stagger: .12, ease: "power4.out" }, "-=.4")
-      .to(".lead, .hero-cta", { opacity: 1, y: 0, duration: .8, stagger: .1 }, "-=.6")
+      .to(".lead, .hero-cta, .coupon, .seals", { opacity: 1, y: 0, duration: .8, stagger: .1 }, "-=.6")
       .to(".hm", { clipPath: "inset(0 0 0% 0)", duration: 1.3, stagger: .15, ease: "power4.out" }, "-=1.1")
       .from(".hm img", { scale: 1.3, duration: 1.7, stagger: .15 }, "<");
   }
