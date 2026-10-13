@@ -123,14 +123,14 @@
   var grid = $("#grid");
   PRODUCTS.forEach(function (p) {
     var el = document.createElement("article");
-    el.className = "card"; el.dataset.cat = p.cat; el.dataset.id = p.id;
+    el.className = "card"; el.dataset.cat = p.cat; el.dataset.brand = p.brand; el.dataset.id = p.id;
     el.innerHTML =
       '<button class="card-media" data-open="' + p.id + '" aria-label="Ver ' + esc(p.name) + '">' +
       (p.tag ? '<span class="card-tag">' + esc(p.tag) + "</span>" : "") +
       '<img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '" loading="lazy">' +
       (p.imgs[1] !== undefined ? '<img class="alt" src="' + img(p.imgs[1]) + '" alt="" loading="lazy">' : "") +
       '<span class="card-quick">Ver fotos</span></button>' +
-      '<div class="card-body"><span class="card-cat">' + STORE.CATS[p.cat] + "</span><h3>" + esc(p.name) + "</h3>" +
+      '<div class="card-body"><span class="card-cat">' + esc(p.brand) + " · " + STORE.CATS[p.cat] + "</span><h3>" + esc(p.name) + "</h3>" +
       '<button class="card-btn" data-open="' + p.id + '">Comprar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
     grid.appendChild(el);
   });
@@ -138,10 +138,22 @@
     var b = e.target.closest("[data-open]"); if (b) openProduct(b.dataset.open);
   });
 
-  function applyFilter(f) {
-    $$(".chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === f); });
+  /* Filtros combinados: categoria + marca */
+  var curCat = "todos", curBrand = "todas";
+  var brandBox = $("#brandFilters");
+  var brandsUsed = STORE.BRANDS.filter(function (b) { return PRODUCTS.some(function (p) { return p.brand === b; }); });
+  brandBox.innerHTML = '<button class="chip is-active" data-brand="todas">Todas as marcas</button>' +
+    brandsUsed.map(function (b) { return '<button class="chip" data-brand="' + esc(b) + '">' + esc(b) + "</button>"; }).join("");
+  function applyFilter(f, b) {
+    if (f !== undefined && f !== null) curCat = f;
+    if (b !== undefined && b !== null) curBrand = b;
+    $$("#filters .chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === curCat); });
+    $$("#brandFilters .chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.brand === curBrand); });
     var cards = $$(".card");
-    var show = cards.filter(function (c) { return f === "todos" || c.dataset.cat === f; });
+    var show = cards.filter(function (c) {
+      return (curCat === "todos" || c.dataset.cat === curCat) && (curBrand === "todas" || c.dataset.brand === curBrand);
+    });
+    $("#emptyMsg").hidden = show.length > 0;
     function swap() {
       cards.forEach(function (c) { c.style.display = show.indexOf(c) > -1 ? "" : "none"; });
       if (hasGsap) gsap.fromTo(show, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .55, stagger: .04, ease: "power3.out", overwrite: true, onComplete: function () { ScrollTrigger.refresh(); } });
@@ -149,9 +161,12 @@
     if (hasGsap) gsap.to(cards.filter(function (c) { return c.style.display !== "none"; }), { opacity: 0, y: 20, duration: .2, onComplete: swap }); else swap();
   }
   $("#filters").addEventListener("click", function (e) {
-    var c = e.target.closest(".chip"); if (c) applyFilter(c.dataset.filter);
+    var c = e.target.closest(".chip"); if (c) applyFilter(c.dataset.filter, null);
   });
-  $$("a[data-filter]").forEach(function (c) { c.addEventListener("click", function () { applyFilter(c.dataset.filter); }); });
+  brandBox.addEventListener("click", function (e) {
+    var c = e.target.closest(".chip"); if (c) applyFilter(null, c.dataset.brand);
+  });
+  $$("a[data-filter]").forEach(function (c) { c.addEventListener("click", function () { applyFilter(c.dataset.filter, "todas"); }); });
 
   /* ---------- Modal do produto ---------- */
   var modal = $("#modal"), cur = null, curSize = null;
@@ -181,7 +196,7 @@
     cur = byId(id);
     $("#mImg").src = img(cur.imgs[0]); $("#mImg").alt = cur.name;
     $("#mName").textContent = cur.name;
-    $("#mCat").textContent = STORE.CATS[cur.cat] + " · LS Conceito";
+    $("#mCat").textContent = cur.brand + " · " + STORE.CATS[cur.cat];
     $("#mThumbs").innerHTML = cur.imgs.length > 1 ? cur.imgs.map(function (n, i) { return '<button type="button" class="' + (i ? "" : "is-active") + '" data-src="' + img(n) + '"><img src="' + img(n) + '" alt=""></button>'; }).join("") : "";
     var sizes = sizesFor(cur); curSize = sizes.length === 1 ? sizes[0] : null;
     $("#mSizes").innerHTML = sizes.map(function (s) { return '<button type="button" class="size' + (s === curSize ? " is-active" : "") + '" data-size="' + esc(s) + '">' + esc(s) + "</button>"; }).join("");

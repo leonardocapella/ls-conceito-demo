@@ -52,7 +52,43 @@
 
   var CATS = { polos: "Polo", camisetas: "Camiseta", conjuntos: "Conjunto", bones: "Boné" };
 
-  var api = { PRODUCTS: P, CATS: CATS };
+  /* Marca de cada peça (id -> marca). Peças fora da lista entram em "Outras marcas".
+     Para trocar a marca de uma peça, edite aqui. */
+  var BRANDS = {
+    "polo-bloco-azul-gelo": "Tommy Hilfiger",
+    "polo-offwhite-lettering": "Tommy Hilfiger",
+    "polo-azul-ceu-faixa-preta": "Tommy Hilfiger",
+    "polo-marinho-tricolor": "Tommy Hilfiger",
+    "polo-preto-faixa-vermelha": "Tommy Hilfiger",
+    "polo-preto-listra": "Tommy Hilfiger",
+    "polo-classico-branco": "Tommy Hilfiger",
+    "camiseta-preta-fita-lateral": "Tommy Hilfiger",
+    "camiseta-preta-minimal": "Tommy Hilfiger",
+    "camiseta-cinza-gelo": "Tommy Hilfiger",
+    "camiseta-marinho-gola": "Tommy Hilfiger",
+    "polo-preto-faixa-azul": "Ralph Lauren",
+    "polo-branco-neon": "Lacoste",
+    "polo-marinho-neon": "Lacoste",
+    "polo-verde-monograma": "Lacoste",
+    "polo-verde-torneio": "Lacoste",
+    "polo-marinho-digital": "Lacoste",
+    "polo-preto-atleta": "Lacoste",
+    "camiseta-jacare-lateral": "Lacoste",
+    "conjunto-polo-bermuda": "Lacoste",
+    "camiseta-preta-logo-coral": "Nike",
+    "camiseta-swoosh-gigante": "Nike",
+    "bone-preto-aba-curva": "Nike",
+    "camiseta-preta-faixa-central": "Fred Perry",
+    "camiseta-fita-italia": "EA7",
+    "camiseta-offwhite-grafica": "Emporio Armani",
+    "camiseta-grafite-turquesa": "Syna World",
+    "conjunto-preto-laranja": "Syna World",
+    "bone-monograma": "Gucci"
+  };
+  var BRAND_ORDER = ["Tommy Hilfiger", "Lacoste", "Nike", "Ralph Lauren", "Fred Perry", "EA7", "Emporio Armani", "Syna World", "Gucci", "Outras marcas"];
+  P.forEach(function (p) { p.brand = BRANDS[p.id] || "Outras marcas"; });
+
+  var api = { PRODUCTS: P, CATS: CATS, BRANDS: BRAND_ORDER };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LS_STORE = api;
 })(typeof window !== "undefined" ? window : globalThis);
