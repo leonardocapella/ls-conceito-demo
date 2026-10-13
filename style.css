@@ -360,3 +360,5 @@ body.is-loading{overflow:hidden}
 .grid-head:not(:first-child){margin-top:clamp(24px,4vw,48px)}
 .grid-head h3{font-family:var(--head);font-weight:400;font-size:clamp(1.5rem,2.6vw,2.1rem)}
 .grid-count{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+
+.chip[hidden]{display:none}

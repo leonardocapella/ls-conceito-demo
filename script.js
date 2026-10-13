@@ -155,6 +155,14 @@
   function applyFilter(f, b) {
     if (f !== undefined && f !== null) curCat = f;
     if (b !== undefined && b !== null) curBrand = b;
+    function has(cat, brand) {
+      return PRODUCTS.some(function (p) { return (cat === "todos" || p.cat === cat) && (brand === "todas" || p.brand === brand); });
+    }
+    /* se a combinação não existe, o filtro que acabou de ser escolhido vence e o outro volta para "todos" */
+    if (!has(curCat, curBrand)) { if (b !== undefined && b !== null && (f === undefined || f === null)) curCat = "todos"; else curBrand = "todas"; }
+    /* mostra só as opções que têm peça na seleção atual */
+    $$("#filters .chip").forEach(function (c) { c.hidden = !has(c.dataset.filter, curBrand); });
+    $$("#brandFilters .chip").forEach(function (c) { c.hidden = !has(curCat, c.dataset.brand); });
     $$("#filters .chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === curCat); });
     $$("#brandFilters .chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.brand === curBrand); });
     var cards = $$(".card");
