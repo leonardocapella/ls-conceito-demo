@@ -219,7 +219,7 @@
     s.className = "slide";
     s.innerHTML = '<div class="slide-img"><img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '"></div>' +
       '<div class="slide-info"><span class="slide-no">0' + (k + 1) + '</span><span class="tag">' + STORE.CATS[p.cat] + '</span><h3>' + esc(p.name) + '</h3>' +
-      '<p>Escolha o tamanho e finalize a compra na nossa loja online, com frete pelo CEP e parcelamento em até 12x.</p>' +
+      '<p>Escolha o tamanho e finalize a compra na nossa loja online, com frete pelo CEP.</p>' +
       '<div class="slide-actions"><button class="btn btn-gold" data-open="' + p.id + '"><span>Comprar</span></button></div></div>';
     stage.appendChild(s);
   });
@@ -241,11 +241,13 @@
   gsap.set(".kicker, .lead, .hero-cta", { opacity: 0, y: 20 });
   gsap.set(".hero .line-in", { yPercent: 110 });
   gsap.set(".hm", { clipPath: "inset(0 0 100% 0)" });
+  gsap.set(".hero-lion", { opacity: 0, scale: 1.18, y: 30 });
 
   function intro() {
     document.body.classList.remove("is-loading");
     gsap.timeline({ defaults: { ease: "power3.out" } })
-      .to(".kicker", { opacity: 1, y: 0, duration: .7 })
+      .to(".hero-lion", { opacity: .09, scale: 1, y: 0, duration: 1.8, ease: "power4.out" })
+      .to(".kicker", { opacity: 1, y: 0, duration: .7 }, "-=1.4")
       .to(".hero .line-in", { yPercent: 0, duration: 1, stagger: .12, ease: "power4.out" }, "-=.4")
       .to(".lead, .hero-cta", { opacity: 1, y: 0, duration: .8, stagger: .1 }, "-=.6")
       .to(".hm", { clipPath: "inset(0 0 0% 0)", duration: 1.3, stagger: .15, ease: "power4.out" }, "-=1.1")
@@ -265,6 +267,7 @@
 
   /* Parallax do hero */
   gsap.to(".hm img", { yPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
+  gsap.to(".hero-lion", { y: 90, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   gsap.to(".hm2", { y: -34, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   gsap.to(".hero-text", { y: -40, opacity: .4, ease: "none", scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: true } });
 
