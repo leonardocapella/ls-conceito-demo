@@ -9,8 +9,8 @@ window.LS_CONFIG = {
     "Frete grátis em compras acima de R$ 500",
     "Enviamos para todo o Brasil"
   ],
-  // WhatsApp da loja: só números, com DDI+DDD. TROCAR pelo número real do cliente.
-  whatsapp: "5551999999999",
+  // WhatsApp da loja: só números, com DDI+DDD. Número real do cliente.
+  whatsapp: "555196717632",
   // IDs de rastreamento. Deixe vazio para desativar.
   ga4: "",        // ex: "G-XXXXXXXXXX"
   metaPixel: "",  // ex: "1234567890"
