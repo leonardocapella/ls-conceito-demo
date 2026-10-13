@@ -121,7 +121,15 @@
 
   /* ---------- Catálogo ---------- */
   var grid = $("#grid");
+  var lastCat = null;
   PRODUCTS.forEach(function (p) {
+    if (p.cat !== lastCat) {
+      lastCat = p.cat;
+      var hd = document.createElement("div");
+      hd.className = "grid-head"; hd.dataset.cat = p.cat; hd.id = "cat-" + p.cat;
+      hd.innerHTML = '<h3>' + STORE.CATS_PLURAL[p.cat] + '</h3><span class="grid-count"></span>';
+      grid.appendChild(hd);
+    }
     var el = document.createElement("article");
     el.className = "card"; el.dataset.cat = p.cat; el.dataset.brand = p.brand; el.dataset.id = p.id;
     el.innerHTML =
@@ -154,6 +162,11 @@
       return (curCat === "todos" || c.dataset.cat === curCat) && (curBrand === "todas" || c.dataset.brand === curBrand);
     });
     $("#emptyMsg").hidden = show.length > 0;
+    $$(".grid-head").forEach(function (h) {
+      var n = show.filter(function (c) { return c.dataset.cat === h.dataset.cat; }).length;
+      h.style.display = n ? "" : "none";
+      h.querySelector(".grid-count").textContent = n + (n === 1 ? " peça" : " peças");
+    });
     function swap() {
       cards.forEach(function (c) { c.style.display = show.indexOf(c) > -1 ? "" : "none"; });
       if (hasGsap) gsap.fromTo(show, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .55, stagger: .04, ease: "power3.out", overwrite: true, onComplete: function () { ScrollTrigger.refresh(); } });
