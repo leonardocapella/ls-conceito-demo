@@ -55,6 +55,12 @@
   /* Marca de cada peça (id -> marca). Peças fora da lista entram em "Outras marcas".
      Para trocar a marca de uma peça, edite aqui. */
   var BRANDS = {
+    "camiseta-dragao-vermelho": "Nike",
+    "camiseta-preta-linha-lateral": "Armani Exchange",
+    "camiseta-script-vermelho": "Corteiz",
+    "camiseta-ilustracao-pop": "Nike",
+    "conjunto-preto-rosa": "Balmain",
+    "bone-aba-curva-trio": "Tommy Hilfiger",
     "polo-bloco-azul-gelo": "Tommy Hilfiger",
     "polo-offwhite-lettering": "Tommy Hilfiger",
     "polo-azul-ceu-faixa-preta": "Tommy Hilfiger",
@@ -85,7 +91,7 @@
     "conjunto-preto-laranja": "Syna World",
     "bone-monograma": "Gucci"
   };
-  var BRAND_ORDER = ["Tommy Hilfiger", "Lacoste", "Nike", "Ralph Lauren", "Fred Perry", "EA7", "Emporio Armani", "Syna World", "Gucci", "Outras marcas"];
+  var BRAND_ORDER = ["Tommy Hilfiger", "Lacoste", "Nike", "Ralph Lauren", "Fred Perry", "EA7", "Emporio Armani", "Armani Exchange", "Syna World", "Corteiz", "Balmain", "Gucci", "Outras marcas"];
   P.forEach(function (p) { p.brand = BRANDS[p.id] || "Outras marcas"; });
 
   var api = { PRODUCTS: P, CATS: CATS, BRANDS: BRAND_ORDER };
