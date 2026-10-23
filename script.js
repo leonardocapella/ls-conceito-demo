@@ -196,9 +196,14 @@
     $$("[data-brand-pick]").forEach(function (c) { c.classList.toggle("is-active", c.dataset.brandPick === state.brand); });
     $$("a[data-filter]").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === state.cat && state.cat !== "todos"); });
   }
+  function filtering() {
+    return state.cat !== "todos" || state.brand !== "todas" || state.size !== "todos" || state.sort !== "default";
+  }
   function renderCatalog() {
     var list = PRODUCTS.filter(match).sort(compare);
     grid.innerHTML = list.map(function (p) { return cardHtml(p, false); }).join("");
+    var launchBlock = $("#lancamentos");
+    if (launchBlock) launchBlock.hidden = filtering();
     var empty = $("#emptyMsg");
     if (empty) empty.hidden = list.length > 0;
     var count = $("#resultCount");

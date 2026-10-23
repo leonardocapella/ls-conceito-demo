@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261023a">
+<link rel="stylesheet" href="style.css?v=20261023b">
 </head>
 <body class="is-loading">
 
@@ -77,25 +77,11 @@
   </div>
 </section>
 
-<section class="section launch" id="lancamentos">
+<section class="section shop" id="catalogo">
   <div class="wrap">
-    <h2>Lançamentos</h2>
-    <div class="grid" id="launchGrid"></div>
-  </div>
-</section>
-
-<section class="section brands" id="marcas">
-  <div class="wrap">
-    <h2>Compre por marca</h2>
-    <div class="brand-tiles" id="brandsRow"></div>
-  </div>
-</section>
-
-<section class="section catalog" id="catalogo">
-  <div class="wrap">
-    <div class="sec-head">
-      <h2>Catálogo</h2>
-      <p class="result-count" id="resultCount"></p>
+    <div class="brands" id="marcas">
+      <h2>Compre por marca</h2>
+      <div class="brand-tiles" id="brandsRow"></div>
     </div>
     <div class="filter-bar">
       <div class="filters" id="filters" aria-label="Categoria">
@@ -123,6 +109,14 @@
     </div>
     <div class="filters brand-filters" id="brandFilters" aria-label="Marca"></div>
     <p class="empty" id="emptyMsg" hidden>Nenhuma peça com esses filtros.</p>
+    <div id="lancamentos">
+      <h2>Lançamentos</h2>
+      <div class="grid" id="launchGrid"></div>
+    </div>
+    <div class="sec-head catalog-head">
+      <h2>Catálogo</h2>
+      <p class="result-count" id="resultCount"></p>
+    </div>
     <div class="grid" id="grid"></div>
   </div>
 </section>
@@ -206,9 +200,9 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261023a"></script>
-<script src="products.js?v=20261023a"></script>
-<script src="prices.js?v=20261023a"></script>
-<script src="script.js?v=20261023a"></script>
+<script src="config.js?v=20261023b"></script>
+<script src="products.js?v=20261023b"></script>
+<script src="prices.js?v=20261023b"></script>
+<script src="script.js?v=20261023b"></script>
 </body>
 </html>
