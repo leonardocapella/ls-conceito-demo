@@ -1,11 +1,13 @@
-/* Preços da vitrine (opcional). O preço oficial fica na Nuvemshop; aqui é só para exibir nos cards.
-   Enquanto este arquivo estiver vazio, os cards NÃO mostram valor.
-   Use o "id" da peça (veja products.js) como chave. Campos:
-     preco:      preço de venda, em número. Ex.: 189.9
-     precoAntigo: preço "de" (riscado), opcional. Com ele o card mostra o % OFF calculado.
-     parcelas:   número de parcelas, opcional. Ex.: 3  ->  "ou 3x de R$ 63,30"
-   Exemplo:
-     "polo-bloco-azul-gelo": { preco: 189.9, precoAntigo: 239.9, parcelas: 3 },
-*/
+/* Preços da vitrine.
+   Não invente valores. Sem entrada em LS_PRICES, o card usa LS_PRICE_PLACEHOLDER
+   (texto, sem número). Quando houver preço real:
+     "id-da-peca": { preco: 189.9, precoAntigo: 239.9, parcelas: 12 }
+   precoAntigo maior que preco mostra o riscado e o % OFF.
+   parcelas > 1 mostra "Nx de R$ …". */
+window.LS_PRICE_PLACEHOLDER = {
+  placeholder: true,
+  label: "Preço a confirmar",
+  parcelasLabel: "Parcelamento a confirmar"
+};
 window.LS_PRICES = {
 };

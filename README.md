@@ -1,23 +1,21 @@
 # LS Conceito: vitrine
 
-Site estático (HTML/CSS/JS + GSAP). A **compra acontece na loja online (Nuvemshop)**: carrinho,
-pagamento, frete, estoque e rastreio ficam por lá.
+Site estático (HTML/CSS/JS). A vitrine lista as peças e a compra segue pelo WhatsApp, já com o nome do produto e o tamanho escolhido.
 
 ## Configurar (config.js)
-- `loja`: endereço da loja na Nuvemshop (ex.: `https://lsconceito.lojavirtualnuvem.com.br`)
 - `whatsapp`: número da loja (DDI+DDD+número)
+- `avisos`: textos da faixa do topo
+- `lancamentos`: ids que aparecem na grade de lançamentos
 - `ga4`, `metaPixel`, `gtm`: IDs de rastreamento (opcional)
-
-- `avisos`: textos da faixa do topo (edite conforme as promoções ativas na Nuvemshop)
+- `loja`: endereço na Nuvemshop, reservado para quando o carrinho online existir
 
 ## Produtos (products.js)
-Cada peça tem nome, categoria e fotos. Para a compra funcionar de ponta a ponta:
-- `variants`: ID da variação (tamanho) de cada peça na Nuvemshop, ex. `{ P: "123", M: "124" }`.
-  O botão Comprar abre `loja/comprar/ID-1/`, que coloca o tamanho escolhido no carrinho da loja.
-- `url`: página do produto (usado se não houver variação). Sem nada, abre o endereço da loja.
+Cada peça tem nome, categoria, marca e fotos. O card mostra `Marca – Nome`.
 
-Promoções (5% na primeira compra, frete grátis acima de R$ 500) e o pagamento são configurados na Nuvemshop;
-o site só divulga.
+Tamanhos: se a peça não tiver `sizes`, entra a grade placeholder (`P M G GG`; bonés `Único`), marcada com `sizesPlaceholder`. Não é medida conferida peça a peça.
+
+## Preços (prices.js)
+Sem entrada em `LS_PRICES`, o card mostra o placeholder "Preço a confirmar" e não inventa valor. Com `preco`, `precoAntigo` e `parcelas` o card mostra o riscado, o % OFF e a linha de parcelas.
 
 ## Publicar
-É um site estático: qualquer hospedagem serve (GitHub Pages, Vercel, Netlify, hospedagem comum).
+Site estático. O GitHub Pages publica a branch `main`.
