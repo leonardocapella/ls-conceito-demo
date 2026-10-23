@@ -1,15 +1,21 @@
 // Configurações públicas do site
 window.LS_CONFIG = {
-  // Endereço da loja online na Nuvemshop. Ex.: "https://lsconceito.lojavirtualnuvem.com.br"
-  // Os botões "Comprar" levam para cá (ou para o link de cada produto em products.js).
+  // Endereço da loja online na Nuvemshop, se passar a existir.
   loja: "",
-  // Barra de promoções no topo (troca sozinha). Edite, apague ou acrescente linhas à vontade.
+  // Barra de promoções no topo (troca sozinha).
   avisos: [
     "Na primeira compra, use o cupom LSOFF10 e ganhe 10% OFF",
     "Frete grátis nas compras acima de R$ 500,00",
     "Envio para todo o Brasil, compre sem sair de casa"
   ],
-  // Peças de "Nossos lançamentos" (ids de products.js, na ordem em que aparecem).
+  // Banners da home (troca sozinha). title aceita <em> para o trecho em itálico.
+  // filter abre o catálogo já filtrado por categoria.
+  banners: [
+    { eyebrow: "Moda masculina · Viamão, RS", title: "Presença sem <em>excesso.</em>", text: "Polos, camisetas, conjuntos e bonés, com envio para todo o Brasil.", cta: "Ver lançamentos", href: "#lancamentos", img: "img/p66.jpg", alt: "Polo azul céu com faixa preta" },
+    { eyebrow: "Primeira compra", title: "10% OFF com o cupom <em>LSOFF10.</em>", text: "Use o cupom na primeira compra e vista a LS Conceito.", cta: "Ver camisetas", href: "#catalogo", filter: "camisetas", img: "img/p44.jpg", alt: "Camiseta Dragão Vermelho" },
+    { eyebrow: "Envio para todo o Brasil", title: "Frete grátis acima de <em>R$ 500.</em>", text: "Monte o look completo e receba em casa.", cta: "Ver conjuntos", href: "#catalogo", filter: "conjuntos", img: "img/p29.jpg", alt: "Conjunto masculino" }
+  ],
+  // Peças de "Lançamentos" (ids de products.js, na ordem em que aparecem).
   lancamentos: [
     "polo-bloco-azul-gelo",
     "camiseta-dragao-vermelho",
@@ -20,20 +26,12 @@ window.LS_CONFIG = {
     "polo-verde-monograma",
     "camiseta-preta-logo-coral"
   ],
-  // Faixa de marcas (texto). Troque pelos nomes reais.
-  marcas: ["Marca 01", "Marca 02", "Marca 03", "Marca 04", "Marca 05", "Marca 06"],
-  // "Quem já comprou": avaliações de EXEMPLO. Troque pelos depoimentos reais dos clientes.
-  avaliacoes: [
-    { nome: "Cliente Exemplo 1", texto: "Comentário de exemplo: peça com ótimo caimento e acabamento, chegou rápido." },
-    { nome: "Cliente Exemplo 2", texto: "Comentário de exemplo: atendimento atencioso e a roupa é exatamente como nas fotos." },
-    { nome: "Cliente Exemplo 3", texto: "Comentário de exemplo: tecido de qualidade, já quero comprar de novo." }
-  ],
   // Instagram da loja (sem @).
   instagram: "ls_conceit0",
-  // WhatsApp da loja: só números, com DDI+DDD. Número real do cliente.
+  // WhatsApp da loja: só números, com DDI+DDD.
   whatsapp: "555196717632",
   // IDs de rastreamento. Deixe vazio para desativar.
-  ga4: "",        // ex: "G-XXXXXXXXXX"
-  metaPixel: "",  // ex: "1234567890"
-  gtm: ""         // ex: "GTM-XXXXXXX"
+  ga4: "",
+  metaPixel: "",
+  gtm: ""
 };
