@@ -13,18 +13,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261023b">
+<link rel="stylesheet" href="style.css?v=20261023c">
 </head>
-<body class="is-loading">
+<body>
 
-<div class="pre" id="pre" aria-hidden="true">
-  <div class="pre-in">
-    <img class="pre-logo" src="img/logo-full.png" alt="">
-    <div class="pre-bar"><i></i></div>
-  </div>
-</div>
-
-<div class="topbar" role="status"><span class="topbar-msg" id="topbarMsg">Enviamos para todo o Brasil</span></div>
+<div class="topbar" role="status" aria-label="Avisos da loja"><div class="marquee" id="topbarMarquee"></div></div>
 
 <header class="header" id="header">
   <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/logo-mark.png" alt=""><span class="brand-word">LS Conceito</span></a>
@@ -45,45 +38,41 @@
   </nav>
   <div class="head-actions">
     <a href="#" class="btn btn-gold btn-sm head-whats js-whats">WhatsApp</a>
+    <button class="cart-btn" id="cartBtn" type="button" data-cart-open aria-label="Abrir carrinho, 0 itens">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="cart-count" id="cartCount" aria-hidden="true">0</span>
+    </button>
     <button class="burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
   </div>
 </header>
 
 <main id="topo">
 
-<section class="banner" id="hero" aria-label="Destaque">
-  <div class="wrap banner-grid">
-    <div class="banner-text">
-      <p class="eyebrow">Moda masculina · Viamão, RS</p>
-      <h1>Presença sem <em>excesso.</em></h1>
-      <p class="lead">Polos, camisetas, conjuntos e bonés, com envio para todo o Brasil.</p>
-      <a href="#lancamentos" class="btn btn-gold">Ver lançamentos</a>
-    </div>
-    <figure class="banner-media">
-      <img src="img/p66.jpg" alt="Polo azul céu com faixa preta">
-    </figure>
-  </div>
+<section class="hero" id="hero" aria-roledescription="carrossel" aria-label="Destaques">
+  <div class="slides" id="slides"></div>
+  <div class="wrap hero-ctrl"><div class="dots" id="heroDots" role="tablist" aria-label="Escolher destaque"></div></div>
 </section>
 
 <section class="section cats" id="categorias">
   <div class="wrap">
-    <h2>Compre por categoria</h2>
+    <div class="sec-head rv"><h2>Compre por categoria</h2></div>
     <div class="cats-row">
-      <a href="#catalogo" class="cat-tile" data-filter="polos"><span class="cat-img"><img src="img/p66.jpg" alt=""></span><span class="cat-label">Polos</span></a>
-      <a href="#catalogo" class="cat-tile" data-filter="camisetas"><span class="cat-img"><img src="img/p44.jpg" alt=""></span><span class="cat-label">Camisetas</span></a>
-      <a href="#catalogo" class="cat-tile" data-filter="conjuntos"><span class="cat-img"><img src="img/p29.jpg" alt=""></span><span class="cat-label">Conjuntos</span></a>
-      <a href="#catalogo" class="cat-tile" data-filter="bones"><span class="cat-img"><img src="img/p48.jpg" alt=""></span><span class="cat-label">Bonés</span></a>
+      <a href="#catalogo" class="cat-tile rv" data-filter="polos" style="--d:0ms"><img src="img/p66.jpg" alt="" loading="lazy"><span class="cat-label">Polos</span></a>
+      <a href="#catalogo" class="cat-tile rv" data-filter="camisetas" style="--d:70ms"><img src="img/p44.jpg" alt="" loading="lazy"><span class="cat-label">Camisetas</span></a>
+      <a href="#catalogo" class="cat-tile rv" data-filter="conjuntos" style="--d:140ms"><img src="img/p29.jpg" alt="" loading="lazy"><span class="cat-label">Conjuntos</span></a>
+      <a href="#catalogo" class="cat-tile rv" data-filter="bones" style="--d:210ms"><img src="img/p48.jpg" alt="" loading="lazy"><span class="cat-label">Bonés</span></a>
     </div>
   </div>
 </section>
 
+<section class="brands" id="marcas" aria-label="Compre por marca">
+  <div class="wrap sec-head rv"><h2>Compre por marca</h2></div>
+  <div class="brand-strip"><div class="marquee" id="brandsMarquee"></div></div>
+</section>
+
 <section class="section shop" id="catalogo">
   <div class="wrap">
-    <div class="brands" id="marcas">
-      <h2>Compre por marca</h2>
-      <div class="brand-tiles" id="brandsRow"></div>
-    </div>
-    <div class="filter-bar">
+    <div class="filter-bar rv">
       <div class="filters" id="filters" aria-label="Categoria">
         <button class="chip is-active" type="button" data-filter="todos">Todos</button>
         <button class="chip" type="button" data-filter="polos">Polos</button>
@@ -110,10 +99,10 @@
     <div class="filters brand-filters" id="brandFilters" aria-label="Marca"></div>
     <p class="empty" id="emptyMsg" hidden>Nenhuma peça com esses filtros.</p>
     <div id="lancamentos">
-      <h2>Lançamentos</h2>
+      <div class="sec-head rv"><h2>Lançamentos</h2></div>
       <div class="grid" id="launchGrid"></div>
     </div>
-    <div class="sec-head catalog-head">
+    <div class="sec-head catalog-head rv">
       <h2>Catálogo</h2>
       <p class="result-count" id="resultCount"></p>
     </div>
@@ -125,18 +114,18 @@
 
 <footer class="footer" id="contato">
   <div class="wrap foot-info">
-    <div>
+    <div class="rv">
       <h2>Autoridade com elegância.</h2>
       <p>A LS Conceito veste o homem que decide com segurança. Caimento, acabamento e personalidade forte, sem ruído visual.</p>
       <p class="muted">Loja de moda masculina em Viamão, no Rio Grande do Sul. Atendemos todo o Brasil.</p>
       <p class="store-address">Avenida Senador Salgado Filho, 9900<br>Centro, Viamão - RS</p>
     </div>
-    <div id="como-comprar">
+    <div id="como-comprar" class="rv" style="--d:90ms">
       <h2>Como comprar</h2>
       <ol class="buy-steps">
         <li>Escolha a peça e o tamanho.</li>
-        <li>Toque em Comprar pelo WhatsApp.</li>
-        <li>Combine o pagamento com a loja.</li>
+        <li>Adicione ao carrinho ou chame no WhatsApp.</li>
+        <li>Finalize na loja online ou combine com a loja.</li>
         <li>Receba em casa. Enviamos para todo o Brasil.</li>
       </ol>
     </div>
@@ -193,16 +182,38 @@
       <p class="installments" id="mInst"></p>
       <div class="sizes-label">Tamanho</div>
       <div class="sizes" id="mSizes"></div>
-      <a href="#" class="btn btn-gold" id="mBuy">Comprar pelo WhatsApp</a>
+      <button type="button" class="btn btn-gold" id="mAdd">Adicionar ao carrinho</button>
+      <a href="#" class="btn btn-ghost" id="mBuy">Comprar pelo WhatsApp</a>
     </div>
   </div>
 </div>
 
+<div class="drawer-bg" id="drawerBg" data-cart-close></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" aria-hidden="true">
+  <div class="drawer-head">
+    <h2 id="drawerTitle">Seu carrinho</h2>
+    <button class="modal-x drawer-x" type="button" data-cart-close aria-label="Fechar carrinho">✕</button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot">
+    <div class="sum"><span>Subtotal</span><b id="cartSum">—</b></div>
+    <p class="sum-note" id="cartNote"></p>
+    <button type="button" class="btn btn-gold btn-block" id="checkoutBtn">Finalizar compra</button>
+    <a href="#" class="btn btn-ghost btn-block" id="cartWa" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+  </div>
+  <div class="notice" id="notice" role="alertdialog" aria-labelledby="noticeTitle" aria-describedby="noticeText" aria-hidden="true">
+    <p class="eyebrow">Quase lá</p>
+    <h3 id="noticeTitle">O checkout acontece na loja online</h3>
+    <p id="noticeText">O pagamento, o frete e o rastreio rodam na loja da LS Conceito na Nuvemshop. Esta página é a vitrine: ela guarda o seu carrinho, e a loja conclui o pedido com segurança.</p>
+    <button type="button" class="btn btn-gold btn-block" id="noticeOk">Entendi</button>
+  </div>
+</aside>
+
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261023b"></script>
-<script src="products.js?v=20261023b"></script>
-<script src="prices.js?v=20261023b"></script>
-<script src="script.js?v=20261023b"></script>
+<script src="config.js?v=20261023c"></script>
+<script src="products.js?v=20261023c"></script>
+<script src="prices.js?v=20261023c"></script>
+<script src="script.js?v=20261023c"></script>
 </body>
 </html>
