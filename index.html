@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LS Conceito | Moda Masculina em Viamão - RS</title>
 <meta name="description" content="LS Conceito: polos, camisetas, conjuntos e bonés masculinos. Enviamos para todo o Brasil e parcelamos em até 12x.">
-<meta name="theme-color" content="#0B0B0B">
+<meta name="theme-color" content="#F6F2EA">
 <link rel="icon" type="image/png" href="favicon.png">
 <meta property="og:title" content="LS Conceito | Moda masculina em Viamão - RS">
 <meta property="og:description" content="Polos, camisetas, conjuntos e bonés. Enviamos para todo o Brasil e parcelamos em até 12x.">
@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261013f">
+<link rel="stylesheet" href="style.css?v=20261020a">
 </head>
 <body class="is-loading">
 
@@ -30,8 +30,7 @@
 <header class="header" id="header">
   <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/logo-mark.png" alt=""><span class="brand-word">LS Conceito</span></a>
   <nav class="nav" id="nav">
-    <a href="#categorias">Categorias</a>
-    <a href="#destaques">Mais vendidos</a>
+    <a href="#lancamentos">Lançamentos</a>
     <a href="#catalogo">Catálogo</a>
     <a href="#loja">A loja</a>
     <a href="#como-comprar">Como comprar</a>
@@ -45,8 +44,10 @@
   <div class="progress" id="progress"></div>
 </header>
 
+
 <main id="topo">
 
+<!-- 2. Hero -->
 <section class="hero dark" id="hero">
   <div class="hero-bg"></div>
   <img class="hero-lion" src="img/logo-mark.png" alt="" aria-hidden="true">
@@ -59,17 +60,11 @@
       </h1>
       <p class="lead">Peças feitas para quem já sabe o que quer. Polos, camisetas, conjuntos e bonés, com envio para todo o Brasil.</p>
       <div class="hero-cta">
-        <a href="#catalogo" class="btn btn-gold"><span>Ver coleção</span></a>
-        <a href="#" class="text-link js-whats">Dúvidas? Chame no WhatsApp</a>
+        <a href="#lancamentos" class="btn btn-gold"><span>Ver lançamentos</span></a>
       </div>
-      <button type="button" class="coupon" id="couponBtn" aria-label="Copiar cupom LSOFF10">
-        <span class="coupon-t"><b>10% off</b> na primeira compra</span>
-        <span class="coupon-c"><code>LSOFF10</code><i id="couponHint">Copiar</i></span>
-      </button>
       <ul class="seals">
-        <li>Compra segura</li>
-        <li>Envio para todo o Brasil</li>
-        <li>Loja física em Viamão</li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Compra 100% segura</li>
+        <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/></svg>Enviamos para todo o Brasil</li>
       </ul>
     </div>
     <div class="hero-media">
@@ -78,47 +73,46 @@
       <figure class="hm hm3 img-reveal"><img src="img/p67.jpg" alt="Polo marinho tricolor"></figure>
     </div>
   </div>
-  <div class="scroll-cue"><span>Role</span><i></i></div>
 </section>
 
-<section class="mq dark" aria-hidden="true">
-  <div class="mq-track" id="mqTrack">
-    <span>Polos</span><b>/</b><span>Camisetas</span><b>/</b><span>Conjuntos</span><b>/</b><span>Bonés</span><b>/</b>
-    <span>Polos</span><b>/</b><span>Camisetas</span><b>/</b><span>Conjuntos</span><b>/</b><span>Bonés</span><b>/</b>
-    <span>Polos</span><b>/</b><span>Camisetas</span><b>/</b><span>Conjuntos</span><b>/</b><span>Bonés</span><b>/</b>
-    <span>Polos</span><b>/</b><span>Camisetas</span><b>/</b><span>Conjuntos</span><b>/</b><span>Bonés</span><b>/</b>
-  </div>
-</section>
-
+<!-- 3. Categorias em ícones circulares -->
 <section class="cats light" id="categorias">
   <div class="wrap">
-    <div class="sec-head"><h2 class="h2 reveal-h">Categorias</h2></div>
-    <div class="cats-grid">
-      <a href="#catalogo" class="cat-card" data-filter="polos"><div class="cat-img img-reveal"><img src="img/p66.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Polos</h3><span>Ver peças →</span></div></a>
-      <a href="#catalogo" class="cat-card" data-filter="camisetas"><div class="cat-img img-reveal"><img src="img/p44.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Camisetas</h3><span>Ver peças →</span></div></a>
-      <a href="#catalogo" class="cat-card" data-filter="conjuntos"><div class="cat-img img-reveal"><img src="img/p29.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Conjuntos</h3><span>Ver peças →</span></div></a>
-      <a href="#catalogo" class="cat-card" data-filter="bones"><div class="cat-img img-reveal"><img src="img/p48.jpg" alt="" loading="lazy"></div><div class="cat-info"><h3>Bonés</h3><span>Ver peças →</span></div></a>
+    <div class="cats-row">
+      <a href="#catalogo" class="cat-circle" data-filter="polos"><span class="cat-img"><img src="img/p66.jpg" alt="" loading="lazy"></span><h3>Polos</h3></a>
+      <a href="#catalogo" class="cat-circle" data-filter="camisetas"><span class="cat-img"><img src="img/p44.jpg" alt="" loading="lazy"></span><h3>Camisetas</h3></a>
+      <a href="#catalogo" class="cat-circle" data-filter="conjuntos"><span class="cat-img"><img src="img/p29.jpg" alt="" loading="lazy"></span><h3>Conjuntos</h3></a>
+      <a href="#catalogo" class="cat-circle" data-filter="bones"><span class="cat-img"><img src="img/p48.jpg" alt="" loading="lazy"></span><h3>Bonés</h3></a>
     </div>
   </div>
 </section>
 
-<section class="show dark alt" id="destaques">
-  <div class="show-pin">
-    <div class="wrap">
-      <div class="show-head">
-        <h2 class="h2 reveal-h">Mais vendidos</h2>
-        <p class="show-count"><b id="showIdx">01</b> / <span id="showTotal">04</span></p>
+<!-- 4. Nossos lançamentos -->
+<section class="launch light" id="lancamentos">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="h2 reveal-h">Nossos lançamentos</h2></div>
+    <div class="grid" id="launchGrid"></div>
+  </div>
+</section>
+
+<!-- 5. Banner intercalado -->
+<section class="band-wrap light">
+  <div class="wrap">
+    <div class="band reveal">
+      <div>
+        <span class="tag">Primeira compra</span>
+        <h3>Use o cupom <b>LSOFF10</b> e ganhe 10% OFF</h3>
       </div>
-      <div class="show-stage" id="showStage"></div>
-      <div class="show-bar"><i id="showBar"></i></div>
+      <button type="button" class="btn btn-gold" id="couponBtn" aria-label="Copiar cupom LSOFF10"><span id="couponHint">Copiar cupom</span></button>
     </div>
   </div>
 </section>
 
+<!-- Catálogo completo com filtros -->
 <section class="catalog light" id="catalogo">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="h2 reveal-h">Coleção</h2>
+      <h2 class="h2 reveal-h">Coleção completa</h2>
       <p class="muted reveal">Veja cada peça em detalhe e finalize a compra na nossa loja online.</p>
     </div>
     <div class="filters reveal" id="filters" role="tablist" aria-label="Categoria">
@@ -134,25 +128,29 @@
   </div>
 </section>
 
-<section class="look dark" aria-hidden="true">
-  <div class="look-row r1"><div class="look-track">
-    <img src="img/p44.jpg" alt=""><img src="img/p61.jpg" alt=""><img src="img/p69.jpg" alt=""><img src="img/p34.jpg" alt=""><img src="img/p7.jpg" alt=""><img src="img/p26.jpg" alt="">
-    <img src="img/p44.jpg" alt=""><img src="img/p61.jpg" alt=""><img src="img/p69.jpg" alt="">
-  </div></div>
-  <div class="look-row r2"><div class="look-track">
-    <img src="img/p54.jpg" alt=""><img src="img/p14.jpg" alt=""><img src="img/p36.jpg" alt=""><img src="img/p57.jpg" alt=""><img src="img/p20.jpg" alt=""><img src="img/p24.jpg" alt="">
-    <img src="img/p54.jpg" alt=""><img src="img/p14.jpg" alt=""><img src="img/p36.jpg" alt="">
-  </div></div>
+<!-- 6. Dois banners lado a lado -->
+<section class="duo light">
+  <div class="wrap duo-grid">
+    <article class="band band-s reveal">
+      <span class="tag">Entrega local</span>
+      <h3>Chega rápido: entrega via motoboy grátis em Viamão</h3>
+    </article>
+    <article class="band band-s reveal">
+      <span class="tag">Instagram</span>
+      <h3>Acompanhe as novidades no Insta</h3>
+      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="btn btn-gold btn-sm"><span>Seguir</span></a>
+    </article>
+  </div>
 </section>
 
-<section class="about light" id="loja">
+<!-- A loja -->
+<section class="about dark" id="loja">
   <div class="wrap">
     <div class="about-grid">
       <div class="about-text">
         <h2 class="h2 reveal-h">Autoridade com elegância.</h2>
         <p class="reveal">A LS Conceito veste o homem que decide com segurança. Caimento, acabamento e personalidade forte, sem ruído visual e sem tendências passageiras. Cada peça deve parecer escolhida, não apenas vendida.</p>
         <p class="muted reveal">Loja de moda masculina em Viamão, no Rio Grande do Sul. Atendemos clientes de todo o Brasil.</p>
-        <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="text-link reveal">Acompanhe as novidades no Instagram @ls_conceit0</a>
       </div>
       <div class="about-media">
         <figure class="am am1 img-reveal"><img src="img/p61.jpg" alt="" loading="lazy"></figure>
@@ -171,20 +169,22 @@
   </div>
 </section>
 
-<section class="steps dark alt" id="como-comprar">
+<!-- Como comprar -->
+<section class="steps light" id="como-comprar">
   <div class="wrap">
     <div class="sec-head"><h2 class="h2 reveal-h">Como comprar</h2></div>
     <div class="steps-grid">
       <div class="steps-line"><i id="stepsLine"></i></div>
       <article class="step"><span class="step-n">1</span><h3>Escolha a peça</h3><p>Navegue pelo catálogo e veja as fotos de cada modelo.</p></article>
-      <article class="step"><span class="step-n">2</span><h3>Vá para a loja</h3><p>Clique em "Comprar na loja" para abrir a página da peça.</p></article>
+      <article class="step"><span class="step-n">2</span><h3>Vá para a loja</h3><p>Clique em "Comprar" para abrir a página da peça.</p></article>
       <article class="step"><span class="step-n">3</span><h3>Finalize a compra</h3><p>Escolha o tamanho, calcule o frete pelo CEP e finalize o pagamento.</p></article>
       <article class="step"><span class="step-n">4</span><h3>Receba em casa</h3><p>Enviamos para todo o Brasil e você recebe o código de rastreio por e-mail.</p></article>
     </div>
   </div>
 </section>
 
-<section class="trust light" id="vantagens">
+<!-- Vantagens -->
+<section class="trust dark" id="vantagens">
   <div class="wrap trust-grid">
     <div class="perk"><strong>12x</strong><span><b>No cartão</b>Em até 12x, com juros</span></div>
     <div class="perk"><strong class="perk-code">LSOFF10</strong><span><b>Cupom</b>Na primeira compra</span></div>
@@ -193,39 +193,47 @@
   </div>
 </section>
 
-<section class="contact dark" id="contato">
-  <div class="wrap contact-in">
-    <div>
-      <h2 class="h2 reveal-h">Atendimento</h2>
-      <p class="muted reveal">Dúvida sobre tamanho, caimento ou entrega? Fale direto com a gente.</p>
-    </div>
-    <div class="contact-btns reveal">
-      <a href="#" class="btn btn-gold js-whats"><span>Chamar no WhatsApp</span></a>
-      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="btn btn-ghost"><span>Instagram</span></a>
-      <a href="https://chat.whatsapp.com/FZYLKR5EVE41P5CLqemHZw?mode=wwt" target="_blank" rel="noopener" class="text-link">Grupo de novidades no WhatsApp</a>
-      <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Senador+Salgado+Filho+9900+Centro+Viam%C3%A3o+RS" target="_blank" rel="noopener" class="text-link">Como chegar: Av. Senador Salgado Filho, 9900, Centro, Viamão</a>
-    </div>
+<!-- 7. Faixa de marcas -->
+<section class="brands light" aria-label="Marcas">
+  <div class="wrap">
+    <ul class="brands-row" id="brandsRow"></ul>
+  </div>
+</section>
+
+<!-- 8. Quem já comprou -->
+<section class="reviews light" id="avaliacoes">
+  <div class="wrap">
+    <div class="sec-head"><h2 class="h2 reveal-h">Quem já comprou</h2></div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
   </div>
 </section>
 
 </main>
 
-<footer class="footer dark">
+<!-- 9. Rodapé -->
+<footer class="footer dark" id="contato">
   <div class="wrap footer-in">
     <div class="foot-brand">
       <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/logo-mark.png" alt=""><span class="brand-word">LS Conceito</span></a>
       <p>Avenida Senador Salgado Filho, 9900<br>Centro, Viamão - RS<br>Enviamos para todo o Brasil</p>
     </div>
-    <div><h4>Categorias</h4><a href="#catalogo" data-filter="polos">Polos</a><a href="#catalogo" data-filter="camisetas">Camisetas</a><a href="#catalogo" data-filter="conjuntos">Conjuntos</a><a href="#catalogo" data-filter="bones">Bonés</a></div>
-    <div><h4>Ajuda</h4><a href="#como-comprar">Como comprar</a><a href="#" data-buy="">Trocas e devoluções</a><a href="#" data-buy="">Rastrear pedido</a><a href="#" data-buy="">Loja online</a><a href="#contato">Atendimento</a></div>
-    <div><h4>Redes</h4><a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Instagram</a><a href="#" class="js-whats">WhatsApp</a></div>
+    <div><h4>Instagram</h4><a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">@ls_conceit0</a><a href="https://chat.whatsapp.com/FZYLKR5EVE41P5CLqemHZw?mode=wwt" target="_blank" rel="noopener">Grupo de novidades</a></div>
+    <div><h4>Contato</h4><a href="#" class="js-whats">WhatsApp</a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Senador+Salgado+Filho+9900+Centro+Viam%C3%A3o+RS" target="_blank" rel="noopener">Como chegar</a><a href="#como-comprar">Como comprar</a></div>
+    <div class="news">
+      <h4>Newsletter</h4>
+      <p>Receba novidades e ofertas.</p>
+      <form class="news-form" id="newsForm" novalidate>
+        <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail" autocomplete="off">
+        <button type="submit" class="btn btn-gold btn-sm"><span>Assinar</span></button>
+      </form>
+    </div>
   </div>
   <div class="foot-mark" id="footMark" aria-hidden="true">LS CONCEITO</div>
   <div class="wrap copy">© <span id="year"></span> LS Conceito. Todos os direitos reservados.</div>
 </footer>
 
+<!-- 10. WhatsApp flutuante -->
 <a href="#" class="float-whats js-whats" aria-label="Chamar no WhatsApp">
-  <span class="fw-label">Dúvidas? Fale no WhatsApp</span>
   <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.003 3C9.373 3 4 8.373 4 15c0 2.385.697 4.607 1.894 6.48L4 29l7.72-1.86A11.94 11.94 0 0 0 16.003 27C22.63 27 28 21.627 28 15S22.63 3 16.003 3zm0 21.8a9.77 9.77 0 0 1-5.05-1.4l-.36-.22-4.58 1.1 1.14-4.46-.24-.38A9.75 9.75 0 0 1 6.2 15c0-5.42 4.4-9.8 9.8-9.8 5.4 0 9.8 4.38 9.8 9.8s-4.4 9.8-9.8 9.8zm5.37-7.34c-.3-.15-1.74-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.08 1.74-.71 1.98-1.4.25-.7.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg>
 </a>
 
@@ -257,8 +265,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="config.js?v=20261013f"></script>
-<script src="products.js?v=20261013f"></script>
-<script src="script.js?v=20261013f"></script>
+<script src="config.js?v=20261020a"></script>
+<script src="products.js?v=20261020a"></script>
+<script src="prices.js?v=20261020a"></script>
+<script src="script.js?v=20261020a"></script>
 </body>
 </html>

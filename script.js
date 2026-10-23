@@ -13,6 +13,19 @@
   function img(i) { return "img/p" + i + ".jpg"; }
   function byId(id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; }
   function waLink(text) { return "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent(text); }
+  var PRICES = window.LS_PRICES || {};
+  function brl(n) { return "R$ " + Number(n).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, "."); }
+  /* Bloco de preço: só aparece se a peça tiver preço em prices.js */
+  function priceHtml(p) {
+    var x = PRICES[p.id];
+    if (!x || !(x.preco > 0)) return "";
+    var h = '<div class="price">';
+    if (x.precoAntigo > x.preco) h += '<s>' + brl(x.precoAntigo) + '</s>';
+    h += '<b>' + brl(x.preco) + '</b>';
+    if (x.precoAntigo > x.preco) h += '<em>' + Math.round((1 - x.preco / x.precoAntigo) * 100) + '% OFF</em>';
+    if (x.parcelas > 1) h += '<small>ou ' + x.parcelas + 'x de ' + brl(x.preco / x.parcelas) + '</small>';
+    return h + '</div>';
+  }
   function buyUrl(p) { return (p && p.url) || CFG.loja || ""; }
 
   /* ---------- Rastreamento (GA4 / Meta Pixel / GTM) ---------- */
@@ -138,7 +151,7 @@
       '<img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '" loading="lazy">' +
       (p.imgs[1] !== undefined ? '<img class="alt" src="' + img(p.imgs[1]) + '" alt="" loading="lazy">' : "") +
       '<span class="card-quick">Ver fotos</span></button>' +
-      '<div class="card-body"><span class="card-cat">' + esc(p.brand) + " · " + STORE.CATS[p.cat] + "</span><h3>" + esc(p.name) + "</h3>" +
+      '<div class="card-body"><span class="card-cat">' + esc(p.brand) + " · " + STORE.CATS[p.cat] + "</span><h3>" + esc(p.name) + "</h3>" + priceHtml(p) +
       '<button class="card-btn" data-open="' + p.id + '">Comprar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
     grid.appendChild(el);
   });
@@ -165,7 +178,7 @@
     $$("#brandFilters .chip").forEach(function (c) { c.hidden = !has(curCat, c.dataset.brand); });
     $$("#filters .chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === curCat); });
     $$("#brandFilters .chip").forEach(function (c) { c.classList.toggle("is-active", c.dataset.brand === curBrand); });
-    var cards = $$(".card");
+    var cards = $$("#grid .card");
     var show = cards.filter(function (c) {
       return (curCat === "todos" || c.dataset.cat === curCat) && (curBrand === "todas" || c.dataset.brand === curBrand);
     });
@@ -247,26 +260,39 @@
   $$("[data-close]", modal).forEach(function (b) { b.addEventListener("click", function () { closeLayer(modal, $(".modal-card", modal)); }); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && modal.classList.contains("is-open")) closeLayer(modal, $(".modal-card", modal)); });
 
-  /* ---------- Destaques (monta os slides) ---------- */
-  var FEATURED = ["polo-azul-ceu-faixa-preta", "camiseta-dragao-vermelho", "conjunto-preto-laranja", "camiseta-swoosh-gigante"];
-  var stage = $("#showStage");
-  FEATURED.forEach(function (id, k) {
-    var p = byId(id), s = document.createElement("article");
-    s.className = "slide";
-    s.innerHTML = '<div class="slide-img"><img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '"></div>' +
-      '<div class="slide-info"><span class="slide-no">0' + (k + 1) + '</span><span class="tag">' + STORE.CATS[p.cat] + '</span><h3>' + esc(p.name) + '</h3>' +
-      '<p>Escolha o tamanho e finalize a compra na nossa loja online, com frete pelo CEP.</p>' +
-      '<div class="slide-actions"><button class="btn btn-gold" data-open="' + p.id + '"><span>Comprar</span></button></div></div>';
-    stage.appendChild(s);
+  /* ---------- Nossos lançamentos (ids em config.js) ---------- */
+  var launch = $("#launchGrid");
+  (CFG.lancamentos || []).map(byId).filter(Boolean).forEach(function (p) {
+    var el = document.createElement("article");
+    el.className = "card"; el.dataset.id = p.id;
+    el.innerHTML =
+      '<button class="card-media" data-open="' + p.id + '" aria-label="Ver ' + esc(p.name) + '">' +
+      (p.tag ? '<span class="card-tag">' + esc(p.tag) + "</span>" : "") +
+      '<img src="' + img(p.imgs[0]) + '" alt="' + esc(p.name) + '" loading="lazy">' +
+      (p.imgs[1] !== undefined ? '<img class="alt" src="' + img(p.imgs[1]) + '" alt="" loading="lazy">' : "") +
+      '</button><div class="card-body"><h3>' + esc(p.name) + "</h3>" + priceHtml(p) +
+      '<a class="card-btn" target="_blank" rel="noopener" href="' + waLink("Olá! Tenho interesse em: " + p.name) + '" data-wa="' + esc(p.name) + '">Comprar <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>';
+    launch.appendChild(el);
   });
-  $("#showTotal").textContent = "0" + FEATURED.length;
-  stage.addEventListener("click", function (e) { var b = e.target.closest("[data-open]"); if (b) openProduct(b.dataset.open); });
+  launch.addEventListener("click", function (e) {
+    var b = e.target.closest("[data-open]"); if (b) openProduct(b.dataset.open);
+    var w = e.target.closest("[data-wa]"); if (w) track("click_comprar", { item_name: w.dataset.wa });
+  });
+
+  /* ---------- Faixa de marcas e avaliações (config.js) ---------- */
+  $("#brandsRow").innerHTML = (CFG.marcas || []).map(function (m) { return "<li>" + esc(m) + "</li>"; }).join("");
+  $("#reviewsGrid").innerHTML = (CFG.avaliacoes || []).map(function (r) {
+    return '<figure class="review reveal"><div class="stars" role="img" aria-label="5 estrelas">★★★★★</div><blockquote>' + esc(r.texto) + "</blockquote><figcaption>" + esc(r.nome) + "</figcaption></figure>";
+  }).join("");
+
+  /* ---------- Newsletter (só visual: não envia para lugar nenhum) ---------- */
+  $("#newsForm").addEventListener("submit", function (e) { e.preventDefault(); toast("Newsletter em breve. Por enquanto, siga a gente no Instagram!"); });
 
   /* ---------- Copiar cupom ---------- */
   var cb = $("#couponBtn");
   if (cb) cb.addEventListener("click", function () {
     var h = $("#couponHint");
-    function ok() { h.textContent = "Copiado"; setTimeout(function () { h.textContent = "Copiar"; }, 2000); }
+    function ok() { h.textContent = "Cupom copiado!"; setTimeout(function () { h.textContent = "Copiar cupom"; }, 2000); }
     if (navigator.clipboard) navigator.clipboard.writeText("LSOFF10").then(ok, ok); else ok();
   });
 
@@ -282,7 +308,7 @@
   gsap.registerPlugin(ScrollTrigger);
 
   /* Estados iniciais do hero */
-  gsap.set(".kicker, .lead, .hero-cta, .coupon, .seals", { opacity: 0, y: 20 });
+  gsap.set(".kicker, .lead, .hero-cta, .seals", { opacity: 0, y: 20 });
   gsap.set(".hero .line-in", { yPercent: 110 });
   gsap.set(".hm", { clipPath: "inset(0 0 100% 0)" });
   gsap.set(".hero-lion", { opacity: 0, scale: 1.18, y: 30 });
@@ -290,10 +316,10 @@
   function intro() {
     document.body.classList.remove("is-loading");
     gsap.timeline({ defaults: { ease: "power3.out" } })
-      .to(".hero-lion", { opacity: .09, scale: 1, y: 0, duration: 1.8, ease: "power4.out" })
+      .to(".hero-lion", { opacity: .16, scale: 1, y: 0, duration: 1.8, ease: "power4.out" })
       .to(".kicker", { opacity: 1, y: 0, duration: .7 }, "-=1.4")
       .to(".hero .line-in", { yPercent: 0, duration: 1, stagger: .12, ease: "power4.out" }, "-=.4")
-      .to(".lead, .hero-cta, .coupon, .seals", { opacity: 1, y: 0, duration: .8, stagger: .1 }, "-=.6")
+      .to(".lead, .hero-cta, .seals", { opacity: 1, y: 0, duration: .8, stagger: .1 }, "-=.6")
       .to(".hm", { clipPath: "inset(0 0 0% 0)", duration: 1.3, stagger: .15, ease: "power4.out" }, "-=1.1")
       .from(".hm img", { scale: 1.3, duration: 1.7, stagger: .15 }, "<");
   }
@@ -315,19 +341,6 @@
   gsap.to(".hm2", { y: -34, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
   gsap.to(".hero-text", { y: -40, opacity: .4, ease: "none", scrollTrigger: { trigger: ".hero", start: "40% top", end: "bottom top", scrub: true } });
 
-  /* Faixa de texto: acelera e inverte conforme o scroll */
-  var mq = gsap.to("#mqTrack", { xPercent: -50, ease: "none", duration: 30, repeat: -1 });
-  var mqT;
-  ScrollTrigger.create({
-    start: 0, end: "max",
-    onUpdate: function (self) {
-      var dir = self.direction, boost = 1 + Math.min(Math.abs(self.getVelocity()) / 350, 5);
-      gsap.to(mq, { timeScale: dir * boost, duration: .25, overwrite: true });
-      clearTimeout(mqT);
-      mqT = setTimeout(function () { gsap.to(mq, { timeScale: dir, duration: 1.2, overwrite: true }); }, 160);
-    }
-  });
-
   /* Títulos: revelados por máscara */
   $$(".reveal-h").forEach(function (el) {
     gsap.fromTo(el, { clipPath: "inset(0 0 100% 0)", y: 40 }, { clipPath: "inset(0 0 0% 0)", y: 0, duration: 1, ease: "power4.out", scrollTrigger: { trigger: el, start: "top 90%", once: true }, onComplete: function () { gsap.set(el, { clearProps: "clipPath,transform" }); } });
@@ -344,45 +357,9 @@
     if (im) gsap.fromTo(im, { scale: 1.25 }, { scale: 1, duration: 1.7, ease: "power3.out", delay: (k % 4) * .08, scrollTrigger: st, onComplete: function () { gsap.set(im, { clearProps: "transform" }); } });
   });
 
-  /* Destaques: seção fixa que troca de peça ao rolar (desktop) */
-  var show = $(".show"), slides = $$(".slide"), mm = gsap.matchMedia();
-  mm.add("(min-width: 901px)", function () {
-    var n = slides.length;
-    show.classList.add("is-pinned");
-    gsap.set(slides.slice(1), { opacity: 0, y: 40 });
-    var tl = gsap.timeline({
-      defaults: { ease: "none" },
-      scrollTrigger: {
-        trigger: show, pin: ".show-pin", start: "top top", scrub: .7, anticipatePin: 1,
-        end: function () { return "+=" + Math.round((n - 1) * window.innerHeight * .95); },
-        onUpdate: function (self) {
-          var idx = Math.min(n - 1, Math.round(self.progress * (n - 1)));
-          $("#showIdx").textContent = "0" + (idx + 1);
-          gsap.set("#showBar", { scaleX: self.progress });
-          slides.forEach(function (s, k) { s.style.pointerEvents = k === idx ? "auto" : "none"; });
-        }
-      }
-    });
-    for (var k = 1; k < n; k++) {
-      tl.to(slides[k - 1], { opacity: 0, y: -30, duration: .35 }, (k - 1) + .35)
-        .fromTo(slides[k], { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: .4 }, (k - 1) + .72)
-        .fromTo($("img", slides[k]), { scale: 1.15 }, { scale: 1, duration: .6 }, (k - 1) + .72);
-    }
-    return function () { show.classList.remove("is-pinned"); slides.forEach(function (s) { s.style.pointerEvents = ""; }); };
-  });
-  mm.add("(max-width: 900px)", function () {
-    slides.forEach(function (s) {
-      gsap.from(s, { opacity: 0, y: 40, duration: .9, ease: "power3.out", scrollTrigger: { trigger: s, start: "top 85%", once: true } });
-    });
-  });
-
   /* Cards do catálogo entram em sequência */
   gsap.set(".card", { opacity: 0, y: 36 });
   ScrollTrigger.batch(".card", { start: "top 94%", once: true, onEnter: function (b) { gsap.to(b, { opacity: 1, y: 0, stagger: .06, duration: .7, ease: "power3.out", overwrite: true }); } });
-
-  /* Faixas de fotos andam com o scroll */
-  gsap.fromTo(".look .r1 .look-track", { xPercent: 0 }, { xPercent: -32, ease: "none", scrollTrigger: { trigger: ".look", start: "top bottom", end: "bottom top", scrub: 1 } });
-  gsap.fromTo(".look .r2 .look-track", { xPercent: -32 }, { xPercent: 0, ease: "none", scrollTrigger: { trigger: ".look", start: "top bottom", end: "bottom top", scrub: 1 } });
 
   /* A loja: fotos com parallax em sentidos opostos */
   gsap.fromTo(".am1 img", { yPercent: 0 }, { yPercent: -11, ease: "none", scrollTrigger: { trigger: ".about-media", start: "top bottom", end: "bottom top", scrub: true } });
