@@ -19,3 +19,9 @@ Sem entrada em `LS_PRICES`, o card mostra o placeholder "Preço a confirmar" e n
 
 ## Publicar
 Site estático. O GitHub Pages publica a branch `main`.
+
+## Carrinho de demonstração
+"Adicionar ao carrinho" exige o tamanho, abre a gaveta e guarda id, tamanho e quantidade em `localStorage` (`ls-conceito-cart-v1`). "Finalizar compra" só avisa que o checkout roda na loja Nuvemshop: não há formulário de pagamento nem coleta de cartão. "Comprar pelo WhatsApp" segue como opção secundária.
+
+## Banners (config.js)
+`banners` define os slides da home (eyebrow, title, text, cta, href, filter, img).
