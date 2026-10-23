@@ -12,262 +12,203 @@
 <meta property="og:image" content="img/p66.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=20261020a">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261023a">
 </head>
 <body class="is-loading">
 
 <div class="pre" id="pre" aria-hidden="true">
-  <div class="pre-panel"></div>
   <div class="pre-in">
-    <div class="pre-logo"><img class="brand-lion" src="img/logo-full.png" alt=""></div>
+    <img class="pre-logo" src="img/logo-full.png" alt="">
     <div class="pre-bar"><i></i></div>
   </div>
 </div>
 
-<div class="topbar" id="topbar" role="status"><span class="topbar-msg" id="topbarMsg">Enviamos para todo o Brasil</span></div>
+<div class="topbar" role="status"><span class="topbar-msg" id="topbarMsg">Enviamos para todo o Brasil</span></div>
 
 <header class="header" id="header">
   <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/logo-mark.png" alt=""><span class="brand-word">LS Conceito</span></a>
-  <nav class="nav" id="nav">
+  <nav class="nav" id="nav" aria-label="Principal">
+    <div class="nav-item">
+      <a href="#catalogo" class="nav-toggle" aria-haspopup="true">Produtos</a>
+      <div class="submenu">
+        <a href="#catalogo" data-filter="todos">Todos</a>
+        <a href="#catalogo" data-filter="polos">Polos</a>
+        <a href="#catalogo" data-filter="camisetas">Camisetas</a>
+        <a href="#catalogo" data-filter="conjuntos">Conjuntos</a>
+        <a href="#catalogo" data-filter="bones">Bonés</a>
+      </div>
+    </div>
     <a href="#lancamentos">Lançamentos</a>
-    <a href="#catalogo">Catálogo</a>
-    <a href="#loja">A loja</a>
-    <a href="#como-comprar">Como comprar</a>
+    <a href="#marcas">Marcas</a>
     <a href="#contato">Contato</a>
   </nav>
   <div class="head-actions">
-    <a href="#" class="btn btn-ghost btn-sm head-whats js-whats"><span>WhatsApp</span></a>
-    <a href="#" class="btn btn-ghost btn-sm head-buy" data-buy=""><span>Loja online</span></a>
-    <button class="burger" id="burger" aria-label="Abrir menu"><i></i><i></i></button>
+    <a href="#" class="btn btn-gold btn-sm head-whats js-whats">WhatsApp</a>
+    <button class="burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav"><i></i><i></i></button>
   </div>
-  <div class="progress" id="progress"></div>
 </header>
-
 
 <main id="topo">
 
-<!-- 2. Hero -->
-<section class="hero dark" id="hero">
-  <div class="hero-bg"></div>
-  <img class="hero-lion" src="img/logo-mark.png" alt="" aria-hidden="true">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <p class="kicker">Moda masculina · Viamão, RS</p>
-      <h1 aria-label="Presença sem excesso.">
-        <span class="line"><span class="line-in">Presença</span></span>
-        <span class="line"><span class="line-in">sem <em>excesso.</em></span></span>
-      </h1>
-      <p class="lead">Peças feitas para quem já sabe o que quer. Polos, camisetas, conjuntos e bonés, com envio para todo o Brasil.</p>
-      <div class="hero-cta">
-        <a href="#lancamentos" class="btn btn-gold"><span>Ver lançamentos</span></a>
-      </div>
-      <ul class="seals">
-        <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Compra 100% segura</li>
-        <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17" cy="18" r="1.7"/></svg>Enviamos para todo o Brasil</li>
-      </ul>
+<section class="banner" id="hero" aria-label="Destaque">
+  <div class="wrap banner-grid">
+    <div class="banner-text">
+      <p class="eyebrow">Moda masculina · Viamão, RS</p>
+      <h1>Presença sem <em>excesso.</em></h1>
+      <p class="lead">Polos, camisetas, conjuntos e bonés, com envio para todo o Brasil.</p>
+      <a href="#lancamentos" class="btn btn-gold">Ver lançamentos</a>
     </div>
-    <div class="hero-media">
-      <figure class="hm hm1 img-reveal"><img src="img/p66.jpg" alt="Polo azul céu com faixa preta"></figure>
-      <figure class="hm hm2 img-reveal"><img src="img/p29.jpg" alt="Conjunto preto com estampa laranja"></figure>
-      <figure class="hm hm3 img-reveal"><img src="img/p67.jpg" alt="Polo marinho tricolor"></figure>
-    </div>
+    <figure class="banner-media">
+      <img src="img/p66.jpg" alt="Polo azul céu com faixa preta">
+    </figure>
   </div>
 </section>
 
-<!-- 3. Categorias em ícones circulares -->
-<section class="cats light" id="categorias">
+<section class="section cats" id="categorias">
   <div class="wrap">
+    <h2>Compre por categoria</h2>
     <div class="cats-row">
-      <a href="#catalogo" class="cat-circle" data-filter="polos"><span class="cat-img"><img src="img/p66.jpg" alt="" loading="lazy"></span><h3>Polos</h3></a>
-      <a href="#catalogo" class="cat-circle" data-filter="camisetas"><span class="cat-img"><img src="img/p44.jpg" alt="" loading="lazy"></span><h3>Camisetas</h3></a>
-      <a href="#catalogo" class="cat-circle" data-filter="conjuntos"><span class="cat-img"><img src="img/p29.jpg" alt="" loading="lazy"></span><h3>Conjuntos</h3></a>
-      <a href="#catalogo" class="cat-circle" data-filter="bones"><span class="cat-img"><img src="img/p48.jpg" alt="" loading="lazy"></span><h3>Bonés</h3></a>
+      <a href="#catalogo" class="cat-tile" data-filter="polos"><span class="cat-img"><img src="img/p66.jpg" alt=""></span><span class="cat-label">Polos</span></a>
+      <a href="#catalogo" class="cat-tile" data-filter="camisetas"><span class="cat-img"><img src="img/p44.jpg" alt=""></span><span class="cat-label">Camisetas</span></a>
+      <a href="#catalogo" class="cat-tile" data-filter="conjuntos"><span class="cat-img"><img src="img/p29.jpg" alt=""></span><span class="cat-label">Conjuntos</span></a>
+      <a href="#catalogo" class="cat-tile" data-filter="bones"><span class="cat-img"><img src="img/p48.jpg" alt=""></span><span class="cat-label">Bonés</span></a>
     </div>
   </div>
 </section>
 
-<!-- 4. Nossos lançamentos -->
-<section class="launch light" id="lancamentos">
+<section class="section launch" id="lancamentos">
   <div class="wrap">
-    <div class="sec-head"><h2 class="h2 reveal-h">Nossos lançamentos</h2></div>
+    <h2>Lançamentos</h2>
     <div class="grid" id="launchGrid"></div>
   </div>
 </section>
 
-<!-- 5. Banner intercalado -->
-<section class="band-wrap light">
+<section class="section brands" id="marcas">
   <div class="wrap">
-    <div class="band reveal">
-      <div>
-        <span class="tag">Primeira compra</span>
-        <h3>Use o cupom <b>LSOFF10</b> e ganhe 10% OFF</h3>
-      </div>
-      <button type="button" class="btn btn-gold" id="couponBtn" aria-label="Copiar cupom LSOFF10"><span id="couponHint">Copiar cupom</span></button>
-    </div>
+    <h2>Compre por marca</h2>
+    <div class="brand-tiles" id="brandsRow"></div>
   </div>
 </section>
 
-<!-- Catálogo completo com filtros -->
-<section class="catalog light" id="catalogo">
+<section class="section catalog" id="catalogo">
   <div class="wrap">
     <div class="sec-head">
-      <h2 class="h2 reveal-h">Coleção completa</h2>
-      <p class="muted reveal">Veja cada peça em detalhe e finalize a compra na nossa loja online.</p>
+      <h2>Catálogo</h2>
+      <p class="result-count" id="resultCount"></p>
     </div>
-    <div class="filters reveal" id="filters" role="tablist" aria-label="Categoria">
-      <button class="chip is-active" data-filter="todos">Todos</button>
-      <button class="chip" data-filter="polos">Polos</button>
-      <button class="chip" data-filter="camisetas">Camisetas</button>
-      <button class="chip" data-filter="conjuntos">Conjuntos</button>
-      <button class="chip" data-filter="bones">Bonés</button>
+    <div class="filter-bar">
+      <div class="filters" id="filters" aria-label="Categoria">
+        <button class="chip is-active" type="button" data-filter="todos">Todos</button>
+        <button class="chip" type="button" data-filter="polos">Polos</button>
+        <button class="chip" type="button" data-filter="camisetas">Camisetas</button>
+        <button class="chip" type="button" data-filter="conjuntos">Conjuntos</button>
+        <button class="chip" type="button" data-filter="bones">Bonés</button>
+      </div>
+      <div class="filters" id="sizeFilters" aria-label="Tamanho">
+        <button class="chip is-active" type="button" data-size="todos">Todos</button>
+        <button class="chip" type="button" data-size="P">P</button>
+        <button class="chip" type="button" data-size="M">M</button>
+        <button class="chip" type="button" data-size="G">G</button>
+        <button class="chip" type="button" data-size="GG">GG</button>
+        <button class="chip" type="button" data-size="Único">Único</button>
+      </div>
+      <label class="sort">Ordenar
+        <select id="sort" aria-label="Ordenar por preço">
+          <option value="default">Destaques</option>
+          <option value="price-asc">Menor preço</option>
+          <option value="price-desc">Maior preço</option>
+        </select>
+      </label>
     </div>
-    <div class="brand-filters reveal" id="brandFilters" aria-label="Marca"></div>
-    <p class="empty muted" id="emptyMsg" hidden>Nenhuma peça dessa marca nessa categoria. Tente outra combinação.</p>
+    <div class="filters brand-filters" id="brandFilters" aria-label="Marca"></div>
+    <p class="empty" id="emptyMsg" hidden>Nenhuma peça com esses filtros.</p>
     <div class="grid" id="grid"></div>
-  </div>
-</section>
-
-<!-- 6. Dois banners lado a lado -->
-<section class="duo light">
-  <div class="wrap duo-grid">
-    <article class="band band-s reveal">
-      <span class="tag">Entrega local</span>
-      <h3>Chega rápido: entrega via motoboy grátis em Viamão</h3>
-    </article>
-    <article class="band band-s reveal">
-      <span class="tag">Instagram</span>
-      <h3>Acompanhe as novidades no Insta</h3>
-      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" class="btn btn-gold btn-sm"><span>Seguir</span></a>
-    </article>
-  </div>
-</section>
-
-<!-- A loja -->
-<section class="about dark" id="loja">
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="about-text">
-        <h2 class="h2 reveal-h">Autoridade com elegância.</h2>
-        <p class="reveal">A LS Conceito veste o homem que decide com segurança. Caimento, acabamento e personalidade forte, sem ruído visual e sem tendências passageiras. Cada peça deve parecer escolhida, não apenas vendida.</p>
-        <p class="muted reveal">Loja de moda masculina em Viamão, no Rio Grande do Sul. Atendemos clientes de todo o Brasil.</p>
-      </div>
-      <div class="about-media">
-        <figure class="am am1 img-reveal"><img src="img/p61.jpg" alt="" loading="lazy"></figure>
-        <figure class="am am2 img-reveal"><img src="img/p14.jpg" alt="" loading="lazy"></figure>
-      </div>
-    </div>
-    <div class="pillars">
-      <div class="reveal"><b>Autoridade</b><p>Postura firme e linguagem direta. Promessas que a peça sustenta.</p></div>
-      <div class="reveal"><b>Sofisticação</b><p>Detalhes de construção, tecido e composição cuidadosos.</p></div>
-      <div class="reveal"><b>Masculinidade</b><p>Estilo forte e atemporal, sem clichês.</p></div>
-    </div>
-    <div class="store reveal">
-      <div><span class="tag">Loja física</span><h3>Venha conhecer a LS Conceito.</h3><p>Avenida Senador Salgado Filho, 9900<br>Centro, Viamão - RS</p></div>
-      <a class="btn btn-ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Avenida+Senador+Salgado+Filho+9900+Centro+Viam%C3%A3o+RS"><span>Como chegar</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- Como comprar -->
-<section class="steps light" id="como-comprar">
-  <div class="wrap">
-    <div class="sec-head"><h2 class="h2 reveal-h">Como comprar</h2></div>
-    <div class="steps-grid">
-      <div class="steps-line"><i id="stepsLine"></i></div>
-      <article class="step"><span class="step-n">1</span><h3>Escolha a peça</h3><p>Navegue pelo catálogo e veja as fotos de cada modelo.</p></article>
-      <article class="step"><span class="step-n">2</span><h3>Vá para a loja</h3><p>Clique em "Comprar" para abrir a página da peça.</p></article>
-      <article class="step"><span class="step-n">3</span><h3>Finalize a compra</h3><p>Escolha o tamanho, calcule o frete pelo CEP e finalize o pagamento.</p></article>
-      <article class="step"><span class="step-n">4</span><h3>Receba em casa</h3><p>Enviamos para todo o Brasil e você recebe o código de rastreio por e-mail.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- Vantagens -->
-<section class="trust dark" id="vantagens">
-  <div class="wrap trust-grid">
-    <div class="perk"><strong>12x</strong><span><b>No cartão</b>Em até 12x, com juros</span></div>
-    <div class="perk"><strong class="perk-code">LSOFF10</strong><span><b>Cupom</b>Na primeira compra</span></div>
-    <div class="perk"><strong>R$ 500</strong><span><b>Frete grátis</b>Em compras acima desse valor</span></div>
-    <div class="perk"><strong>BR</strong><span><b>Todo o Brasil</b>Enviamos para qualquer estado</span></div>
-  </div>
-</section>
-
-<!-- 7. Faixa de marcas -->
-<section class="brands light" aria-label="Marcas">
-  <div class="wrap">
-    <ul class="brands-row" id="brandsRow"></ul>
-  </div>
-</section>
-
-<!-- 8. Quem já comprou -->
-<section class="reviews light" id="avaliacoes">
-  <div class="wrap">
-    <div class="sec-head"><h2 class="h2 reveal-h">Quem já comprou</h2></div>
-    <div class="reviews-grid" id="reviewsGrid"></div>
   </div>
 </section>
 
 </main>
 
-<!-- 9. Rodapé -->
-<footer class="footer dark" id="contato">
+<footer class="footer" id="contato">
+  <div class="wrap foot-info">
+    <div>
+      <h2>Autoridade com elegância.</h2>
+      <p>A LS Conceito veste o homem que decide com segurança. Caimento, acabamento e personalidade forte, sem ruído visual.</p>
+      <p class="muted">Loja de moda masculina em Viamão, no Rio Grande do Sul. Atendemos todo o Brasil.</p>
+      <p class="store-address">Avenida Senador Salgado Filho, 9900<br>Centro, Viamão - RS</p>
+    </div>
+    <div id="como-comprar">
+      <h2>Como comprar</h2>
+      <ol class="buy-steps">
+        <li>Escolha a peça e o tamanho.</li>
+        <li>Toque em Comprar pelo WhatsApp.</li>
+        <li>Combine o pagamento com a loja.</li>
+        <li>Receba em casa. Enviamos para todo o Brasil.</li>
+      </ol>
+    </div>
+  </div>
+  <ul class="perks wrap">
+    <li><b>12x</b> no cartão</li>
+    <li><b>LSOFF10</b> na primeira compra</li>
+    <li><b>Frete grátis</b> acima de R$ 500</li>
+    <li><b>Todo o Brasil</b></li>
+  </ul>
   <div class="wrap footer-in">
     <div class="foot-brand">
       <a href="#topo" class="brand" aria-label="LS Conceito"><img class="brand-lion" src="img/logo-mark.png" alt=""><span class="brand-word">LS Conceito</span></a>
-      <p>Avenida Senador Salgado Filho, 9900<br>Centro, Viamão - RS<br>Enviamos para todo o Brasil</p>
     </div>
-    <div><h4>Instagram</h4><a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">@ls_conceit0</a><a href="https://chat.whatsapp.com/FZYLKR5EVE41P5CLqemHZw?mode=wwt" target="_blank" rel="noopener">Grupo de novidades</a></div>
-    <div><h4>Contato</h4><a href="#" class="js-whats">WhatsApp</a><a href="https://www.google.com/maps/search/?api=1&query=Avenida+Senador+Salgado+Filho+9900+Centro+Viam%C3%A3o+RS" target="_blank" rel="noopener">Como chegar</a><a href="#como-comprar">Como comprar</a></div>
-    <div class="news">
-      <h4>Newsletter</h4>
-      <p>Receba novidades e ofertas.</p>
-      <form class="news-form" id="newsForm" novalidate>
+    <div>
+      <p class="foot-label">Instagram</p>
+      <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">@ls_conceit0</a>
+      <a href="https://chat.whatsapp.com/FZYLKR5EVE41P5CLqemHZw?mode=wwt" target="_blank" rel="noopener">Grupo de novidades</a>
+    </div>
+    <div>
+      <p class="foot-label">Contato</p>
+      <a href="#" class="js-whats">WhatsApp</a>
+      <a href="https://www.google.com/maps/search/?api=1&query=Avenida+Senador+Salgado+Filho+9900+Centro+Viam%C3%A3o+RS" target="_blank" rel="noopener">Como chegar</a>
+      <a href="#como-comprar">Como comprar</a>
+    </div>
+    <form class="news" id="newsForm" novalidate>
+      <p class="foot-label">Newsletter</p>
+      <p class="muted">Receba novidades e ofertas.</p>
+      <div class="news-form">
         <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail" autocomplete="off">
-        <button type="submit" class="btn btn-gold btn-sm"><span>Assinar</span></button>
-      </form>
-    </div>
+        <button type="submit" class="btn btn-gold btn-sm">Assinar</button>
+      </div>
+    </form>
   </div>
-  <div class="foot-mark" id="footMark" aria-hidden="true">LS CONCEITO</div>
   <div class="wrap copy">© <span id="year"></span> LS Conceito. Todos os direitos reservados.</div>
 </footer>
 
-<!-- 10. WhatsApp flutuante -->
 <a href="#" class="float-whats js-whats" aria-label="Chamar no WhatsApp">
-  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor"><path d="M16.003 3C9.373 3 4 8.373 4 15c0 2.385.697 4.607 1.894 6.48L4 29l7.72-1.86A11.94 11.94 0 0 0 16.003 27C22.63 27 28 21.627 28 15S22.63 3 16.003 3zm0 21.8a9.77 9.77 0 0 1-5.05-1.4l-.36-.22-4.58 1.1 1.14-4.46-.24-.38A9.75 9.75 0 0 1 6.2 15c0-5.42 4.4-9.8 9.8-9.8 5.4 0 9.8 4.38 9.8 9.8s-4.4 9.8-9.8 9.8zm5.37-7.34c-.3-.15-1.74-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.08 1.74-.71 1.98-1.4.25-.7.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg>
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M16.003 3C9.373 3 4 8.373 4 15c0 2.385.697 4.607 1.894 6.48L4 29l7.72-1.86A11.94 11.94 0 0 0 16.003 27C22.63 27 28 21.627 28 15S22.63 3 16.003 3zm0 21.8a9.77 9.77 0 0 1-5.05-1.4l-.36-.22-4.58 1.1 1.14-4.46-.24-.38A9.75 9.75 0 0 1 6.2 15c0-5.42 4.4-9.8 9.8-9.8 5.4 0 9.8 4.38 9.8 9.8s-4.4 9.8-9.8 9.8zm5.37-7.34c-.3-.15-1.74-.86-2-.96-.27-.1-.47-.15-.66.15-.2.3-.76.96-.93 1.16-.17.2-.34.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.34.44-.5.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.66-1.6-.9-2.18-.24-.57-.48-.5-.66-.5h-.56c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.08 1.74-.71 1.98-1.4.25-.7.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35z"/></svg>
 </a>
 
-<!-- Modal produto -->
 <div class="modal" id="modal" aria-hidden="true">
   <div class="modal-bg" data-close></div>
-  <div class="modal-card" role="dialog" aria-modal="true">
-    <button class="modal-x" data-close aria-label="Fechar">✕</button>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="mName">
+    <button class="modal-x" type="button" data-close aria-label="Fechar">✕</button>
     <div class="modal-gallery">
       <div class="modal-main"><img id="mImg" src="" alt=""></div>
       <div class="modal-thumbs" id="mThumbs"></div>
     </div>
     <div class="modal-info">
-      <span class="tag" id="mCat"></span>
-      <h3 id="mName"></h3>
-      <p class="muted">Escolha o tamanho e finalize na nossa loja online: frete calculado pelo CEP.</p>
+      <p class="eyebrow" id="mCat"></p>
+      <h2 id="mName"></h2>
+      <p class="price" id="mPrice"></p>
+      <p class="installments" id="mInst"></p>
       <div class="sizes-label">Tamanho</div>
       <div class="sizes" id="mSizes"></div>
-      <div class="modal-actions">
-        <a href="#" class="btn btn-gold" id="mBuy"><span>Comprar</span></a>
-        <a href="#" class="ask-link" id="mBtn" target="_blank" rel="noopener">Tirar dúvida no WhatsApp</a>
-      </div>
+      <a href="#" class="btn btn-gold" id="mBuy">Comprar pelo WhatsApp</a>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
-<script src="config.js?v=20261020a"></script>
-<script src="products.js?v=20261020a"></script>
-<script src="prices.js?v=20261020a"></script>
-<script src="script.js?v=20261020a"></script>
+<script src="config.js?v=20261023a"></script>
+<script src="products.js?v=20261023a"></script>
+<script src="prices.js?v=20261023a"></script>
+<script src="script.js?v=20261023a"></script>
 </body>
 </html>
