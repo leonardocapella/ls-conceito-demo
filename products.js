@@ -93,9 +93,22 @@
     "bone-monograma": "Gucci"
   };
   var BRAND_ORDER = ["Tommy Hilfiger", "Lacoste", "Nike", "Ralph Lauren", "Fred Perry", "EA7", "Emporio Armani", "Armani Exchange", "Syna World", "Corteiz", "Balmain", "Gucci", "Outras marcas"];
-  P.forEach(function (p) { p.brand = BRANDS[p.id] || "Outras marcas"; });
 
-  var api = { PRODUCTS: P, CATS: CATS, CATS_PLURAL: CATS_PLURAL, BRANDS: BRAND_ORDER };
+  /* Grade usada quando a peça não traz `sizes`.
+     Placeholder: não é a medida conferida de cada item. Bonés: tamanho único.
+     Para uma grade real, defina `sizes` na peça e o placeholder deixa de valer. */
+  var SIZE_PLACEHOLDER = ["P", "M", "G", "GG"];
+  var SIZE_PLACEHOLDER_BONE = ["Único"];
+
+  P.forEach(function (p) {
+    p.brand = BRANDS[p.id] || "Outras marcas";
+    if (!p.sizes) {
+      p.sizes = (p.cat === "bones" ? SIZE_PLACEHOLDER_BONE : SIZE_PLACEHOLDER).slice();
+      p.sizesPlaceholder = true;
+    }
+  });
+
+  var api = { PRODUCTS: P, CATS: CATS, CATS_PLURAL: CATS_PLURAL, BRANDS: BRAND_ORDER, SIZE_PLACEHOLDER: SIZE_PLACEHOLDER, SIZE_PLACEHOLDER_BONE: SIZE_PLACEHOLDER_BONE };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LS_STORE = api;
 })(typeof window !== "undefined" ? window : globalThis);
