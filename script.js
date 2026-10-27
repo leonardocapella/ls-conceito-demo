@@ -159,10 +159,11 @@
   }
 
   /* ---------- Marcas com logo (cada uma filtra o catálogo) ---------- */
-  $("#brandGrid").innerHTML = (STORE.BRAND_LOGOS || []).map(function (b) {
-    return '<button type="button" class="brand-card" role="listitem" data-brand-pick="' + esc(b.name) + '" aria-label="Ver peças ' + esc(b.name) + '">' +
+  $("#brandGrid").innerHTML = (STORE.BRAND_LOGOS || []).map(function (b, i) {
+    return '<button type="button" class="brand-card rv" style="--d:' + (i % 8) * 45 + 'ms" role="listitem" data-brand-pick="' + esc(b.name) + '" aria-label="Ver peças ' + esc(b.name) + '">' +
       '<img src="img/marcas/' + esc(b.slug) + '.webp" width="120" height="120" alt="" loading="lazy"><span>' + esc(b.name) + "</span></button>";
   }).join("");
+  $$("#brandGrid .rv").forEach(observe);
   var brandsUsed = STORE.BRANDS.filter(function (b) {
     return PRODUCTS.some(function (p) { return p.brand === b; });
   });
@@ -224,6 +225,47 @@
     if (d) goSlide(+d.dataset.slide);
   });
   armHero();
+
+  /* setas (desktop) e arrastar com o dedo (celular) no hero */
+  if (banners.length > 1) {
+    hero.insertAdjacentHTML("beforeend",
+      '<button type="button" class="hero-arrow prev" aria-label="Destaque anterior"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>' +
+      '<button type="button" class="hero-arrow next" aria-label="Próximo destaque"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>');
+    $(".hero-arrow.prev", hero).addEventListener("click", function () { goSlide(heroIdx - 1); });
+    $(".hero-arrow.next", hero).addEventListener("click", function () { goSlide(heroIdx + 1); });
+    var touchX = null;
+    hero.addEventListener("touchstart", function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+    hero.addEventListener("touchend", function (e) {
+      if (touchX == null) return;
+      var dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 40) goSlide(heroIdx + (dx < 0 ? 1 : -1));
+    }, { passive: true });
+  }
+
+  /* header encolhe ao rolar e barra dourada de progresso */
+  var header = $("#header");
+  var progress = null;
+  if (!REDUCE) {
+    progress = document.createElement("div");
+    progress.className = "scroll-progress";
+    progress.setAttribute("aria-hidden", "true");
+    document.body.appendChild(progress);
+  }
+  var ticking = false;
+  function onScroll() {
+    var y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 40);
+    if (progress) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
+    }
+    ticking = false;
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(onScroll); }
+  }, { passive: true });
+  onScroll();
 
   /* ---------- Cards e catálogo ---------- */
   function cardHtml(p, eager, idx) {

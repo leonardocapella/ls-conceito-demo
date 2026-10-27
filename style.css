@@ -632,6 +632,196 @@ select option { background: var(--surface); color: var(--text); }
 }
 .toast.is-on { opacity: 1; transform: translate(-50%, 0); }
 
+/* ---------- Toque final: acabamento e movimento leve ----------
+   Só opacidade e transform (não travam celular fraco); tudo desliga com "reduzir movimento". */
+
+/* header encolhe e ganha sombra ao rolar */
+.header { transition: min-height .35s var(--ease), box-shadow .35s, background .35s; }
+.header.is-scrolled { min-height: 60px; background: rgba(11, 11, 11, .985); box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .9); }
+.brand-lion { transition: transform .35s var(--ease); }
+.header.is-scrolled .brand-lion { transform: scale(.82); }
+.brand:hover .brand-lion { transform: rotate(-6deg) scale(1.04); }
+
+/* fio dourado sob o header, desenhado na entrada */
+.header::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dark) 20%, var(--gold) 50%, var(--gold-dark) 80%, transparent);
+  transform: scaleX(0);
+  animation: drawLine 1.4s .2s var(--ease) forwards;
+  opacity: .7;
+}
+@keyframes drawLine { to { transform: scaleX(1); } }
+
+/* brilho que passa no botão dourado */
+.btn-gold { position: relative; overflow: hidden; }
+.btn-gold::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: -60%;
+  width: 40%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .55), transparent);
+  transform: skewX(-20deg) translateX(0);
+  pointer-events: none;
+}
+.btn-gold:hover::after { transform: skewX(-20deg) translateX(420%); transition: transform .8s var(--ease); }
+.btn-line { position: relative; }
+.btn:focus-visible { outline-offset: 3px; }
+
+/* hero: zoom lento na arte ativa e entrada suave */
+.slides { overflow: hidden; }
+.slide img { transform-origin: 60% 50%; }
+.slide.is-active img { animation: heroZoom 7s ease-out forwards; }
+@keyframes heroZoom { from { transform: scale(1.04); } to { transform: scale(1); } }
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 60px;
+  background: linear-gradient(to top, var(--bg), transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  margin-top: -22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(233, 193, 99, .5);
+  background: rgba(11, 11, 11, .55);
+  color: var(--gold);
+  opacity: 0;
+  transition: opacity .3s, background .2s, transform .3s var(--ease);
+}
+.hero-arrow.prev { left: 16px; transform: translateX(-8px); }
+.hero-arrow.next { right: 16px; transform: translateX(8px); }
+.hero:hover .hero-arrow, .hero-arrow:focus-visible { opacity: 1; transform: none; }
+.hero-arrow:hover { background: var(--gold); color: var(--on-gold); }
+
+/* títulos de seção: traço dourado que se desenha quando a seção aparece */
+.sec-head h2 { position: relative; }
+.sec-head h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 2px;
+  margin-top: 10px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .9s .25s var(--ease);
+}
+.sec-head.rv-in h2::after, .no-rv .sec-head h2::after { transform: scaleX(1); }
+.sec-head { align-items: flex-end; }
+.sec-link { transition: color .2s, letter-spacing .3s var(--ease); }
+.sec-link:hover { color: var(--gold-fill-hover); letter-spacing: .16em; }
+
+/* cards: sobem de leve, foto aproxima, borda dourada e reflexo */
+.card-in { transition: border-color .35s, transform .45s var(--ease), box-shadow .45s var(--ease); }
+.card:hover .card-in {
+  border-color: rgba(233, 193, 99, .45);
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px -24px rgba(0, 0, 0, .95), 0 0 0 1px rgba(233, 193, 99, .08);
+}
+.card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .10) 50%, transparent 60%);
+  transform: translateX(-100%);
+  pointer-events: none;
+  z-index: 1;
+}
+.card:hover .card-media::after { transform: translateX(100%); transition: transform 1s var(--ease); }
+.card-tag { animation: tagIn .6s .3s var(--ease) both; }
+@keyframes tagIn { from { opacity: 0; transform: translateX(-8px); } }
+.rv.card { transform: translateY(24px) scale(.98); }
+.rv.card.rv-in { transform: none; }
+
+/* categorias e coleções: texto sobe e seta anda */
+.cat-label { transition: transform .45s var(--ease); }
+.cat-tile:hover .cat-label { transform: translateY(-4px); }
+.cat-label::after { display: inline-block; transition: transform .35s var(--ease); }
+.cat-tile:hover .cat-label::after { transform: translateX(5px); }
+.cat-tile, .promo { transition: border-color .35s; }
+.cat-tile:hover, .promo:hover { border-color: rgba(233, 193, 99, .5); }
+.promo-in > * { transition: transform .5s var(--ease); }
+.promo:hover .promo-title { transform: translateX(4px); }
+
+/* artes (Instagram e grupo): leve aproximação */
+.art-banner { overflow: hidden; }
+.art-banner img { transition: transform 1.2s var(--ease); }
+.art-banner:hover img { transform: scale(1.025); }
+
+/* marcas: logos acendem, círculo dourado gira devagar no hover */
+.brand-card { position: relative; }
+.brand-card img { transition: transform .45s var(--ease), filter .45s; filter: saturate(.85) brightness(.92); }
+.brand-card:hover img, .brand-card.is-active img { transform: scale(1.06); filter: drop-shadow(0 0 14px rgba(233, 193, 99, .35)); }
+.brand-card.rv { transform: translateY(14px) scale(.94); }
+.brand-card.rv.rv-in { transform: none; }
+
+/* chips e seletores */
+.chip, .select select, .card-size { transition: background .25s, color .25s, border-color .25s, transform .2s var(--ease); }
+.chip:active { transform: scale(.96); }
+
+/* WhatsApp: anel que pulsa de vez em quando */
+.float-whats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #25d366;
+  animation: ring 4s 3s ease-out infinite;
+  pointer-events: none;
+}
+@keyframes ring {
+  0% { transform: scale(1); opacity: .8; }
+  30%, 100% { transform: scale(1.6); opacity: 0; }
+}
+.float-whats { animation: popIn .6s 1s var(--ease) both; }
+@keyframes popIn { from { opacity: 0; transform: scale(.6) translateY(16px); } }
+
+/* rodapé: selos entram em sequência, ícones ganham brilho */
+.seals li { transition: transform .35s var(--ease); }
+.seals li:hover { transform: translateY(-2px); }
+.seals li:hover svg { filter: drop-shadow(0 0 8px rgba(233, 193, 99, .5)); }
+.foot-logo { transition: transform .5s var(--ease); }
+.foot-logo:hover { transform: scale(1.03); }
+
+/* barra do topo: brilho dourado que corre devagar */
+.topbar::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: -30%;
+  width: 30%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .35), transparent);
+  animation: sheen 6s 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes sheen { 0% { transform: translateX(0); } 40%, 100% { transform: translateX(450%); } }
+
+/* textura discreta de grão nas seções grafite (CSS puro, sem imagem) */
+.section.alt { background: radial-gradient(1200px 400px at 85% 0%, rgba(233, 193, 99, .045), transparent 60%), var(--alt); }
+
+/* barra de progresso dourada no topo durante a rolagem */
+.scroll-progress {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
 @media (max-width: 1100px) {
   .brand-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .footer-in { grid-template-columns: 1fr 1fr 1fr; }
@@ -715,12 +905,19 @@ select option { background: var(--surface); color: var(--text); }
   .card-btn { flex: none; }
   .card-btn { font-size: var(--fs-2xs); letter-spacing: .03em; }
   .float-whats { width: 52px; height: 52px; right: 12px; bottom: 12px; }
+  .hero-arrow { display: none; }
   .promo-title { font-size: 1.75rem; }
   .video-float { width: 120px; left: 12px; bottom: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .header::after { animation: none; transform: scaleX(1); }
+  .slide.is-active img, .card-tag, .float-whats, .float-whats::before, .topbar::after { animation: none; }
+  .topbar::after, .scroll-progress { display: none; }
+  .sec-head h2::after { transform: scaleX(1); transition: none; }
+  .rv.card, .brand-card.rv { transform: none; }
+  .btn-gold::after, .card-media::after { display: none; }
   .slide, .rv, .card-in, .drawer, .drawer-bg, .notice, .modal-card, .topbar-msg { transition: none; }
   .rv { opacity: 1; transform: none; }
   .cart-count.bump { animation: none; }
