@@ -1,5 +1,5 @@
 /* Catálogo da vitrine.
-   Para cada peça: nome, categoria e fotos (img/pN.jpg). Opcionais:
+   Para cada peça: nome, categoria e fotos (img/produtos/pN-400.webp e pN-800.webp). Opcionais:
      url:      link da página do produto na Nuvemshop (usado se não houver variação).
      variants: { P: "123", M: "124", G: "125", GG: "126" } com o ID da variação (tamanho) de cada
                peça na Nuvemshop. Com isso o botão Comprar manda o tamanho escolhido direto para o
@@ -61,19 +61,19 @@
     "camiseta-script-vermelho": "Corteiz",
     "camiseta-ilustracao-pop": "Nike",
     "conjunto-preto-rosa": "Balmain",
-    "bone-aba-curva-trio": "Tommy Hilfiger",
-    "polo-bloco-azul-gelo": "Tommy Hilfiger",
-    "polo-offwhite-lettering": "Tommy Hilfiger",
-    "polo-azul-ceu-faixa-preta": "Tommy Hilfiger",
-    "polo-marinho-tricolor": "Tommy Hilfiger",
-    "polo-preto-faixa-vermelha": "Tommy Hilfiger",
-    "polo-preto-listra": "Tommy Hilfiger",
-    "polo-classico-branco": "Tommy Hilfiger",
-    "camiseta-preta-fita-lateral": "Tommy Hilfiger",
-    "camiseta-preta-minimal": "Tommy Hilfiger",
-    "camiseta-cinza-gelo": "Tommy Hilfiger",
-    "camiseta-marinho-gola": "Tommy Hilfiger",
-    "polo-preto-faixa-azul": "Ralph Lauren",
+    "bone-aba-curva-trio": "Tommy",
+    "polo-bloco-azul-gelo": "Tommy",
+    "polo-offwhite-lettering": "Tommy",
+    "polo-azul-ceu-faixa-preta": "Tommy",
+    "polo-marinho-tricolor": "Tommy",
+    "polo-preto-faixa-vermelha": "Tommy",
+    "polo-preto-listra": "Tommy",
+    "polo-classico-branco": "Tommy",
+    "camiseta-preta-fita-lateral": "Tommy",
+    "camiseta-preta-minimal": "Tommy",
+    "camiseta-cinza-gelo": "Tommy",
+    "camiseta-marinho-gola": "Tommy",
+    "polo-preto-faixa-azul": "Polo Ralph Lauren",
     "polo-branco-neon": "Lacoste",
     "polo-marinho-neon": "Lacoste",
     "polo-verde-monograma": "Lacoste",
@@ -88,11 +88,32 @@
     "camiseta-preta-faixa-central": "Fred Perry",
     "camiseta-fita-italia": "EA7",
     "camiseta-offwhite-grafica": "Emporio Armani",
-    "camiseta-grafite-turquesa": "Syna World",
-    "conjunto-preto-laranja": "Syna World",
+    "camiseta-grafite-turquesa": "Synaworld",
+    "conjunto-preto-laranja": "Synaworld",
     "bone-monograma": "Gucci"
   };
-  var BRAND_ORDER = ["Tommy Hilfiger", "Lacoste", "Nike", "Ralph Lauren", "Fred Perry", "EA7", "Emporio Armani", "Armani Exchange", "Syna World", "Corteiz", "Balmain", "Gucci", "Outras marcas"];
+  /* As 16 marcas da faixa de logos, em ordem alfabética (arquivos em img/marcas/<slug>.webp).
+     Cada logo filtra o catálogo pela marca. */
+  var BRAND_LOGOS = [
+    { name: "Armani Exchange", slug: "armani-exchange" },
+    { name: "Balmain", slug: "balmain" },
+    { name: "Boss", slug: "boss" },
+    { name: "Brow Jeans", slug: "brow-jeans" },
+    { name: "Casablanca", slug: "casablanca" },
+    { name: "Corteiz", slug: "corteiz" },
+    { name: "Emporio Armani", slug: "emporio-armani" },
+    { name: "Fred Perry", slug: "fred-perry" },
+    { name: "Lacoste", slug: "lacoste" },
+    { name: "Mizuno", slug: "mizuno" },
+    { name: "Moncler", slug: "moncler" },
+    { name: "Nike", slug: "nike" },
+    { name: "Polo Ralph Lauren", slug: "polo-ralph-lauren" },
+    { name: "Synaworld", slug: "synaworld" },
+    { name: "Tommy", slug: "tommy" },
+    { name: "Zara", slug: "zara" }
+  ];
+  /* Ordem do filtro de marca: as 16 da faixa e, depois, marcas de peças que ainda não têm logo. */
+  var BRAND_ORDER = BRAND_LOGOS.map(function (b) { return b.name; }).concat(["EA7", "Gucci", "Outras marcas"]);
 
   /* Grade usada quando a peça não traz `sizes`.
      Placeholder: não é a medida conferida de cada item. Bonés: tamanho único.
@@ -108,7 +129,7 @@
     }
   });
 
-  var api = { PRODUCTS: P, CATS: CATS, CATS_PLURAL: CATS_PLURAL, BRANDS: BRAND_ORDER, SIZE_PLACEHOLDER: SIZE_PLACEHOLDER, SIZE_PLACEHOLDER_BONE: SIZE_PLACEHOLDER_BONE };
+  var api = { PRODUCTS: P, CATS: CATS, CATS_PLURAL: CATS_PLURAL, BRANDS: BRAND_ORDER, BRAND_LOGOS: BRAND_LOGOS, SIZE_PLACEHOLDER: SIZE_PLACEHOLDER, SIZE_PLACEHOLDER_BONE: SIZE_PLACEHOLDER_BONE };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.LS_STORE = api;
 })(typeof window !== "undefined" ? window : globalThis);
