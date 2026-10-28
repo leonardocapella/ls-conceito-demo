@@ -137,6 +137,27 @@
     if (io) io.observe(el);
     else el.classList.add("rv-in");
   }
+  /* faixas com rolagem lateral (categorias e marcas no celular): quando a faixa aparece,
+     todos os itens entram juntos, inclusive os que estão fora da tela para o lado */
+  var rowIo = io && new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      $$(".rv", en.target).forEach(function (el) { el.classList.add("rv-in"); io.unobserve(el); });
+      rowIo.unobserve(en.target);
+    });
+  }, { threshold: 0.05 });
+  function observeRow(row) { if (rowIo && row) rowIo.observe(row); }
+  /* títulos de seção: cada palavra sobe sozinha (texto continua inteiro para leitor de tela) */
+  if (!REDUCE) {
+    $$(".sec-head h2").forEach(function (h) {
+      var words = h.textContent.trim().split(/\s+/);
+      h.setAttribute("aria-label", h.textContent.trim());
+      h.classList.add("split");
+      h.innerHTML = words.map(function (w, i) {
+        return '<span class="w" aria-hidden="true"><span style="--wi:' + i + '">' + esc(w) + "</span></span>";
+      }).join(" ");
+    });
+  }
   $$(".rv").forEach(observe);
 
   /* ---------- Barra de anúncio: uma mensagem por vez ---------- */
@@ -164,6 +185,8 @@
       '<img src="img/marcas/' + esc(b.slug) + '.webp" width="120" height="120" alt="" loading="lazy"><span>' + esc(b.name) + "</span></button>";
   }).join("");
   $$("#brandGrid .rv").forEach(observe);
+  observeRow($("#brandGrid"));
+  observeRow($(".cats-row"));
   var brandsUsed = STORE.BRANDS.filter(function (b) {
     return PRODUCTS.some(function (p) { return p.brand === b; });
   });
@@ -243,6 +266,13 @@
     }, { passive: true });
   }
 
+  /* botão de voltar ao topo */
+  document.body.insertAdjacentHTML("beforeend",
+    '<button type="button" class="to-top" id="toTop" aria-label="Voltar ao topo">' +
+    '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 14l6-6 6 6"/></svg></button>');
+  var toTop = $("#toTop");
+  toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: REDUCE ? "auto" : "smooth" }); });
+
   /* header encolhe ao rolar e barra dourada de progresso */
   var header = $("#header");
   var progress = null;
@@ -256,6 +286,7 @@
   function onScroll() {
     var y = window.scrollY;
     header.classList.toggle("is-scrolled", y > 40);
+    toTop.classList.toggle("is-on", y > window.innerHeight * 1.2);
     if (progress) {
       var max = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";
@@ -369,7 +400,14 @@
     var empty = $("#emptyMsg");
     if (empty) empty.hidden = list.length > 0;
     var count = $("#resultCount");
-    if (count) count.textContent = list.length + (list.length === 1 ? " peça" : " peças");
+    if (count) {
+      var txt = list.length + (list.length === 1 ? " peça" : " peças");
+      if (count.textContent && count.textContent !== txt && !REDUCE) {
+        count.classList.add("tick");
+        setTimeout(function () { count.classList.remove("tick"); }, 320);
+      }
+      count.textContent = txt;
+    }
     syncControls();
   }
   var swapT;
@@ -532,6 +570,12 @@
     track("add_to_cart", { item_id: id, item_name: byId(id).name, size: size });
   }
   function flashAdded(btn) {
+    var c = btn.closest(".card");
+    if (c && !REDUCE) {
+      c.classList.remove("added");
+      void c.offsetWidth;
+      c.classList.add("added");
+    }
     var label = btn.textContent;
     btn.classList.add("is-done");
     btn.textContent = "Adicionado ✓";
@@ -671,7 +715,10 @@
     var b = e.target.closest("button");
     if (!b) return;
     $$("button", this).forEach(function (x) { x.classList.toggle("is-active", x === b); });
-    $("#mImg").src = b.dataset.src;
+    var mi = $("#mImg");
+    if (REDUCE) { mi.src = b.dataset.src; return; }
+    mi.classList.add("swap");
+    setTimeout(function () { mi.src = b.dataset.src; mi.classList.remove("swap"); }, 180);
   });
   $("#mSizes").addEventListener("click", function (e) {
     var b = e.target.closest(".size");

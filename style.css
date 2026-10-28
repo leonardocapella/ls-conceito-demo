@@ -822,6 +822,150 @@ select option { background: var(--surface); color: var(--text); }
   pointer-events: none;
 }
 
+/* ---------- Animações extras (clean) ----------
+   Entradas com máscara, títulos palavra a palavra, contador, cursor do menu e microinterações.
+   Tudo em opacidade, transform e clip-path; desliga com "reduzir movimento". */
+
+/* entrada da página: header e barra descem, hero acende */
+.topbar { animation: fadeDown .7s var(--ease) both; }
+.header { animation: fadeDown .7s .08s var(--ease) both; }
+.hero .slides { animation: heroIn 1.1s .15s var(--ease) both; }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-10px); } }
+@keyframes heroIn { from { opacity: 0; transform: scale(.985); } }
+.dots { animation: fadeUp .8s .9s var(--ease) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } }
+
+/* menu: links entram em cascata e a cor desliza no hover */
+.nav > a, .nav-item { animation: fadeDown .6s var(--ease) both; animation-delay: calc(.25s + var(--n, 0) * 60ms); }
+.nav > a:hover, .nav-toggle:hover { color: var(--gold); }
+.nav > a, .nav-toggle { transition: color .25s; }
+.submenu a { transition: color .2s, transform .25s var(--ease); }
+.submenu a:hover { transform: translateX(4px); }
+
+/* títulos de seção: palavras sobem uma a uma */
+.split .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .12em; margin-bottom: -.12em; }
+.split .w > span { display: inline-block; transform: translateY(105%); transition: transform .8s var(--ease); transition-delay: calc(var(--wi) * 70ms + 80ms); }
+.rv-in .split .w > span, .split.rv-in .w > span, .no-rv .split .w > span { transform: none; }
+.sec-head.rv { transform: none; }
+
+/* fotos revelam com cortina (clip-path na imagem; o bloco em si fica visível para o observador) */
+.cat-tile.rv, .promo.rv, .art-banner.rv { opacity: 1; transform: none; }
+.cat-tile.rv img, .promo.rv img, .art-banner.rv img {
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.12);
+  transition: clip-path 1s var(--ease), transform 1.4s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+.cat-tile.rv.rv-in img, .promo.rv.rv-in img, .art-banner.rv.rv-in img { clip-path: inset(0 0 0 0); transform: scale(1); }
+.cat-tile.rv.rv-in:hover img { transform: scale(1.05); transition-delay: 0s; }
+.promo.rv.rv-in:hover img { transform: scale(1.04); transition-delay: 0s; }
+.art-banner.rv.rv-in:hover img { transform: scale(1.025); transition-delay: 0s; }
+.cat-label { opacity: 0; transform: translateY(10px); transition: opacity .6s .5s, transform .6s .5s var(--ease); }
+.rv-in .cat-label { opacity: 1; transform: none; }
+.cat-tile.rv-in:hover .cat-label { transform: translateY(-4px); transition-delay: 0s; }
+.promo-in > * { opacity: 0; transform: translateX(-14px); transition: opacity .6s, transform .6s var(--ease); }
+.promo.rv-in .promo-in > * { opacity: 1; transform: none; }
+.promo.rv-in .promo-in > :nth-child(1) { transition-delay: .45s; }
+.promo.rv-in .promo-in > :nth-child(2) { transition-delay: .55s; }
+.promo.rv-in .promo-in > :nth-child(3) { transition-delay: .65s; }
+.promo.rv-in .promo-in > :nth-child(4) { transition-delay: .75s; }
+
+/* card: botão "Comprar" ganha seta que desliza no hover */
+.card-btn { gap: 0; }
+.card-btn::before { content: "→"; order: 2; display: inline-block; width: 0; opacity: 0; overflow: hidden; transition: width .3s var(--ease), opacity .3s, margin .3s var(--ease); }
+.card:hover .card-btn::before { width: 1em; opacity: 1; margin-left: 6px; }
+.card-brand { transition: letter-spacing .4s var(--ease); }
+.card:hover .card-brand { letter-spacing: .2em; }
+
+/* produto adicionado: o card pisca em dourado */
+.card.added .card-in { animation: added .9s var(--ease); }
+@keyframes added { 0% { box-shadow: 0 0 0 0 rgba(233, 193, 99, .7); } 100% { box-shadow: 0 0 0 14px rgba(233, 193, 99, 0); } }
+
+/* contador do catálogo e chips com transição */
+.result-count { display: inline-block; transition: transform .3s var(--ease), color .3s; }
+.result-count.tick { transform: translateY(-3px); color: var(--gold); }
+.chip { position: relative; overflow: hidden; }
+.chip::before { content: ""; position: absolute; inset: 0; background: var(--gold-fill); transform: scaleY(0); transform-origin: bottom; transition: transform .3s var(--ease); z-index: -1; }
+.chip { z-index: 0; }
+.chip.is-active::before { transform: scaleY(1); }
+.chip.is-active { background: transparent; }
+
+/* marcas: círculo ganha anel dourado que se desenha */
+.brand-card::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: min(100% - 12px, 120px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  transform: translateX(-50%) scale(.85);
+  opacity: 0;
+  transition: transform .5s var(--ease), opacity .5s;
+  pointer-events: none;
+}
+.brand-card:hover::after, .brand-card.is-active::after { transform: translateX(-50%) scale(1); opacity: .7; }
+.brand-card:hover, .brand-card.is-active { border-color: transparent; }
+
+/* faixa de dúvidas: borda dourada que circula */
+.help-in { position: relative; }
+.help-in::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--gold-dark);
+  clip-path: inset(0 100% 100% 0);
+  transition: clip-path 1.6s .2s var(--ease);
+  pointer-events: none;
+}
+.help-in.rv-in::before { clip-path: inset(0 0 0 0); }
+
+/* newsletter: campo com sublinhado dourado e envio confirmado */
+.news-form input { transition: border-color .3s, box-shadow .3s; }
+.news-form input:focus { box-shadow: 0 2px 0 0 var(--gold); }
+
+/* selos do rodapé entram em sequência */
+.seals li { opacity: 0; transform: translateY(12px); transition: opacity .6s, transform .6s var(--ease); }
+.seals.rv-in li { opacity: 1; transform: none; }
+.seals.rv-in li:nth-child(2) { transition-delay: .1s; }
+.seals.rv-in li:nth-child(3) { transition-delay: .2s; }
+.seals.rv-in li:nth-child(4) { transition-delay: .3s; }
+.seals.rv { opacity: 1; transform: none; }
+
+/* voltar ao topo */
+.to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 84px;
+  z-index: 790;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(233, 193, 99, .5);
+  background: rgba(11, 11, 11, .85);
+  color: var(--gold);
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition: opacity .35s, transform .35s var(--ease), background .2s, color .2s;
+}
+.to-top.is-on { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: var(--gold); color: var(--on-gold); }
+
+/* gaveta e janela do produto: conteúdo entra em sequência */
+.drawer.is-open .cart-item { animation: fadeUp .5s var(--ease) both; }
+.drawer.is-open .cart-item:nth-child(2) { animation-delay: .06s; }
+.drawer.is-open .cart-item:nth-child(3) { animation-delay: .12s; }
+.modal.is-open .modal-info > * { animation: fadeUp .5s var(--ease) both; }
+.modal.is-open .modal-info > :nth-child(2) { animation-delay: .05s; }
+.modal.is-open .modal-info > :nth-child(3) { animation-delay: .1s; }
+.modal.is-open .modal-info > :nth-child(4) { animation-delay: .15s; }
+.modal.is-open .modal-info > :nth-child(n+5) { animation-delay: .2s; }
+#mImg { transition: opacity .25s; }
+#mImg.swap { opacity: 0; }
+
 @media (max-width: 1100px) {
   .brand-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   .footer-in { grid-template-columns: 1fr 1fr 1fr; }
@@ -906,12 +1050,18 @@ select option { background: var(--surface); color: var(--text); }
   .card-btn { font-size: var(--fs-2xs); letter-spacing: .03em; }
   .float-whats { width: 52px; height: 52px; right: 12px; bottom: 12px; }
   .hero-arrow { display: none; }
+  .to-top { right: 16px; bottom: 76px; width: 40px; height: 40px; }
   .promo-title { font-size: 1.75rem; }
   .video-float { width: 120px; left: 12px; bottom: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .topbar, .header, .hero .slides, .dots, .nav > a, .nav-item { animation: none; }
+  .split .w > span, .cat-label, .promo-in > *, .seals li { transform: none; opacity: 1; transition: none; }
+  .cat-tile.rv img, .promo.rv img, .art-banner.rv img { clip-path: none; transform: none; transition: none; }
+  .help-in::before { clip-path: none; transition: none; }
+  .modal.is-open .modal-info > *, .drawer.is-open .cart-item, .card.added .card-in { animation: none; }
   .header::after { animation: none; transform: scaleX(1); }
   .slide.is-active img, .card-tag, .float-whats, .float-whats::before, .topbar::after { animation: none; }
   .topbar::after, .scroll-progress { display: none; }
