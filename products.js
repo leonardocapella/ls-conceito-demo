@@ -50,8 +50,10 @@
     { url: "", id: "bone-monograma", cat: "bones", name: "Boné Monograma Bege e Preto", imgs: [48], }
   ];
 
-  var CATS_PLURAL = { polos: "Polos", camisetas: "Camisetas", conjuntos: "Conjuntos", bones: "Bonés" };
-  var CATS = { polos: "Polo", camisetas: "Camiseta", conjuntos: "Conjunto", bones: "Boné" };
+  /* Categorias da vitrine. As que ainda não têm peça aqui (calças, bermudas, moletons, tênis)
+     aparecem nos círculos e mostram "em breve" até as peças serem cadastradas. */
+  var CATS_PLURAL = { camisetas: "Camisetas", polos: "Polos", calcas: "Calças jeans", bermudas: "Bermudas jeans", moletons: "Moletons", conjuntos: "Conjuntos", tenis: "Tênis", bones: "Bonés" };
+  var CATS = { camisetas: "Camiseta", polos: "Polo", calcas: "Calça jeans", bermudas: "Bermuda jeans", moletons: "Moletom", conjuntos: "Conjunto", tenis: "Tênis", bones: "Boné" };
 
   /* Marca de cada peça (id -> marca). Peças fora da lista entram em "Outras marcas".
      Para trocar a marca de uma peça, edite aqui. */
