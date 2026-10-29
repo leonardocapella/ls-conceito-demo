@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/banners/frete-gratis-1100.webp" imagesrcset="img/banners/frete-gratis-720.webp 720w, img/banners/frete-gratis-1100.webp 1100w, img/banners/frete-gratis-1774.webp 1774w" imagesizes="(min-width: 1600px) 1600px, 100vw">
-<link rel="stylesheet" href="style.css?v=20261027c">
+<link rel="stylesheet" href="style.css?v=20261029a">
 </head>
 <body>
 
@@ -26,19 +26,20 @@
   <a href="#topo" class="brand" aria-label="LS Conceito, página inicial"><img class="brand-lion" src="img/logo-mark.webp" width="56" height="56" alt=""><span class="brand-word">LS Conceito</span></a>
   <nav class="nav" id="nav" aria-label="Principal">
     <div class="nav-item" style="--n:0">
-      <a href="#categorias" class="nav-toggle" aria-haspopup="true">Categorias</a>
+      <a href="#catalogo" class="nav-toggle" aria-haspopup="true">Categorias</a>
       <div class="submenu">
         <a href="#catalogo" data-filter="todos">Todas as peças</a>
-        <a href="#catalogo" data-filter="polos">Polos</a>
         <a href="#catalogo" data-filter="camisetas">Camisetas</a>
+        <a href="#catalogo" data-filter="polos">Polos</a>
         <a href="#catalogo" data-filter="conjuntos">Conjuntos</a>
         <a href="#catalogo" data-filter="bones">Bonés</a>
       </div>
     </div>
-    <a href="#lancamentos" style="--n:1">Lançamentos</a>
-    <a href="#marcas" style="--n:2">Marcas</a>
-    <a href="#catalogo" style="--n:3">Catálogo</a>
-    <a href="#contato" style="--n:4">Contato</a>
+    <a href="#catalogo" style="--n:1" data-filter="todos">Catálogo</a>
+    <a href="#lancamentos" style="--n:2">Lançamentos</a>
+    <a href="#marcas" style="--n:3">Marcas</a>
+    <a href="quem-somos.html" style="--n:4">Quem somos</a>
+    <a href="troca-e-devolucao.html" style="--n:5">Trocas e devoluções</a>
   </nav>
   <div class="head-actions">
     <a href="#" class="btn btn-line btn-sm head-whats js-whats">WhatsApp</a>
@@ -63,55 +64,29 @@
 
 <!-- 4. Categorias -->
 <section class="section cats" id="categorias">
-  <div class="wrap">
-    <div class="sec-head rv"><h2>Compre por categoria</h2><a class="sec-link" href="#catalogo" data-filter="todos">Ver tudo</a></div>
-    <div class="cats-row">
-      <a href="#catalogo" class="cat-tile rv" data-filter="polos" style="--d:0ms"><img src="img/produtos/p66-400.webp" srcset="img/produtos/p66-400.webp 400w, img/produtos/p66-800.webp 800w" sizes="(min-width: 900px) 25vw, 50vw" alt="" loading="lazy"><span class="cat-label">Polos</span></a>
-      <a href="#catalogo" class="cat-tile rv" data-filter="camisetas" style="--d:70ms"><img src="img/produtos/p44-400.webp" srcset="img/produtos/p44-400.webp 400w, img/produtos/p44-800.webp 800w" sizes="(min-width: 900px) 25vw, 50vw" alt="" loading="lazy"><span class="cat-label">Camisetas</span></a>
-      <a href="#catalogo" class="cat-tile rv" data-filter="conjuntos" style="--d:140ms"><img src="img/produtos/p29-400.webp" srcset="img/produtos/p29-400.webp 400w, img/produtos/p29-800.webp 800w" sizes="(min-width: 900px) 25vw, 50vw" alt="" loading="lazy"><span class="cat-label">Conjuntos</span></a>
-      <a href="#catalogo" class="cat-tile rv" data-filter="bones" style="--d:210ms"><img src="img/produtos/p48-400.webp" srcset="img/produtos/p48-400.webp 400w, img/produtos/p48-800.webp 800w" sizes="(min-width: 900px) 25vw, 50vw" alt="" loading="lazy"><span class="cat-label">Bonés</span></a>
-    </div>
+  <div class="wrap cats-in">
+    <div class="sec-head rv"><h2>Compre por categoria</h2></div>
+    <div class="cat-circles" id="catCircles"></div>
   </div>
 </section>
 
 <!-- 5. Nossos lançamentos -->
 <section class="section alt launches" id="lancamentos">
   <div class="wrap">
-    <div class="sec-head rv"><h2>Nossos lançamentos</h2><a class="sec-link" href="#catalogo" data-filter="todos">Ver catálogo</a></div>
+    <div class="sec-head rv"><h2>Novos lançamentos</h2><a class="sec-link" href="#catalogo" data-filter="todos">Ver catálogo</a></div>
     <div class="grid" id="launchGrid"></div>
   </div>
 </section>
 
-<!-- 6. Banners de coleção -->
-<section class="section promos" aria-label="Coleções">
-  <div class="wrap promo-row">
-    <a href="#catalogo" class="promo rv" data-filter="polos">
-      <img src="img/produtos/p10-800.webp" alt="" loading="lazy">
-      <span class="promo-in">
-        <span class="eyebrow">Coleção</span>
-        <span class="promo-title">Polos</span>
-        <span class="promo-text">Caimento que acompanha o seu ritmo.</span>
-        <span class="btn btn-line btn-sm">Ver polos</span>
-      </span>
-    </a>
-    <a href="#catalogo" class="promo rv" data-filter="conjuntos" style="--d:90ms">
-      <img src="img/produtos/p14-800.webp" alt="" loading="lazy">
-      <span class="promo-in">
-        <span class="eyebrow">Coleção</span>
-        <span class="promo-title">Conjuntos</span>
-        <span class="promo-text">O look completo, pronto para sair.</span>
-        <span class="btn btn-line btn-sm">Ver conjuntos</span>
-      </span>
-    </a>
-  </div>
-</section>
-
-<!-- 7. Acompanhe as novidades do Insta -->
-<section class="section alt art-section" aria-label="Siga nossa loja no Instagram">
+<!-- 6. Coleção com produtos reais (categoria em config.js: colecao) -->
+<section class="section collection" id="colecao">
   <div class="wrap">
-    <a class="art-banner rv" id="instaBanner" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">
-      <img src="img/banners/instagram-1100.webp" srcset="img/banners/instagram-720.webp 720w, img/banners/instagram-1100.webp 1100w, img/banners/instagram-1774.webp 1774w" sizes="(min-width: 1300px) 1240px, calc(100vw - 32px)" width="1774" height="887" alt="Siga nossa loja no Instagram: @ls_conceit0. Seguir no Instagram." loading="lazy">
-    </a>
+    <div class="sec-head rv"><h2 id="colecaoTitulo">Confira nossa coleção</h2><a class="sec-link" href="#catalogo" id="colecaoLink">Ver todas</a></div>
+    <div class="rail-wrap">
+      <button type="button" class="rail-btn prev" data-rail="-1" aria-label="Anteriores"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <div class="rail" id="colecaoRail"></div>
+      <button type="button" class="rail-btn next" data-rail="1" aria-label="Próximos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    </div>
   </div>
 </section>
 
@@ -123,8 +98,24 @@
   </div>
 </section>
 
+<!-- 7. Acompanhe as novidades do Insta: perfil real dentro do celular -->
+<section class="section alt social" aria-label="Siga nossa loja no Instagram">
+  <div class="wrap social-row">
+    <div class="social-copy rv">
+      <p class="eyebrow">Instagram</p>
+      <h2>Acompanhe as novidades no Insta.</h2>
+      <p class="muted">Lançamentos, reposições e os looks da semana primeiro em <b>@ls_conceit0</b>.</p>
+      <a class="btn btn-gold" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Seguir no Instagram</a>
+    </div>
+    <a class="phone rv" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" style="--d:120ms" aria-label="Abrir o perfil @ls_conceit0 no Instagram">
+      <span class="phone-notch" aria-hidden="true"></span>
+      <img src="img/instagram-perfil.webp" width="390" height="785" alt="Perfil @ls_conceit0 no Instagram: 4.105 seguidores, Viamão - RS, envio para todo o Brasil" loading="lazy">
+    </a>
+  </div>
+</section>
+
 <!-- Catálogo com filtros combináveis -->
-<section class="section alt shop" id="catalogo">
+<section class="section shop" id="catalogo">
   <div class="wrap">
     <div class="sec-head rv">
       <h2>Catálogo</h2>
@@ -137,8 +128,8 @@
       </label>
       <div class="filters" id="filters" aria-label="Categoria">
         <button class="chip is-active" type="button" data-filter="todos">Todas</button>
-        <button class="chip" type="button" data-filter="polos">Polos</button>
         <button class="chip" type="button" data-filter="camisetas">Camisetas</button>
+        <button class="chip" type="button" data-filter="polos">Polos</button>
         <button class="chip" type="button" data-filter="conjuntos">Conjuntos</button>
         <button class="chip" type="button" data-filter="bones">Bonés</button>
       </div>
@@ -171,8 +162,8 @@
   </div>
 </section>
 
-<!-- 9. Instagram, dúvidas e WhatsApp -->
-<section class="section help" id="contato">
+<!-- 9. Dúvidas e WhatsApp -->
+<section class="section alt help" id="contato">
   <div class="wrap help-in rv">
     <div>
       <h2>Ficou com alguma dúvida?</h2>
@@ -186,9 +177,9 @@
 </section>
 
 <!-- 10. Avaliações (só reais; ver depoimentos em config.js) -->
-<section class="section alt reviews" id="avaliacoes">
+<section class="section reviews" id="avaliacoes">
   <div class="wrap">
-    <div class="sec-head rv"><h2>Quem já comprou</h2></div>
+    <div class="sec-head rv"><h2>Feedbacks de quem já comprou</h2></div>
     <div class="reviews-grid" id="reviews"></div>
   </div>
 </section>
@@ -196,22 +187,26 @@
 <!-- Espaço para o vídeo institucional (fase 2). Só aparece com videoInstitucional em config.js. -->
 <div class="video-float" id="videoFloat" hidden></div>
 
-<!-- 11. Grupo de novidades e newsletter -->
-<section class="section art-section news-section" aria-label="Grupo de novidades e newsletter">
-  <div class="wrap news-row">
-    <a class="art-banner rv" id="grupoBanner" href="#" data-grupo>
-      <img src="img/banners/grupo-novidades-1100.webp" srcset="img/banners/grupo-novidades-720.webp 720w, img/banners/grupo-novidades-1100.webp 1100w, img/banners/grupo-novidades-1774.webp 1774w" sizes="(min-width: 1100px) 740px, calc(100vw - 32px)" width="1774" height="887" alt="Entre no grupo de novidades da LS Conceito no WhatsApp. Entrar no grupo." loading="lazy">
+<!-- 11. Grupo de novidades (mockup) e newsletter -->
+<section class="section alt news-section" aria-label="Grupo de novidades e newsletter">
+  <div class="wrap social-row social-row--rev">
+    <a class="phone phone--wa rv" href="#" data-grupo aria-label="Entrar no grupo de novidades no WhatsApp">
+      <span class="phone-notch" aria-hidden="true"></span>
+      <span class="phone-screen" id="grupoScreen"></span>
     </a>
-    <form class="news rv" id="newsForm" novalidate style="--d:90ms">
-      <p class="eyebrow">Newsletter</p>
-      <h2>Novidades antes de todo mundo.</h2>
-      <p class="muted">Lançamentos e reposições no seu e-mail.</p>
-      <div class="news-form">
-        <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail" autocomplete="email">
-        <button type="submit" class="btn btn-gold">Assinar</button>
-      </div>
-      <a href="#" class="grupo-link" data-grupo>Ou entre no grupo de novidades no WhatsApp →</a>
-    </form>
+    <div class="social-copy rv" style="--d:120ms">
+      <p class="eyebrow">Grupo de novidades</p>
+      <h2>Entre no grupo e veja tudo antes.</h2>
+      <p class="muted">Peças novas, reposições e condições do grupo, direto no seu WhatsApp.</p>
+      <a href="#" class="btn btn-gold" data-grupo>Entrar no grupo</a>
+      <form class="news" id="newsForm" novalidate>
+        <p class="foot-label">Ou receba por e-mail</p>
+        <div class="news-form">
+          <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail" autocomplete="email">
+          <button type="submit" class="btn btn-line">Assinar</button>
+        </div>
+      </form>
+    </div>
   </div>
 </section>
 
@@ -231,8 +226,8 @@
     </div>
     <div>
       <p class="foot-label">Loja</p>
-      <a href="#catalogo" data-filter="polos">Polos</a>
       <a href="#catalogo" data-filter="camisetas">Camisetas</a>
+      <a href="#catalogo" data-filter="polos">Polos</a>
       <a href="#catalogo" data-filter="conjuntos">Conjuntos</a>
       <a href="#catalogo" data-filter="bones">Bonés</a>
     </div>
@@ -241,6 +236,12 @@
       <a href="#" class="js-whats">WhatsApp</a>
       <a href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Instagram @ls_conceit0</a>
       <a href="#" data-grupo>Grupo de novidades</a>
+    </div>
+    <div>
+      <p class="foot-label">Institucional</p>
+      <a href="quem-somos.html">Quem somos</a>
+      <a href="troca-e-devolucao.html">Trocas e devoluções</a>
+      <a href="politica-de-privacidade.html">Política de privacidade</a>
     </div>
     <div>
       <p class="foot-label">Loja física</p>
@@ -257,7 +258,7 @@
       </ol>
     </div>
   </div>
-  <div class="wrap copy">© <span id="year"></span> LS Conceito. Todos os direitos reservados.</div>
+  <div class="wrap copy">© <span id="year"></span> LS Conceito. Todos os direitos reservados. · <a href="politica-de-privacidade.html">Política de privacidade</a></div>
 </footer>
 
 <a href="#" class="float-whats js-whats" aria-label="Chamar no WhatsApp">
@@ -277,10 +278,10 @@
       <h2 id="mName"></h2>
       <p class="price" id="mPrice"></p>
       <p class="installments" id="mInst"></p>
-      <div class="sizes-label">Tamanho</div>
-      <div class="sizes" id="mSizes"></div>
+      <label class="select modal-size"><span class="sizes-label">Tamanho</span>
+        <select id="mSizes" aria-label="Tamanho"></select>
+      </label>
       <button type="button" class="btn btn-gold" id="mAdd">Adicionar ao carrinho</button>
-      <a href="#" class="btn btn-line" id="mBuy">Comprar pelo WhatsApp</a>
     </div>
   </div>
 </div>
@@ -296,7 +297,6 @@
     <div class="sum"><span>Subtotal</span><b id="cartSum">—</b></div>
     <p class="sum-note" id="cartNote"></p>
     <button type="button" class="btn btn-gold btn-block" id="checkoutBtn">Finalizar compra</button>
-    <a href="#" class="btn btn-line btn-block" id="cartWa" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
   </div>
   <div class="notice" id="notice" role="alertdialog" aria-labelledby="noticeTitle" aria-describedby="noticeText" aria-hidden="true">
     <p class="eyebrow">Quase lá</p>
@@ -308,9 +308,9 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261027c"></script>
-<script src="products.js?v=20261027c"></script>
-<script src="prices.js?v=20261027c"></script>
-<script src="script.js?v=20261027c"></script>
+<script src="config.js?v=20261029a"></script>
+<script src="products.js?v=20261029a"></script>
+<script src="prices.js?v=20261029a"></script>
+<script src="script.js?v=20261029a"></script>
 </body>
 </html>

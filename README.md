@@ -3,16 +3,20 @@
 Site estático (HTML/CSS/JS). A vitrine lista as peças e a compra segue pelo WhatsApp, já com o nome do produto e o tamanho escolhido.
 
 ## Ordem da home
-Barra de anúncio rotativa → header → hero com as artes → categorias → Nossos lançamentos → banners de coleção → Instagram → marcas (16 logos) → catálogo com busca e filtros → dúvidas/WhatsApp → avaliações → grupo de novidades e newsletter → rodapé com os selos. Fundo preto e grafite em todo o site (pedido do dono, 27/10).
+Barra de anúncio rotativa → header → hero com as 4 artes → compre por categoria (círculos) → novos lançamentos (4) → coleção em destaque (faixa com produtos) → marcas (16 logos) → Instagram em mockup de celular → catálogo com busca e filtros → dúvidas/WhatsApp → feedbacks → grupo de novidades em mockup + newsletter → rodapé com selos. Fundo preto em todo o site.
+
+Páginas institucionais: `quem-somos.html`, `troca-e-devolucao.html` e `politica-de-privacidade.html` (usam `page.js`). Os trechos marcados com borda tracejada são conteúdo pendente da loja.
 
 ## Configurar (config.js)
 - `whatsapp`: número da loja (DDI+DDD+número)
 - `avisos`: mensagens da barra do topo (uma por vez)
 - `banners`: artes do hero (`img/banners/<nome>-720|1100|1774.webp`)
-- `lancamentos`: ids que aparecem em "Nossos lançamentos"
+- `lancamentos`: 4 ids que aparecem em "Novos lançamentos"
+- `colecao`: categoria e título da faixa "Confira nossa coleção de ..."
+- `grupoImagem`: print real do grupo para o mockup (pendente)
 - `cupom`, `parcelasMax`: LSOFF10 e 12x, iguais aos da Nuvemshop
 - `grupoNovidades`: link do grupo de WhatsApp (pendente; vazio mostra aviso)
-- `depoimentos`: só avaliações reais; vazio mostra o espaço reservado
+- `depoimentos`: só avaliações reais; vazio mostra 3 cartões marcados como exemplo
 - `videoInstitucional`: vídeo fixo com botão de fechar (fase 2)
 - `ga4`, `metaPixel`, `gtm`: IDs de rastreamento (opcional)
 - `loja`: endereço na Nuvemshop, reservado para quando o carrinho online existir

@@ -1,4 +1,4 @@
-/* LS Conceito: vitrine. Carrinho de demonstração (mock do fluxo da Nuvemshop) e compra pelo WhatsApp. */
+/* LS Conceito: vitrine. Carrinho de demonstração (mock do fluxo da Nuvemshop); o checkout roda na Nuvemshop. */
 (function () {
   "use strict";
   var CFG = window.LS_CONFIG || {};
@@ -147,6 +147,10 @@
     });
   }, { threshold: 0.05 });
   function observeRow(row) { if (rowIo && row) rowIo.observe(row); }
+  /* título da coleção vem do config.js (precisa existir antes de quebrar em palavras) */
+  var colT = $("#colecaoTitulo");
+  if (colT) colT.textContent = "Confira nossa coleção de " + ((CFG.colecao && CFG.colecao.titulo) || "Polo");
+
   /* títulos de seção: cada palavra sobe sozinha (texto continua inteiro para leitor de tela) */
   if (!REDUCE) {
     $$(".sec-head h2").forEach(function (h) {
@@ -201,6 +205,7 @@
   slidesBox.innerHTML = banners.map(function (b, i) {
     var base = "img/banners/" + b.img + "-";
     return '<a class="slide' + (i ? "" : " is-active") + '" href="' + esc(b.href || "#catalogo") + '"' + (b.filter ? ' data-filter="' + esc(b.filter) + '"' : "") +
+      (b.externo ? ' target="_blank" rel="noopener"' : "") + (b.grupo ? " data-grupo" : "") +
       ' role="group" aria-roledescription="slide" aria-label="' + (i + 1) + " de " + banners.length + '"' + (i ? ' tabindex="-1"' : "") + ">" +
       '<img src="' + base + '1100.webp" srcset="' + base + "720.webp 720w, " + base + "1100.webp 1100w, " + base + '1774.webp 1774w" sizes="(min-width: 1280px) 1280px, 100vw" width="1774" height="887" alt="' + esc(b.alt || "") + '"' +
       (i ? ' loading="lazy"' : ' fetchpriority="high"') + "></a>";
@@ -323,7 +328,6 @@
       "</select>" +
       '<button type="button" class="btn btn-gold card-btn" data-add="' + esc(p.id) + '">Comprar</button>' +
       "</div>" +
-      '<a class="card-wa" target="_blank" rel="noopener" data-wa-buy="' + esc(p.id) + '" href="' + waLink(productMessage(p, "")) + '">Comprar pelo WhatsApp</a>' +
       "</div></div></article>";
   }
   /* "12x de R$ 15,82 sem juros" com o número de parcelas em destaque */
@@ -332,10 +336,46 @@
   }
 
   var launch = $("#launchGrid");
-  (CFG.lancamentos || []).map(byId).filter(Boolean).forEach(function (p, i) {
+  (CFG.lancamentos || []).slice(0, 4).map(byId).filter(Boolean).forEach(function (p, i) {
     launch.insertAdjacentHTML("beforeend", cardHtml(p, i < 4, i));
   });
   $$(".card", launch).forEach(observe);
+
+  /* ---------- Compre por categoria: círculos com ícone ---------- */
+  var ICON = {
+    camisetas: '<path d="M9 3 4 6l2 4 2-1v12h8V9l2 1 2-4-5-3c-.5 1.5-1.7 2.5-3 2.5S9.5 4.5 9 3z"/>',
+    polos: '<path d="M9 3 4 6l2 4 2-1v12h8V9l2 1 2-4-5-3"/><path d="M9 3l3 4 3-4M12 7v4"/>',
+    calcas: '<path d="M7 3h10l1 18h-4l-2-11-2 11H6z"/><path d="M7 6h10"/>',
+    bermudas: '<path d="M6 5h12l1 11h-5l-2-6-2 6H5z"/><path d="M6 8h12"/>',
+    moletons: '<path d="M8 4c0 2 1.8 3 4 3s4-1 4-3l4 3-1 5-2-1v10H7V11l-2 1-1-5z"/><path d="M10 15h4"/>',
+    conjuntos: '<path d="M8 2 4 4l1.5 3L7 6v6h10V6l1.5 1L20 4l-4-2c-.4 1.2-2 2-4 2s-3.6-.8-4-2z"/><path d="M8 14h8l1 8h-3.5l-1.5-5-1.5 5H7z"/>',
+    tenis: '<path d="M3 16v-4l5-1 3-4 3 3 4 1c2 .5 3 1.6 3 3v2z"/><path d="M3 18h18"/>',
+    bones: '<path d="M4 15a8 8 0 0 1 16 0z"/><path d="M12 7v2M2 15h20"/>'
+  };
+  var CIRCLES = ["camisetas", "calcas", "bermudas", "moletons", "conjuntos", "tenis", "polos", "bones"];
+  $("#catCircles").innerHTML = CIRCLES.map(function (c, i) {
+    var n = PRODUCTS.filter(function (p) { return p.cat === c; }).length;
+    return '<a href="#catalogo" class="cat-circle rv" style="--d:' + i * 50 + 'ms" data-filter="' + c + '"' + (n ? "" : ' data-soon="1"') + ">" +
+      '<span class="cat-ico"><svg viewBox="0 0 24 24" aria-hidden="true">' + ICON[c] + "</svg></span>" +
+      '<span class="cat-name">' + esc(STORE.CATS_PLURAL[c]) + "</span>" +
+      (n ? "" : '<span class="cat-soon">em breve</span>') + "</a>";
+  }).join("");
+  $$("#catCircles .rv").forEach(observe);
+  observeRow($("#catCircles"));
+
+  /* ---------- Coleção em destaque (faixa com rolagem lateral) ---------- */
+  var COL = CFG.colecao || { cat: "polos", titulo: "Polo" };
+  $("#colecaoLink").dataset.filter = COL.cat;
+  var rail = $("#colecaoRail");
+  rail.innerHTML = PRODUCTS.filter(function (p) { return p.cat === COL.cat; }).slice(0, 10).map(function (p, i) {
+    return cardHtml(p, false, i);
+  }).join("");
+  $$(".card", rail).forEach(function (c) { c.classList.add("rv-in"); c.classList.remove("rv"); });
+  $$("[data-rail]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      rail.scrollBy({ left: +b.dataset.rail * rail.clientWidth * 0.9, behavior: REDUCE ? "auto" : "smooth" });
+    });
+  });
 
   var brandSelect = $("#brandSelect");
   brandSelect.insertAdjacentHTML("beforeend", brandsUsed.map(function (b) {
@@ -387,7 +427,7 @@
     $("#sizeSelect").classList.toggle("is-set", state.size !== "todos");
     if ($("#search").value !== state.q) $("#search").value = state.q;
     $$("[data-brand-pick]").forEach(function (c) { c.classList.toggle("is-active", c.dataset.brandPick === state.brand); });
-    $$(".cat-tile[data-filter]").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === state.cat && state.cat !== "todos"); });
+    $$(".cat-circle[data-filter]").forEach(function (c) { c.classList.toggle("is-active", c.dataset.filter === state.cat && state.cat !== "todos"); });
     $("#clearFilters").hidden = !filtering();
   }
   function filtering() {
@@ -423,6 +463,9 @@
     Object.keys(partial).forEach(function (k) { state[k] = partial[k]; });
     renderCatalog(true);
   }
+  /* vindo das páginas institucionais: index.html?cat=polos#catalogo */
+  var catParam = new URLSearchParams(location.search).get("cat");
+  if (catParam && STORE.CATS_PLURAL[catParam]) state.cat = catParam;
   renderCatalog(false);
 
   var CLEAR = { cat: "todos", brand: "todas", size: "todos", sort: "default", q: "" };
@@ -456,7 +499,7 @@
     return sel ? sel.value : "";
   }
   function shakeSizes(box) {
-    $$(".size, .card-size", box).forEach(function (s) {
+    (box.matches && box.matches("select") ? [box] : $$(".size, .card-size", box)).forEach(function (s) {
       s.classList.remove("shake");
       void s.offsetWidth;
       s.classList.add("shake");
@@ -483,12 +526,7 @@
   function findItem(id, size) {
     return cart.filter(function (it) { return it.id === id && it.size === size; })[0];
   }
-  function cartMessage() {
-    var lines = cart.map(function (it) {
-      return "- " + it.qty + "x " + displayName(byId(it.id)) + ", tamanho " + it.size;
-    });
-    return "Olá! Vim pelo site da LS Conceito e quero finalizar este pedido:\n" + lines.join("\n");
-  }
+
 
   var drawer = $("#drawer");
   var drawerBg = $("#drawerBg");
@@ -536,7 +574,6 @@
     sum.textContent = allPriced ? brl(total) : "A confirmar";
     sum.classList.toggle("is-placeholder", !allPriced);
     $("#cartNote").textContent = allPriced ? "Frete e cupom são calculados no checkout." : "Há peças com preço a confirmar. O valor final aparece no checkout.";
-    $("#cartWa").href = waLink(cartMessage());
   }
 
   function openDrawer() {
@@ -619,17 +656,6 @@
       return;
     }
 
-    var buy = e.target.closest("a[data-wa-buy]");
-    if (buy) {
-      var bcard = buy.closest(".card");
-      var bsize = buy.dataset.size || selectedSize(bcard);
-      var product = byId(buy.dataset.waBuy);
-      if (!bsize) { e.preventDefault(); shakeSizes(bcard); return; }
-      buy.href = waLink(productMessage(product, bsize));
-      track("click_comprar", { item_name: product.name, size: bsize });
-      return;
-    }
-
     if (e.target.closest("[data-cart-open]")) { openDrawer(); return; }
     if (e.target.closest("[data-cart-close]")) { closeDrawer(); return; }
     var q = e.target.closest("[data-qty]");
@@ -648,6 +674,13 @@
       setState({ brand: brandPick.dataset.brandPick, cat: "todos", size: "todos", q: "" });
       scrollToEl($("#catalogo"));
       closeNav();
+      return;
+    }
+
+    var soon = e.target.closest("[data-soon]");
+    if (soon) {
+      e.preventDefault();
+      toast(STORE.CATS_PLURAL[soon.dataset.filter] + ": peças chegando em breve na loja online.");
       return;
     }
 
@@ -696,11 +729,10 @@
     $("#mThumbs").innerHTML = cur.imgs.length > 1 ? cur.imgs.map(function (n, i) {
       return '<button type="button" class="' + (i ? "" : "is-active") + '" data-src="' + img(n, 800) + '" aria-label="Foto ' + (i + 1) + '"><img src="' + img(n) + '" alt=""></button>';
     }).join("") : "";
-    $("#mSizes").innerHTML = sizesFor(cur).map(function (s) {
-      return '<button type="button" class="size" data-size="' + esc(s) + '">' + esc(s) + "</button>";
+    $("#mSizes").innerHTML = '<option value="">Tamanhos</option>' + sizesFor(cur).map(function (s) {
+      return '<option value="' + esc(s) + '">' + esc(s) + "</option>";
     }).join("");
-    $("#mBuy").href = waLink(productMessage(cur, ""));
-    $("#mBuy").dataset.size = "";
+    $("#mSizes").classList.remove("is-set");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.documentElement.style.overflow = "hidden";
@@ -720,13 +752,9 @@
     mi.classList.add("swap");
     setTimeout(function () { mi.src = b.dataset.src; mi.classList.remove("swap"); }, 180);
   });
-  $("#mSizes").addEventListener("click", function (e) {
-    var b = e.target.closest(".size");
-    if (!b || !cur) return;
-    curSize = b.dataset.size;
-    $$(".size", this).forEach(function (x) { x.classList.toggle("is-active", x === b); });
-    $("#mBuy").dataset.size = curSize;
-    $("#mBuy").href = waLink(productMessage(cur, curSize));
+  $("#mSizes").addEventListener("change", function () {
+    curSize = this.value || null;
+    this.classList.toggle("is-set", !!curSize);
   });
   $("#mAdd").addEventListener("click", function () {
     if (!cur) return;
@@ -734,11 +762,6 @@
     addToCart(cur.id, curSize);
     flashAdded(this);
     setTimeout(function () { closeProduct(); openDrawer(); }, 350);
-  });
-  $("#mBuy").addEventListener("click", function (e) {
-    if (!cur) return;
-    if (!curSize) { e.preventDefault(); shakeSizes($("#mSizes")); return; }
-    track("click_comprar", { item_name: cur.name, size: curSize });
   });
   $$("[data-close]", modal).forEach(function (b) {
     b.addEventListener("click", closeProduct);
@@ -765,6 +788,14 @@
     });
   }
 
+  /* ---------- Mockup do grupo de novidades ---------- */
+  $("#grupoScreen").innerHTML = CFG.grupoImagem
+    ? '<img src="' + esc(CFG.grupoImagem) + '" alt="Grupo de novidades da LS Conceito no WhatsApp" loading="lazy">'
+    : '<span class="wa-head"><img src="img/logo-mark.webp" alt=""><span><b>Novidades LS Conceito</b><small>grupo · WhatsApp</small></span></span>' +
+      '<span class="wa-body"><span class="wa-msg">Print real do grupo</span><span class="wa-msg wa-msg--me">pendente: aguardando a loja</span>' +
+      '<img class="wa-pic" src="img/produtos/p2-400.webp" alt=""><span class="wa-msg">Novidades e reposições aparecem aqui</span></span>' +
+      '<span class="ph-tag ph-tag--phone">Espaço para o print do grupo</span>';
+
   /* ---------- Avaliações: só reais, vindas de config.js ---------- */
   var reviews = CFG.depoimentos || [];
   $("#reviews").innerHTML = reviews.length ? reviews.map(function (r) {
@@ -772,8 +803,12 @@
       "<blockquote><p>" + esc(r.texto) + "</p></blockquote>" +
       '<figcaption class="review-who">' + (r.foto ? '<img src="' + esc(r.foto) + '" alt="" loading="lazy">' : "") +
       "<span><b>" + esc(r.nome) + "</b>" + esc(r.cidade || "") + "</span></figcaption></figure>";
-  }).join("") : '<div class="reviews-empty"><p>Em breve, as avaliações de quem já comprou na LS Conceito.</p>' +
-    '<a class="btn btn-line btn-sm" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Ver clientes no Instagram</a></div>';
+  }).join("") : [1, 2, 3].map(function (n) {
+    /* PENDENTE (Lorenzo): espaço marcado; nenhum nome, cidade ou texto inventado */
+    return '<figure class="review review--placeholder rv" style="--d:' + (n - 1) * 90 + 'ms"><span class="ph-tag">Exemplo · aguardando cliente real</span>' +
+      '<span class="ph-avatar" aria-hidden="true"></span><div class="review-stars" aria-hidden="true">★★★★★</div>' +
+      '<p class="ph-line">Nome | Cidade</p><p class="ph-text">Aqui entra a mensagem real de um cliente, com foto, nome e cidade enviados pela loja.</p></figure>';
+  }).join("");
   $$("#reviews .rv").forEach(observe);
 
   /* ---------- Vídeo institucional fixo com botão de fechar (fase 2) ---------- */
