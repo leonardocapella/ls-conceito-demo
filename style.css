@@ -1091,6 +1091,11 @@ select option { background: var(--surface); color: var(--text); }
 .modal-size select.is-set { border-color: var(--gold); color: var(--gold); }
 #mSizes.shake { animation: shake .35s; border-color: var(--gold); }
 
+.notice-links { display: flex; flex-direction: column; gap: 8px; }
+.notice-links a:not(.btn) { color: var(--gold); font-size: var(--fs-sm); text-decoration: underline; text-underline-offset: 3px; }
+
+.card-btn[disabled] { opacity: .55; cursor: not-allowed; transform: none; }
+
 /* páginas institucionais */
 .page-hero { padding: clamp(56px, 8vw, 110px) 0 clamp(28px, 4vw, 48px); border-bottom: 1px solid var(--line); background: radial-gradient(900px 300px at 85% 0%, rgba(233, 193, 99, .06), transparent 60%), var(--alt); }
 .page-hero h1 { font-size: var(--fs-2xl); margin-top: 6px; }
