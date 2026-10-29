@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/banners/frete-gratis-1100.webp" imagesrcset="img/banners/frete-gratis-720.webp 720w, img/banners/frete-gratis-1100.webp 1100w, img/banners/frete-gratis-1774.webp 1774w" imagesizes="(min-width: 1600px) 1600px, 100vw">
-<link rel="stylesheet" href="style.css?v=20261029a">
+<link rel="stylesheet" href="style.css?v=20261029b">
 </head>
 <body>
 
@@ -31,7 +31,9 @@
         <a href="#catalogo" data-filter="todos">Todas as peças</a>
         <a href="#catalogo" data-filter="camisetas">Camisetas</a>
         <a href="#catalogo" data-filter="polos">Polos</a>
+        <a href="#catalogo" data-filter="calcas">Calças</a>
         <a href="#catalogo" data-filter="conjuntos">Conjuntos</a>
+        <a href="#catalogo" data-filter="tenis">Tênis</a>
         <a href="#catalogo" data-filter="bones">Bonés</a>
       </div>
     </div>
@@ -130,7 +132,9 @@
         <button class="chip is-active" type="button" data-filter="todos">Todas</button>
         <button class="chip" type="button" data-filter="camisetas">Camisetas</button>
         <button class="chip" type="button" data-filter="polos">Polos</button>
+        <button class="chip" type="button" data-filter="calcas">Calças</button>
         <button class="chip" type="button" data-filter="conjuntos">Conjuntos</button>
+        <button class="chip" type="button" data-filter="tenis">Tênis</button>
         <button class="chip" type="button" data-filter="bones">Bonés</button>
       </div>
       <div class="selects">
@@ -145,6 +149,15 @@
             <option value="G">G</option>
             <option value="GG">GG</option>
             <option value="Único">Único</option>
+            <option value="36">36</option>
+            <option value="38">38</option>
+            <option value="39">39</option>
+            <option value="40">40</option>
+            <option value="41">41</option>
+            <option value="42">42</option>
+            <option value="44">44</option>
+            <option value="46">46</option>
+            <option value="48">48</option>
           </select>
         </label>
         <label class="select"><span class="sr-only">Ordenar</span>
@@ -228,7 +241,9 @@
       <p class="foot-label">Loja</p>
       <a href="#catalogo" data-filter="camisetas">Camisetas</a>
       <a href="#catalogo" data-filter="polos">Polos</a>
+      <a href="#catalogo" data-filter="calcas">Calças</a>
       <a href="#catalogo" data-filter="conjuntos">Conjuntos</a>
+      <a href="#catalogo" data-filter="tenis">Tênis</a>
       <a href="#catalogo" data-filter="bones">Bonés</a>
     </div>
     <div>
@@ -301,16 +316,16 @@
   <div class="notice" id="notice" role="alertdialog" aria-labelledby="noticeTitle" aria-describedby="noticeText" aria-hidden="true">
     <p class="eyebrow">Quase lá</p>
     <h3 id="noticeTitle">O checkout acontece na loja online</h3>
-    <p id="noticeText">O pagamento, o frete e o rastreio rodam na loja da LS Conceito na Nuvemshop. Esta página é a vitrine: ela guarda o seu carrinho, e a loja conclui o pedido com segurança.</p>
+    <p id="noticeText">O pagamento, o frete e o cupom rodam na loja da LS Conceito na Nuvemshop. Abra cada peça na loja, confira o tamanho e conclua o pedido por lá.</p>
     <button type="button" class="btn btn-gold btn-block" id="noticeOk">Entendi</button>
   </div>
 </aside>
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261029a"></script>
-<script src="products.js?v=20261029a"></script>
-<script src="prices.js?v=20261029a"></script>
-<script src="script.js?v=20261029a"></script>
+<script src="config.js?v=20261029b"></script>
+<script src="products.js?v=20261029b"></script>
+<script src="prices.js?v=20261029b"></script>
+<script src="script.js?v=20261029b"></script>
 </body>
 </html>

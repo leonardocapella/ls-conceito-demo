@@ -20,8 +20,15 @@
       return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
     });
   }
-  function img(i, w) { return "img/produtos/p" + i + "-" + (w || 400) + ".webp"; }
-  function imgSet(i) { return img(i, 400) + " 400w, " + img(i, 800) + " 800w"; }
+  /* foto da peça: número (fotos locais antigas) ou URL do CDN da Nuvemshop (…-640-0.webp; existem 480 e 1024-1024) */
+  function img(i, w) {
+    if (typeof i === "string") return w && w > 640 ? i.replace(/-640-0\.webp$/, "-1024-1024.webp") : i.replace(/-640-0\.webp$/, "-480-0.webp");
+    return "img/produtos/p" + i + "-" + (w || 400) + ".webp";
+  }
+  function imgSet(i) {
+    if (typeof i === "string") return img(i) + " 480w, " + i + " 640w, " + img(i, 1024) + " 1024w";
+    return img(i, 400) + " 400w, " + img(i, 800) + " 800w";
+  }
   var CARD_SIZES = "(min-width: 1300px) 300px, (min-width: 900px) 24vw, 48vw";
   function byId(id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; }
   function waLink(text) { return "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent(text); }
@@ -326,7 +333,9 @@
       '<select class="card-size" aria-label="Tamanho de ' + esc(name) + '"><option value="">Tam.</option>' +
       sizes.map(function (s) { return '<option value="' + esc(s) + '">' + esc(s) + "</option>"; }).join("") +
       "</select>" +
-      '<button type="button" class="btn btn-gold card-btn" data-add="' + esc(p.id) + '">Comprar</button>' +
+      (p.stock === false
+        ? '<button type="button" class="btn btn-line card-btn" disabled>Esgotado</button>'
+        : '<button type="button" class="btn btn-gold card-btn" data-add="' + esc(p.id) + '">Comprar</button>') +
       "</div>" +
       "</div></div></article>";
   }
@@ -352,7 +361,7 @@
     tenis: '<path d="M3 16v-4l5-1 3-4 3 3 4 1c2 .5 3 1.6 3 3v2z"/><path d="M3 18h18"/>',
     bones: '<path d="M4 15a8 8 0 0 1 16 0z"/><path d="M12 7v2M2 15h20"/>'
   };
-  var CIRCLES = ["camisetas", "calcas", "bermudas", "moletons", "conjuntos", "tenis", "polos", "bones"];
+  var CIRCLES = ["camisetas", "polos", "calcas", "bermudas", "moletons", "conjuntos", "tenis", "bones"];
   $("#catCircles").innerHTML = CIRCLES.map(function (c, i) {
     var n = PRODUCTS.filter(function (p) { return p.cat === c; }).length;
     return '<a href="#catalogo" class="cat-circle rv" style="--d:' + i * 50 + 'ms" data-filter="' + c + '"' + (n ? "" : ' data-soon="1"') + ">" +
@@ -702,6 +711,17 @@
     track("click_comprar", { item_name: "carrinho", items: cartCount() });
   });
   $("#noticeOk").addEventListener("click", closeNotice);
+  /* carrinho → loja real: lista os links das peças escolhidas */
+  if (CFG.loja) {
+    var noticeBox = $("#notice");
+    noticeBox.insertAdjacentHTML("beforeend", '<div class="notice-links" id="noticeLinks"></div>');
+    $("#checkoutBtn").addEventListener("click", function () {
+      $("#noticeLinks").innerHTML = cart.map(function (it) {
+        var p = byId(it.id);
+        return '<a href="' + esc(p.url || CFG.loja) + '" target="_blank" rel="noopener">' + esc(displayName(p)) + " · " + esc(it.size) + " ↗</a>";
+      }).join("") + '<a class="btn btn-line btn-block" href="' + esc(CFG.loja) + '" target="_blank" rel="noopener">Abrir a loja online</a>';
+    });
+  }
 
   $("#burger").addEventListener("click", function () {
     var open = !$("#nav").classList.contains("is-open");

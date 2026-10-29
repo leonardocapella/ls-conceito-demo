@@ -1,7 +1,7 @@
 // Configurações públicas do site
 window.LS_CONFIG = {
-  // Endereço da loja online na Nuvemshop, se passar a existir.
-  loja: "",
+  // Loja online na Nuvemshop (checkout, Pix, frete e cupom acontecem lá).
+  loja: "https://lsconceito4.lojavirtualnuvem.com.br",
   // Barra de anúncio do topo: mostra uma mensagem por vez e troca sozinha.
   avisos: [
     "Frete grátis acima de R$ 500,00 · Envio para todo o Brasil",
@@ -20,20 +20,21 @@ window.LS_CONFIG = {
   ],
   // "Novos lançamentos": 4 peças (ids de products.js, na ordem em que aparecem).
   lancamentos: [
-    "polo-bloco-azul-gelo",
-    "camiseta-dragao-vermelho",
-    "conjunto-preto-laranja",
-    "camiseta-swoosh-gigante"
+    "polo-lacoste-mutua-madrid-open-vermelho",
+    "tenis-mizuno-prophecy-15-roxo",
+    "bone-armani-exchange-cinza",
+    "calca-jogador-brow-jeans-preto"
   ],
   // Faixa "Confira nossa coleção de ...": categoria de products.js e título.
-  // Quando houver bermudas cadastradas, troque para { cat: "bermudas", titulo: "Bermuda" }.
-  colecao: { cat: "polos", titulo: "Polo" },
+  // Categorias reais da Nuvemshop: camisetas, polos, calcas, conjuntos, tenis, bones (bermudas e moletons ainda sem peças).
+  colecao: { cat: "calcas", titulo: "Calças" },
   // Imagem real do grupo de novidades para o mockup de celular.
   // PENDENTE (Lorenzo): print do grupo. Vazio: o mockup mostra um espaço marcado.
   grupoImagem: "",
   // Cupom de primeira compra (o limite de um uso por cliente se configura na Nuvemshop).
   cupom: "LSOFF10",
   // Parcelamento máximo no cartão, igual ao configurado na Nuvemshop.
+  // ATENÇÃO (29/10): a loja (Nuvem Pago) hoje oferece 1x, e 2x acima de ~R$ 400. Confirmar se o 12x vai ser ativado.
   parcelasMax: 12,
   // Instagram da loja (sem @).
   instagram: "ls_conceit0",
