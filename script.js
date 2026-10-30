@@ -8,9 +8,8 @@
   var PLACEHOLDER = window.LS_PRICE_PLACEHOLDER || {
     placeholder: true,
     label: "Preço a confirmar",
-    parcelasLabel: "Parcelamento a confirmar"
+    parcelasLabel: ""
   };
-  var MAX_PARC = CFG.parcelasMax || 12;
   var $ = function (s, r) { return (r || document).querySelector(s); };
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var REDUCE = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -44,8 +43,8 @@
     var x = PRICES[p.id];
     if (x && !x.placeholder && x.preco > 0) {
       var off = x.precoAntigo > x.preco ? Math.round((1 - x.preco / x.precoAntigo) * 100) : 0;
-      var n = x.parcelas > 1 ? x.parcelas : MAX_PARC;
-      var inst = n + "x de " + brl(x.preco / n) + " sem juros";
+      /* parcelamento e Pix aparecem no checkout da Nuvemshop; o site não promete número de parcelas */
+      var inst = "Pix e cartão no checkout";
       return {
         placeholder: false,
         current: brl(x.preco),
@@ -60,7 +59,7 @@
       current: PLACEHOLDER.label,
       old: "",
       off: 0,
-      inst: "em até " + MAX_PARC + "x no cartão",
+      inst: "",
       value: null
     };
   }
@@ -339,10 +338,7 @@
       "</div>" +
       "</div></div></article>";
   }
-  /* "12x de R$ 15,82 sem juros" com o número de parcelas em destaque */
-  function instHtml(text) {
-    return esc(text).replace(/(\d+x)/, "<b>$1</b>");
-  }
+  function instHtml(text) { return esc(text); }
 
   var launch = $("#launchGrid");
   (CFG.lancamentos || []).slice(0, 4).map(byId).filter(Boolean).forEach(function (p, i) {
