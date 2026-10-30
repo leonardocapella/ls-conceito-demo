@@ -1,4 +1,4 @@
-/* LS Conceito: vitrine. Carrinho de demonstração (mock do fluxo da Nuvemshop); o checkout roda na Nuvemshop. */
+/* LS Conceito: vitrine. Carrinho local que vira carrinho real da Nuvemshop no "Finalizar compra" (/comprar/). */
 (function () {
   "use strict";
   var CFG = window.LS_CONFIG || {};
@@ -512,7 +512,7 @@
     toast("Escolha o tamanho");
   }
 
-  /* ---------- Carrinho (mock do fluxo da Nuvemshop; guarda só id, tamanho e quantidade) ---------- */
+  /* ---------- Carrinho (enviado à Nuvemshop no checkout; guarda só id, tamanho e quantidade) ---------- */
   var CART_KEY = "ls-conceito-cart-v1";
   var MAX_QTY = 10;
   var cart = loadCart();
@@ -591,12 +591,7 @@
     document.documentElement.style.overflow = "hidden";
     setTimeout(function () { var x = $(".drawer-x", drawer); if (x) x.focus({ preventScroll: true }); }, 60);
   }
-  function closeNotice() {
-    $("#notice").classList.remove("is-open");
-    $("#notice").setAttribute("aria-hidden", "true");
-  }
   function closeDrawer() {
-    closeNotice();
     drawer.classList.remove("is-open");
     drawerBg.classList.remove("is-open");
     drawer.setAttribute("aria-hidden", "true");
@@ -604,6 +599,13 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
   function addToCart(id, size) {
+    var p = byId(id);
+    /* peça sem variação mapeada (ex.: cor + tamanho): escolhe direto na página da loja */
+    if (!variantId(p, size)) {
+      track("click_comprar", { item_id: id, item_name: p.name, size: size });
+      location.href = storeLink(p);
+      return false;
+    }
     var it = findItem(id, size);
     if (it) it.qty = Math.min(MAX_QTY, it.qty + 1);
     else cart.push({ id: id, size: size, qty: 1 });
@@ -655,7 +657,7 @@
       var card = add.closest(".card");
       var size = selectedSize(card);
       if (!size) { shakeSizes(card); return; }
-      addToCart(add.dataset.add, size);
+      if (addToCart(add.dataset.add, size) === false) return;
       flashAdded(add);
       setTimeout(openDrawer, 350);
       return;
@@ -699,25 +701,32 @@
     closeNav();
   });
 
-  $("#checkoutBtn").addEventListener("click", function () {
-    var n = $("#notice");
-    n.classList.add("is-open");
-    n.setAttribute("aria-hidden", "false");
-    $("#noticeOk").focus({ preventScroll: true });
-    track("click_comprar", { item_name: "carrinho", items: cartCount() });
-  });
-  $("#noticeOk").addEventListener("click", closeNotice);
-  /* carrinho → loja real: lista os links das peças escolhidas */
-  if (CFG.loja) {
-    var noticeBox = $("#notice");
-    noticeBox.insertAdjacentHTML("beforeend", '<div class="notice-links" id="noticeLinks"></div>');
-    $("#checkoutBtn").addEventListener("click", function () {
-      $("#noticeLinks").innerHTML = cart.map(function (it) {
-        var p = byId(it.id);
-        return '<a href="' + esc(p.url || CFG.loja) + '" target="_blank" rel="noopener">' + esc(displayName(p)) + " · " + esc(it.size) + " ↗</a>";
-      }).join("") + '<a class="btn btn-line btn-block" href="' + esc(CFG.loja) + '" target="_blank" rel="noopener">Abrir a loja online</a>';
-    });
+  /* ---------- Checkout: leva o carrinho para a loja Nuvemshop (Pix, parcelas e frete ficam lá) ---------- */
+  var LOJA = (CFG.loja || "").replace(/\/+$/, "");
+  function variantId(p, size) { return p && p.variants ? p.variants[size] : null; }
+  /* link da peça na loja: página do produto ou, sem mapeamento, a busca da loja pelo nome */
+  function storeLink(p) {
+    if (p.url) return p.url;
+    return LOJA ? LOJA + "/search/?q=" + encodeURIComponent(p.name) : waLink("Quero comprar: " + p.name);
   }
+  /* /comprar/VAR-QTD,VAR-QTD/ cria o carrinho na Nuvemshop e abre o checkout */
+  function checkoutUrl() {
+    var parts = [], loose = [];
+    cart.forEach(function (it) {
+      var v = variantId(byId(it.id), it.size);
+      if (v) parts.push(v + "-" + it.qty); else loose.push(it);
+    });
+    if (parts.length && LOJA) return LOJA + "/comprar/" + parts.join(",") + "/";
+    if (loose.length) return storeLink(byId(loose[0].id));
+    return LOJA || waLink("Quero finalizar minha compra");
+  }
+  $("#checkoutBtn").addEventListener("click", function () {
+    track("click_comprar", { item_name: "carrinho", items: cartCount() });
+    var url = checkoutUrl();
+    var loose = cart.filter(function (it) { return !variantId(byId(it.id), it.size); });
+    if (loose.length && url.indexOf("/comprar/") > -1) toast("Algumas peças abrem na página da loja para escolher o tamanho");
+    location.href = url;
+  });
 
   $("#burger").addEventListener("click", function () {
     var open = !$("#nav").classList.contains("is-open");
@@ -775,7 +784,7 @@
   $("#mAdd").addEventListener("click", function () {
     if (!cur) return;
     if (!curSize) { shakeSizes($("#mSizes")); return; }
-    addToCart(cur.id, curSize);
+    if (addToCart(cur.id, curSize) === false) return;
     flashAdded(this);
     setTimeout(function () { closeProduct(); openDrawer(); }, 350);
   });
@@ -784,8 +793,7 @@
   });
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Escape") return;
-    if ($("#notice").classList.contains("is-open")) closeNotice();
-    else if (drawer.classList.contains("is-open")) closeDrawer();
+    if (drawer.classList.contains("is-open")) closeDrawer();
     else if (modal.classList.contains("is-open")) closeProduct();
   });
 

@@ -32,8 +32,8 @@ Sem entrada em `LS_PRICES`, o card mostra o placeholder "Preço a confirmar" e n
 ## Publicar
 Site estático. O GitHub Pages publica a branch `main`.
 
-## Carrinho de demonstração
-"Adicionar ao carrinho" exige o tamanho, abre a gaveta e guarda id, tamanho e quantidade em `localStorage` (`ls-conceito-cart-v1`). "Finalizar compra" só avisa que o checkout roda na loja Nuvemshop: não há formulário de pagamento nem coleta de cartão. "Comprar pelo WhatsApp" segue como opção secundária.
+## Carrinho e checkout (Nuvemshop)
+"Adicionar ao carrinho" exige o tamanho e guarda id, tamanho e quantidade em `localStorage` (`ls-conceito-cart-v1`). "Finalizar compra" leva tudo para a loja `loja` (config.js) em `/comprar/VARIACAO-QTD,.../`, que cria o carrinho real e abre o checkout da Nuvemshop (Pix, parcelas, frete e cupom ficam lá). Os ids de variação vêm de `catalogo.js`. Peça sem variação mapeada abre a página dela na loja (`url`) ou, sem `url`, a busca da loja.
 
 ## Banners (config.js)
 `banners` define os slides do hero: `img` (prefixo da arte), `href` e `alt` com o texto da arte. As artes originais (1774×887) foram convertidas para WebP em três larguras.
