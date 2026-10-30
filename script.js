@@ -330,7 +330,7 @@
       '<p class="installments">' + instHtml(price.inst) + "</p>" +
       '<div class="card-actions">' +
       '<select class="card-size" aria-label="Tamanho de ' + esc(name) + '"><option value="">Tam.</option>' +
-      sizes.map(function (s) { return '<option value="' + esc(s) + '">' + esc(s) + "</option>"; }).join("") +
+      sizes.map(function (s) { return sizeOption(p, s); }).join("") +
       "</select>" +
       (p.stock === false
         ? '<button type="button" class="btn btn-line card-btn" disabled>Esgotado</button>'
@@ -515,13 +515,24 @@
   /* ---------- Carrinho (enviado à Nuvemshop no checkout; guarda só id, tamanho e quantidade) ---------- */
   var CART_KEY = "ls-conceito-cart-v1";
   var MAX_QTY = 10;
+  /* quantas unidades do tamanho cabem no carrinho (estoque da Nuvemshop, até MAX_QTY) */
+  function maxQty(p, size) {
+    var s = p && p.stockBy ? p.stockBy[size] : undefined;
+    var max = MAX_QTY || 10;
+    return typeof s === "number" ? Math.min(max, s) : max;
+  }
+  function soldOut(p, size) { return maxQty(p, size) < 1; }
+  function sizeOption(p, s) {
+    var out = soldOut(p, s);
+    return '<option value="' + esc(s) + '"' + (out ? " disabled" : "") + ">" + esc(s) + (out ? " (esgotado)" : "") + "</option>";
+  }
   var cart = loadCart();
   function loadCart() {
     try {
       var raw = JSON.parse(localStorage.getItem(CART_KEY) || "[]");
       return (Array.isArray(raw) ? raw : []).filter(function (it) {
         return it && byId(it.id) && typeof it.size === "string" && it.qty > 0;
-      }).map(function (it) { return { id: it.id, size: it.size, qty: Math.min(MAX_QTY, Math.floor(it.qty)) }; });
+      }).map(function (it) { return { id: it.id, size: it.size, qty: Math.min(maxQty(byId(it.id), it.size), Math.floor(it.qty)) }; }).filter(function (it) { return it.qty > 0; });
     } catch (e) { return []; }
   }
   function saveCart() {
@@ -571,7 +582,7 @@
         '<div class="ci-row"><div class="qty" role="group" aria-label="Quantidade">' +
         '<button type="button" data-qty="-1" data-id="' + esc(it.id) + '" data-size="' + esc(it.size) + '" aria-label="Diminuir">−</button>' +
         "<span>" + it.qty + "</span>" +
-        '<button type="button" data-qty="1" data-id="' + esc(it.id) + '" data-size="' + esc(it.size) + '" aria-label="Aumentar">+</button></div>' +
+        '<button type="button" data-qty="1" data-id="' + esc(it.id) + '" data-size="' + esc(it.size) + '" aria-label="Aumentar"' + (it.qty >= maxQty(p, it.size) ? " disabled" : "") + '>+</button></div>' +
         '<button type="button" class="ci-remove" data-remove data-id="' + esc(it.id) + '" data-size="' + esc(it.size) + '">Remover</button></div>' +
         "</div></div>";
     }).join("");
@@ -607,7 +618,9 @@
       return false;
     }
     var it = findItem(id, size);
-    if (it) it.qty = Math.min(MAX_QTY, it.qty + 1);
+    var cap = maxQty(p, size);
+    if ((it ? it.qty : 0) >= cap) { toast(cap ? "Só " + cap + " em estoque nesse tamanho" : "Tamanho esgotado"); return false; }
+    if (it) it.qty += 1;
     else cart.push({ id: id, size: size, qty: 1 });
     saveCart();
     renderCart(true);
@@ -630,7 +643,8 @@
     if (!it) return;
     it.qty += delta;
     if (it.qty < 1) cart.splice(cart.indexOf(it), 1);
-    it.qty = Math.min(MAX_QTY, it.qty);
+    var cap = maxQty(byId(id), size);
+    if (it.qty > cap) { it.qty = cap; toast("Só " + cap + " em estoque nesse tamanho"); }
     saveCart();
     renderCart(true);
   }
@@ -703,7 +717,10 @@
 
   /* ---------- Checkout: leva o carrinho para a loja Nuvemshop (Pix, parcelas e frete ficam lá) ---------- */
   var LOJA = (CFG.loja || "").replace(/\/+$/, "");
-  function variantId(p, size) { return p && p.variants ? p.variants[size] : null; }
+  /* só manda para /comprar/ a variação com estoque conhecido (stockBy: número, ou null = infinito) */
+  function variantId(p, size) {
+    return p && p.variants && p.stockBy && size in p.stockBy ? p.variants[size] : null;
+  }
   /* link da peça na loja: página do produto ou, sem mapeamento, a busca da loja pelo nome */
   function storeLink(p) {
     if (p.url) return p.url;
@@ -754,9 +771,7 @@
     $("#mThumbs").innerHTML = cur.imgs.length > 1 ? cur.imgs.map(function (n, i) {
       return '<button type="button" class="' + (i ? "" : "is-active") + '" data-src="' + img(n, 800) + '" aria-label="Foto ' + (i + 1) + '"><img src="' + img(n) + '" alt=""></button>';
     }).join("") : "";
-    $("#mSizes").innerHTML = '<option value="">Tamanhos</option>' + sizesFor(cur).map(function (s) {
-      return '<option value="' + esc(s) + '">' + esc(s) + "</option>";
-    }).join("");
+    $("#mSizes").innerHTML = '<option value="">Tamanhos</option>' + sizesFor(cur).map(function (s) { return sizeOption(cur, s); }).join("");
     $("#mSizes").classList.remove("is-set");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
