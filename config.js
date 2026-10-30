@@ -6,7 +6,7 @@ window.LS_CONFIG = {
   avisos: [
     "Frete grátis acima de R$ 500,00 · Envio para todo o Brasil",
     "10% OFF na primeira compra com o cupom LSOFF10",
-    "Compra segura · Parcele em até 12x no cartão"
+    "Compra segura · Pix ou cartão no checkout"
   ],
   // Banners do topo (troca sozinha). Cada arte já traz o texto e o botão desenhados;
   // o slide inteiro é o link. alt repete o texto da arte para leitor de tela e SEO.
@@ -33,9 +33,7 @@ window.LS_CONFIG = {
   grupoImagem: "",
   // Cupom de primeira compra (o limite de um uso por cliente se configura na Nuvemshop).
   cupom: "LSOFF10",
-  // Parcelamento máximo no cartão, igual ao configurado na Nuvemshop.
-  // ATENÇÃO (29/10): a loja (Nuvem Pago) hoje oferece 1x, e 2x acima de ~R$ 400. Confirmar se o 12x vai ser ativado.
-  parcelasMax: 12,
+  // Parcelamento: não aparece no site. As condições (Pix, parcelas) são as do checkout da Nuvemshop.
   // Instagram da loja (sem @).
   instagram: "ls_conceit0",
   // WhatsApp da loja: só números, com DDI+DDD.
