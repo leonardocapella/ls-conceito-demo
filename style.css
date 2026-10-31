@@ -134,12 +134,13 @@ h3 { font-size: var(--fs-lg); }
   border-bottom: 1px solid var(--line);
 }
 .brand { display: flex; align-items: center; gap: 12px; position: relative; z-index: 2; }
-.brand-lion { height: 52px; width: 52px; }
+.brand-lion { flex: none; display: block; height: 52px; width: 52px; object-fit: contain; }
 .brand-word {
   font-weight: 600;
   font-size: var(--fs-sm);
   letter-spacing: .2em;
   text-transform: uppercase;
+  line-height: 1;
   white-space: nowrap;
   color: var(--gold);
 }
@@ -400,6 +401,7 @@ h3 { font-size: var(--fs-lg); }
   letter-spacing: .06em;
   text-transform: uppercase;
   white-space: nowrap;
+  flex: 0 0 auto;
   transition: background .2s, color .2s, border-color .2s;
 }
 .chip:hover { border-color: var(--gold); }
@@ -639,7 +641,7 @@ select option { background: var(--surface); color: var(--text); }
 .header { transition: min-height .35s var(--ease), box-shadow .35s, background .35s; }
 .header.is-scrolled { min-height: 60px; background: rgba(11, 11, 11, .985); box-shadow: 0 12px 30px -18px rgba(0, 0, 0, .9); }
 .brand-lion { transition: transform .35s var(--ease); }
-.header.is-scrolled .brand-lion { transform: scale(.82); }
+.header.is-scrolled .brand-lion { transform: scale(.9); }
 .brand:hover .brand-lion { transform: rotate(-6deg) scale(1.04); }
 
 /* fio dourado sob o header, desenhado na entrada */
@@ -1201,8 +1203,8 @@ select option { background: var(--surface); color: var(--text); }
   .filter-bar { flex-direction: column; align-items: stretch; }
   .filter-bar > * { min-width: 0; max-width: 100%; }
   .search-field { flex: none; }
-  .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--pad) * -1); padding: 0 var(--pad); }
-  .filters::-webkit-scrollbar { display: none; }
+  .filters { flex-wrap: wrap; gap: 6px; }
+  .chip { padding: 0 12px; }
   .selects { display: grid; grid-template-columns: 1fr 1fr 1fr; }
   .select select { min-width: 0; width: 100%; padding-right: 26px; background-position: right 9px center; }
   .clear-btn { grid-column: 1 / -1; justify-self: start; }
