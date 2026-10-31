@@ -438,9 +438,31 @@
   function filtering() {
     return state.cat !== "todos" || state.brand !== "todas" || state.size !== "todos" || state.sort !== "default" || !!state.q;
   }
+  /* catálogo em lotes: no celular 125 peças de uma vez viram uma página enorme */
+  function perPage() { return window.matchMedia("(max-width: 899px)").matches ? 12 : 24; }
+  var shown = perPage();
+  var moreBtn = document.createElement("button");
+  moreBtn.type = "button";
+  moreBtn.className = "btn btn-line more-btn";
+  moreBtn.hidden = true;
+  grid.insertAdjacentElement("afterend", moreBtn);
+  moreBtn.addEventListener("click", function () {
+    var from = shown;
+    shown += perPage();
+    var list = PRODUCTS.filter(match).sort(compare);
+    grid.insertAdjacentHTML("beforeend", list.slice(from, shown).map(function (p, i) { return cardHtml(p, false, i); }).join(""));
+    $$(".card", grid).slice(from).forEach(observe);
+    syncMore(list.length);
+  });
+  function syncMore(total) {
+    var left = total - Math.min(shown, total);
+    moreBtn.hidden = left <= 0;
+    moreBtn.textContent = "Ver mais peças (" + left + ")";
+  }
   function drawCatalog() {
     var list = PRODUCTS.filter(match).sort(compare);
-    grid.innerHTML = list.map(function (p, i) { return cardHtml(p, false, i); }).join("");
+    grid.innerHTML = list.slice(0, shown).map(function (p, i) { return cardHtml(p, false, i); }).join("");
+    syncMore(list.length);
     $$(".card", grid).forEach(observe);
     var empty = $("#emptyMsg");
     if (empty) empty.hidden = list.length > 0;
@@ -466,6 +488,7 @@
   }
   function setState(partial) {
     Object.keys(partial).forEach(function (k) { state[k] = partial[k]; });
+    shown = perPage();
     renderCatalog(true);
   }
   /* vindo das páginas institucionais: index.html?cat=polos#catalogo */

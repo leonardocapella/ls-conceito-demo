@@ -12,6 +12,8 @@
   }
   var wa = "https://wa.me/" + CFG.whatsapp + "?text=" + encodeURIComponent("Olá! Vim pelo site da LS Conceito e gostaria de ajuda.");
   $$(".js-whats").forEach(function (a) { a.href = wa; a.target = "_blank"; a.rel = "noopener"; });
+  /* sem a animação de entrada do index: os blocos .rv (selos do rodapé) aparecem direto */
+  $$(".rv").forEach(function (el) { el.classList.add("rv-in"); });
   var year = $("#year");
   if (year) year.textContent = new Date().getFullYear();
 
