@@ -44,7 +44,7 @@
     if (x && !x.placeholder && x.preco > 0) {
       var off = x.precoAntigo > x.preco ? Math.round((1 - x.preco / x.precoAntigo) * 100) : 0;
       /* parcelamento e Pix aparecem no checkout da Nuvemshop; o site não promete número de parcelas */
-      var inst = "Pix e cartão no checkout";
+      var inst = "Pix ou cartão";
       return {
         placeholder: false,
         current: brl(x.preco),
@@ -284,6 +284,21 @@
   var toTop = $("#toTop");
   toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: REDUCE ? "auto" : "smooth" }); });
 
+  /* WhatsApp flutuante no celular: some enquanto a pessoa rola para baixo (lendo), volta ao rolar
+     para cima, no topo e no rodapé. Assim não fica parado em cima de títulos, preços e botões. */
+  var waBtn = $(".float-whats");
+  var lastY = window.scrollY;
+  var MOBILE = window.matchMedia("(max-width: 899px)");
+  function floatWhats(y) {
+    if (!waBtn) return;
+    var nearEnd = y + window.innerHeight > document.documentElement.scrollHeight - 160;
+    var hide = MOBILE.matches && y > 200 && y > lastY + 2 && !nearEnd;
+    var show = !MOBILE.matches || y <= 200 || y < lastY - 2 || nearEnd;
+    if (hide) waBtn.classList.add("is-away");
+    else if (show) waBtn.classList.remove("is-away");
+    lastY = y;
+  }
+
   /* header encolhe ao rolar e barra dourada de progresso */
   var header = $("#header");
   var progress = null;
@@ -298,6 +313,7 @@
     var y = window.scrollY;
     header.classList.toggle("is-scrolled", y > 40);
     toTop.classList.toggle("is-on", y > window.innerHeight * 1.2);
+    floatWhats(y);
     if (progress) {
       var max = document.documentElement.scrollHeight - window.innerHeight;
       progress.style.transform = "scaleX(" + (max > 0 ? Math.min(1, y / max) : 0) + ")";

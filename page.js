@@ -40,7 +40,19 @@
   });
 
   var header = $("#header");
-  window.addEventListener("scroll", function () { header.classList.toggle("is-scrolled", window.scrollY > 40); }, { passive: true });
+  /* WhatsApp flutuante no celular: some ao rolar para baixo, volta ao rolar para cima, no topo e no rodapé */
+  var waBtn = $(".float-whats");
+  var lastY = window.scrollY;
+  var MOBILE = window.matchMedia("(max-width: 899px)");
+  window.addEventListener("scroll", function () {
+    var y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 40);
+    if (!waBtn) return;
+    var nearEnd = y + window.innerHeight > document.documentElement.scrollHeight - 160;
+    if (MOBILE.matches && y > 200 && y > lastY + 2 && !nearEnd) waBtn.classList.add("is-away");
+    else if (!MOBILE.matches || y <= 200 || y < lastY - 2 || nearEnd) waBtn.classList.remove("is-away");
+    lastY = y;
+  }, { passive: true });
 
   var toastT;
   document.addEventListener("click", function (e) {
