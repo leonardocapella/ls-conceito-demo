@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="img/banners/frete-gratis-1100.webp" imagesrcset="img/banners/frete-gratis-720.webp 720w, img/banners/frete-gratis-1100.webp 1100w, img/banners/frete-gratis-1774.webp 1774w" imagesizes="(min-width: 1600px) 1600px, 100vw">
-<link rel="stylesheet" href="style.css?v=20261101a">
+<link rel="stylesheet" href="style.css?v=20261101b">
 </head>
 <body>
 
@@ -100,19 +100,16 @@
   </div>
 </section>
 
-<!-- 7. Acompanhe as novidades do Insta: perfil real dentro do celular -->
+<!-- 7. Acompanhe as novidades do Insta: banner do João + chamada -->
 <section class="section alt social" aria-label="Siga nossa loja no Instagram">
-  <div class="wrap social-row">
-    <div class="social-copy rv">
-      <p class="eyebrow">Instagram</p>
-      <h2>Acompanhe as novidades no Insta.</h2>
+  <div class="wrap">
+    <a class="art-banner rv" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">
+      <img src="img/banners/instagram-1100.webp" srcset="img/banners/instagram-720.webp 720w, img/banners/instagram-1100.webp 1100w, img/banners/instagram-1774.webp 1774w" sizes="(min-width: 1300px) 1240px, calc(100vw - 32px)" width="1774" height="887" alt="Siga nossa loja no Instagram: @ls_conceit0." loading="lazy">
+    </a>
+    <div class="social-cta rv" style="--d:120ms">
       <p class="muted">Lançamentos, reposições e os looks da semana primeiro em <b>@ls_conceit0</b>.</p>
       <a class="btn btn-gold" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener">Seguir no Instagram</a>
     </div>
-    <a class="phone rv" href="https://www.instagram.com/ls_conceit0/" target="_blank" rel="noopener" style="--d:120ms" aria-label="Abrir o perfil @ls_conceit0 no Instagram">
-      <span class="phone-notch" aria-hidden="true"></span>
-      <img src="img/instagram-perfil.webp" width="390" height="785" alt="Perfil @ls_conceit0 no Instagram: 4.105 seguidores, Viamão - RS, envio para todo o Brasil" loading="lazy">
-    </a>
   </div>
 </section>
 
@@ -200,26 +197,23 @@
 <!-- Espaço para o vídeo institucional (fase 2). Só aparece com videoInstitucional em config.js. -->
 <div class="video-float" id="videoFloat" hidden></div>
 
-<!-- 11. Grupo de novidades (mockup) e newsletter -->
+<!-- 11. Grupo de novidades: banner do João + chamada e newsletter -->
 <section class="section alt news-section" aria-label="Grupo de novidades e newsletter">
-  <div class="wrap social-row social-row--rev">
-    <a class="phone phone--wa rv" href="#" data-grupo aria-label="Entrar no grupo de novidades no WhatsApp">
-      <span class="phone-notch" aria-hidden="true"></span>
-      <span class="phone-screen" id="grupoScreen"></span>
+  <div class="wrap">
+    <a class="art-banner rv" href="#" data-grupo>
+      <img src="img/banners/grupo-novidades-1100.webp" srcset="img/banners/grupo-novidades-720.webp 720w, img/banners/grupo-novidades-1100.webp 1100w, img/banners/grupo-novidades-1774.webp 1774w" sizes="(min-width: 1300px) 1240px, calc(100vw - 32px)" width="1774" height="887" alt="Entre no grupo de novidades da LS Conceito no WhatsApp." loading="lazy">
     </a>
-    <div class="social-copy rv" style="--d:120ms">
-      <p class="eyebrow">Grupo de novidades</p>
-      <h2>Entre no grupo e veja tudo antes.</h2>
+    <div class="social-cta rv" style="--d:120ms">
       <p class="muted">Peças novas, reposições e condições do grupo, direto no seu WhatsApp.</p>
       <a href="#" class="btn btn-gold" data-grupo>Entrar no grupo</a>
-      <form class="news" id="newsForm" novalidate>
-        <p class="foot-label">Ou receba por e-mail</p>
-        <div class="news-form">
-          <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail" autocomplete="email">
-          <button type="submit" class="btn btn-line">Assinar</button>
-        </div>
-      </form>
     </div>
+    <form class="news news--inline rv" id="newsForm" novalidate>
+      <p class="foot-label">Ou receba por e-mail</p>
+      <div class="news-form">
+        <input type="email" placeholder="Seu e-mail" aria-label="Seu e-mail" autocomplete="email">
+        <button type="submit" class="btn btn-line">Assinar</button>
+      </div>
+    </form>
   </div>
 </section>
 
@@ -317,10 +311,10 @@
 
 <div class="toast" id="toast" role="status"></div>
 
-<script src="config.js?v=20261030a"></script>
+<script src="config.js?v=20261101b"></script>
 <script src="catalogo.js?v=20261030a"></script>
 <script src="products.js?v=20261030a"></script>
 <script src="prices.js?v=20261030a"></script>
-<script src="script.js?v=20261031b"></script>
+<script src="script.js?v=20261101b"></script>
 </body>
 </html>

@@ -13,7 +13,7 @@ window.LS_CONFIG = {
   // img: prefixo em img/banners/ (existem as larguras 720, 1100 e 1774).
   // grupo: true faz o slide abrir o link do grupo de novidades (ou o aviso, enquanto o link não chega).
   banners: [
-    { img: "frete-gratis", href: "#lancamentos", alt: "Frete grátis acima de R$ 500,00. Envio para todo o Brasil. Compre agora." },
+    { img: "frete-gratis", href: "#lancamentos", alt: "Frete grátis acima de R$ 500,00. Envio para todo o Brasil." },
     { img: "cupom-10off", href: "#catalogo", alt: "Na primeira compra, 10% OFF. Use o cupom LSOFF10." },
     { img: "instagram", href: "https://www.instagram.com/ls_conceit0/", externo: true, alt: "Siga nossa loja no Instagram: @ls_conceit0. Seguir no Instagram." },
     { img: "grupo-novidades", href: "#", grupo: true, alt: "Entre no grupo de novidades da LS Conceito no WhatsApp. Entrar no grupo." }
@@ -28,9 +28,6 @@ window.LS_CONFIG = {
   // Faixa "Confira nossa coleção de ...": categoria de products.js e título.
   // Categorias reais da Nuvemshop: camisetas, polos, calcas, conjuntos, tenis, bones (bermudas e moletons ainda sem peças).
   colecao: { cat: "calcas", titulo: "Calças" },
-  // Imagem real do grupo de novidades para o mockup de celular.
-  // PENDENTE (Lorenzo): print do grupo. Vazio: o mockup mostra um espaço marcado.
-  grupoImagem: "",
   // Cupom de primeira compra (o limite de um uso por cliente se configura na Nuvemshop).
   cupom: "LSOFF10",
   // Parcelamento: não aparece no site. As condições (Pix, parcelas) são as do checkout da Nuvemshop.

@@ -867,7 +867,7 @@
   }
 
   /* ---------- Mockup do grupo de novidades ---------- */
-  $("#grupoScreen").innerHTML = CFG.grupoImagem
+  if ($("#grupoScreen")) $("#grupoScreen").innerHTML = CFG.grupoImagem
     ? '<img src="' + esc(CFG.grupoImagem) + '" alt="Grupo de novidades da LS Conceito no WhatsApp" loading="lazy">'
     : '<span class="wa-head"><img src="img/logo-mark.webp" alt=""><span><b>Novidades LS Conceito</b><small>grupo · WhatsApp</small></span></span>' +
       '<span class="wa-body"><span class="wa-msg">Print real do grupo</span><span class="wa-msg wa-msg--me">pendente: aguardando a loja</span>' +
